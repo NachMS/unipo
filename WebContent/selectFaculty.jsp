@@ -8,6 +8,7 @@
 </head>
 <body>
 	<ul>
+		<li>a</li>
 		<li><a href="/unipo/selectDepartment?selection=s">システムデザイン工学部</a></li>
 		<li><a href="/unipo/selectDepartment?selection=f">未来科学部</a></li>
 		<li><a href="/unipo/selectDepartment?selection=e">工学部</a></li>

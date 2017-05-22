@@ -14,10 +14,9 @@
 	%>
 	<p>ようこそ ${sessionScope.student.name} さん</p>
 	<ul>
-		<li><a href="">注文する</a></li>
+		<li><a href="/unipo/selectFaculty.jsp">注文する</a></li>
 		<li><a href="">注文履歴</a></li>
 		<li><a href="">評価する</a></li>
-	</ul>
 	<p>
 		<a href="LogoutController">ログアウト</a>
 	</p>

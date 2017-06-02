@@ -68,7 +68,10 @@ public class LoginController extends HttpServlet {
 			response.sendRedirect("homeStudent.jsp");
 		} else {
 			// ログインに失敗している場合はlogin.jspへ
-			getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+			// getServletContext().getRequestDispatcher("/login.jsp").forward(request,
+			// response);
+			// URLの表示をLoginControllerからhomeStudent.jspへ変更
+			response.sendRedirect("login.jsp");
 		}
 	}
 

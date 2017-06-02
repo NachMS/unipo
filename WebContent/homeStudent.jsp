@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
+	//未ログインの場合ログイン画面ヘ転送
+	if (session.getAttribute("login") == null || !(Boolean) session.getAttribute("login")) {
+		response.sendRedirect("login.jsp");
+	}
 	//ログアウト後にブラウザの戻るボタンで前の画面に戻らないようにするおまじない
+	//ブラウザがこの画面をcacheで保存しないようにしていると思われる
 	response.setHeader("Pragma", "no-cache");
 	response.setHeader("Cache-Control", "no-cache");
 	response.setHeader("Cache-Control", "no-store");
 	response.setDateHeader("Expires", 0);
-
-	if (session.getAttribute("login") == null || !(Boolean) session.getAttribute("login")) {
-		response.sendRedirect("login.jsp");
-	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

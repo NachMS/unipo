@@ -1,5 +1,5 @@
 package models;
 
 public class Order {
-private int;
+private int orderID;
 }

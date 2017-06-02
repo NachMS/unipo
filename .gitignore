@@ -1,3 +1,8 @@
+# buildは追加しないぞ
+# Quiita http://qiita.com/tora470/items/d61c3fcb261e48edc996
+*.class
+build
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

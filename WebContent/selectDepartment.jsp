@@ -6,6 +6,7 @@
 		response.sendRedirect("login.jsp");
 	}
 	//学部が選択されてない場合、学部選択画面へ転送
+	if (session.getAttribute("viewDataArray") == null) {
 		response.sendRedirect("selectFaculty.jsp");
 	}
 %>

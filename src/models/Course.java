@@ -4,6 +4,7 @@ public class Course {
 	private int courseID;
 	private String name;
 	private String teacher;
+	private String department;
 	private int grade;
 	private int semester;
 	private int day;
@@ -37,6 +38,14 @@ public class Course {
 
 	public void setTeacher(String teacher) {
 		this.teacher = teacher;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 
 	public int getGrade() {

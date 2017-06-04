@@ -33,23 +33,11 @@
 		<p>
 			<a href="LogoutController">ログアウト</a>
 		</p> --%>
-		        <div class="Button">
-
-            <div class="Button__logout">
-                <a href="LogoutController">ログアウト</a>
-            </div>
-
-            <div class="Button__order">
-                <a href="/unipo/selectFaculty.jsp">注文する</a>
-            </div>
-
-            <div class="Button__order-history">
-                <a href="#">注文履歴</a>
-            </div>
-
-            <div class="Button__evaluate">
-                <a href="#">評価する</a>
-            </div>
+		<div class="Button">
+                <a class="Button__logout" href="LogoutController">ログアウト</a>
+                <a class="Button__order" href="/unipo/selectFaculty.jsp">注文する</a>
+                <a class="Button__order-history" href="#">注文履歴</a>
+                <a class="Button__evaluate" href="#">評価する</a>
         </div>
 </body>
 </html>

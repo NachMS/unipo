@@ -24,13 +24,31 @@
 		//response.sendRedirect("login.jsp");
 		//}
 	%>
-	<p>ようこそ ${sessionScope.student.name} さん</p>
+<%-- 	<p>ようこそ ${sessionScope.student.name} さん</p>
 	<ul>
 		<li><a href="/unipo/selectFaculty.jsp">注文する</a></li>
 		<li><a href="">注文履歴</a></li>
 		<li><a href="">評価する</a></li>
 		<p>
 			<a href="LogoutController">ログアウト</a>
-		</p>
+		</p> --%>
+		        <div class="Button">
+
+            <div class="Button__logout">
+                <a href="LogoutController">ログアウト</a>
+            </div>
+
+            <div class="Button__order">
+                <a href="/unipo/selectFaculty.jsp">注文する</a>
+            </div>
+
+            <div class="Button__order-history">
+                <a href="#">注文履歴</a>
+            </div>
+
+            <div class="Button__evaluate">
+                <a href="#">評価する</a>
+            </div>
+        </div>
 </body>
 </html>

@@ -42,18 +42,18 @@ a.btn:hover {
 	color: gray;
 }
 
-main {
+.message {
+	/*   background: yellow; */
+	margin: 40px;
+	text-align: center;
+}
+
+.cards-container {
 	align-items: center;
 	/*   background: royalblue; */
 	display: flex;
 	height: 100%;
 	justify-content: center;
-}
-
-.message {
-	/*   background: yellow; */
-	margin: 40px;
-	text-align: center;
 }
 
 .card {

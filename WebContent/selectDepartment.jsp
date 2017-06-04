@@ -10,7 +10,7 @@
 		response.sendRedirect("selectFaculty.jsp");
 	}
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -19,17 +19,20 @@
 </head>
 <body>
 	<a class="btn" href="selectFaculty.jsp">戻る</a>
-	</header>
 	<div class="message">学科を選んでください</div>
-	<main> <%
- 	String[][] array = (String[][]) session.getAttribute("viewDataArray");
- 	for (int i = 0; i < array.length; i++) {
- %> <a class="card animated zoomIn"
-		href="SelectGradeController?selection=<%=array[i][0]%>">
-		<div class="card-top"><%=array[i][0]%></div>
-		<div class="card-bottom"><%=array[i][1]%></div>
-	</a> <%
- 	}
- %> </main>
+	<div class="cards-container">
+		<%
+			String[][] array = (String[][]) session.getAttribute("viewDataArray");
+			for (int i = 0; i < array.length; i++) {
+		%>
+		<a class="card animated zoomIn"
+			href="SelectGradeController?selection=<%=array[i][0]%>">
+			<div class="card-top"><%=array[i][0]%></div>
+			<div class="card-bottom"><%=array[i][1]%></div>
+		</a>
+		<%
+			}
+		%>
+	</div>
 </body>
 </html>

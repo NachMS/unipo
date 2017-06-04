@@ -15,25 +15,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>学科選択</title>
+<link rel="stylesheet" href="selectDepartment.css" />
 </head>
 <body>
-	<ul>
-		<li><a href="selectFaculty.jsp">戻る</a></li>
-		<li>学科を選んでください。</li>
-		<%
-			String[][] array = (String[][]) session.getAttribute("viewDataArray");
-			for (int i = 0; i < array.length; i++) {
-		%>
-		<li><a href="SelectGradeController?selection=<%=array[i][0]%>">
-				<%
-					for (int j = 0; j < array[i].length; j++) {
-							out.print(array[i][j] + " ");
-						}
-				%>
-		</a></li>
-		<%
-			}
-		%>
-	</ul>
+	<a class="btn" href="selectFaculty.jsp">戻る</a>
+	</header>
+	<div class="message">学科を選んでください</div>
+	<main> <%
+ 	String[][] array = (String[][]) session.getAttribute("viewDataArray");
+ 	for (int i = 0; i < array.length; i++) {
+ %> <a class="card animated zoomIn"
+		href="SelectGradeController?selection=<%=array[i][0]%>">
+		<div class="card-top"><%=array[i][0]%></div>
+		<div class="card-bottom"><%=array[i][1]%></div>
+	</a> <%
+ 	}
+ %> </main>
 </body>
 </html>

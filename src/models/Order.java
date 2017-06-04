@@ -6,6 +6,8 @@ public class Order {
 	private int orderDatetime;
 	private int receiveDatetime;
 	private int totalAmount;
+	private boolean completeFlag;
+	private boolean cancelFlag;
 	// private ArrayList<Textbook> Textbook;
 
 	public int getOrderID() {
@@ -47,5 +49,23 @@ public class Order {
 	public void setTotalAmount(int totalAmount) {
 		this.totalAmount = totalAmount;
 	}
+
+	public boolean isCompleteFlag() {
+		return completeFlag;
+	}
+
+	public void setCompleteFlag(boolean completeFlag) {
+		this.completeFlag = completeFlag;
+	}
+
+	public boolean isCancelFlag() {
+		return cancelFlag;
+	}
+
+	public void setCancelFlag(boolean cancelFlag) {
+		this.cancelFlag = cancelFlag;
+	}
+
+
 
 }

@@ -14,10 +14,10 @@
 </head>
 <body>
 	<ul>
-		<li><a href="/unipo/homeStudent.jsp">戻る</a></li>
-		<li><a href="/unipo/SelectDepartmentController?selection=s">システムデザイン工学部</a></li>
-		<li><a href="/unipo/SelectDepartmentController?selection=f">未来科学部</a></li>
-		<li><a href="/unipo/SelectDepartmentController?selection=e">工学部</a></li>
+		<li><a href="/unipo/HomeStudent">戻る</a></li>
+		<li><a href="/unipo/SelectDepartment?selection=s">システムデザイン工学部</a></li>
+		<li><a href="/unipo/SelectDepartment?selection=f">未来科学部</a></li>
+		<li><a href="/unipo/SelectDepartment?selection=e">工学部</a></li>
 	</ul>
 </body>
 </html>

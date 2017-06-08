@@ -13,18 +13,18 @@ import javax.servlet.http.HttpSession;
 import models.Student;
 import models.StudentDao;
 
-@WebServlet("/LoginController")
-public class LoginController extends HttpServlet {
+@WebServlet("/Login")
+public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public LoginController() {
+	public Login() {
 		super();
 	}
 
 	// URLでアクセスされたときはここ
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// "/unipo/LoginController"というURLのままunpo.jspを描画
+		// "/unipo/Login"というURLのままunpo.jspを描画
 		getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
 	}
 
@@ -47,12 +47,12 @@ public class LoginController extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("login", result);
 		if (result) {
-			// ログインに成功している場合はHomeStudentControllerへ
+			// ログインに成功している場合はHomeStudentへ
 			session.setAttribute("student", student);
-			response.sendRedirect("HomeStudentController");
+			response.sendRedirect("HomeStudent");
 		} else {
-			// ログインに失敗している場合はLoginControllerへ
-			response.sendRedirect("LoginController");
+			// ログインに失敗している場合はLoginへ
+			response.sendRedirect("Login");
 		}
 	}
 

@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="selectDepartment.css" />
 </head>
 <body>
-	<a class="btn" href="selectFaculty.jsp">戻る</a>
+	<a class="btn" href="SelectFaculty">戻る</a>
 	<div class="message">学科を選んでください</div>
 	<div class="cards-container">
 		<%
@@ -26,7 +26,7 @@
 			for (int i = 0; i < array.length; i++) {
 		%>
 		<a class="card animated zoomIn"
-			href="SelectGradeController?selection=<%=array[i][0]%>">
+			href="SelectGrade?selection=<%=array[i][0]%>">
 			<div class="card-top"><%=array[i][0]%></div>
 			<div class="card-bottom"><%=array[i][1]%></div>
 		</a>

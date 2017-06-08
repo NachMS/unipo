@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/HomeStudentController")
-public class HomeStudentController extends HttpServlet {
+@WebServlet("/HomeStudent")
+public class HomeStudent extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public HomeStudentController() {
+	public HomeStudent() {
 		super();
 	}
 

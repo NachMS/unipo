@@ -5,10 +5,10 @@
 	//理由はファイル名がindexになっているからです(http://hoge/ = http://hoge/index.jsp)
 	if (session.getAttribute("login") != null && (Boolean) session.getAttribute("login")) {
 		//ログイン済みの場合はホーム画面へ転送
-		response.sendRedirect("HomeStudentController");
+		response.sendRedirect("HomeStudent");
 	} else {
 		//未ログインの場合ログイン画面ヘ転送
-		response.sendRedirect("LoginController");
+		response.sendRedirect("Login");
 	}
 %>
 <!DOCTYPE html>
@@ -20,7 +20,7 @@
 <body>
 	<p>転送します。</p>
 	<p>
-		転送されない場合は<a href="/unipo/LoginController">こちら</a>をクリック。
+		転送されない場合は<a href="/unipo/Login">こちら</a>をクリック。
 	</p>
 </body>
 </html>

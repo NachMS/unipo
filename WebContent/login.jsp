@@ -29,7 +29,7 @@
 		-->
 
 	<div class="container">
-		<form action="LoginController" method="post">
+		<form action="Login" method="post">
 			<div class="LoginForm ">
 				<h1 class="LoginForm__title">UNIPO</h1>
 

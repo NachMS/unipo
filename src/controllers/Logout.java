@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/LogoutController")
-public class LogoutController extends HttpServlet {
+@WebServlet("/Logout")
+public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public LogoutController() {
+	public Logout() {
 		super();
 	}
 
@@ -28,6 +28,6 @@ public class LogoutController extends HttpServlet {
 		// セッションを破棄する
 		HttpSession session = request.getSession();
 		session.invalidate();
-		response.sendRedirect("LoginController");
+		response.sendRedirect("Login");
 	}
 }

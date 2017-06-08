@@ -1,3 +1,6 @@
+#buildを管理対象から除外
+*.class
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

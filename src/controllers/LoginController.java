@@ -21,12 +21,14 @@ public class LoginController extends HttpServlet {
 		super();
 	}
 
+	// URLでアクセスされたときはここ
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		// "/unipo/LoginController"というURLのままunpo.jspを描画
+		getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
 	}
 
+	// ログインボタン押されたときはここ
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Student student = new Student();
@@ -45,18 +47,12 @@ public class LoginController extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("login", result);
 		if (result) {
-			// ログインに成功している場合はmember.jspへ
+			// ログインに成功している場合はHomeStudentControllerへ
 			session.setAttribute("student", student);
-			// getServletContext().getRequestDispatcher("/homeStudent.jsp").forward(request,
-			// response);
-			// URLの表示をLoginControllerからhomeStudent.jspへ変更
-			response.sendRedirect("homeStudent.jsp");
+			response.sendRedirect("HomeStudentController");
 		} else {
-			// ログインに失敗している場合はlogin.jspへ
-			// getServletContext().getRequestDispatcher("/login.jsp").forward(request,
-			// response);
-			// URLの表示をLoginControllerからhomeStudent.jspへ変更
-			response.sendRedirect("login.jsp");
+			// ログインに失敗している場合はLoginControllerへ
+			response.sendRedirect("LoginController");
 		}
 	}
 

@@ -35,7 +35,7 @@
 		</p> --%>
 		<div class="Button">
                 <a class="Button__logout" href="LogoutController">ログアウト</a>
-                <a class="Button__order" href="/unipo/selectFaculty.jsp">注文する</a>
+                <a class="Button__order" href="SelectFaculty">注文する</a>
                 <a class="Button__order-history" href="#">注文履歴</a>
                 <a class="Button__evaluate" href="#">評価する</a>
         </div>

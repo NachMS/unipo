@@ -30,18 +30,18 @@ public class SelectDepartmentController extends HttpServlet {
 			array[1][1] = "情報メディア科";
 			array[2][0] = "FR";
 			array[2][1] = "ロボメカ科";
-		} else if (facultySelection.equals("e")){
+		} else if (facultySelection.equals("e")) {
 			array[0][0] = "工学部入力まーだ";
 		}
 
 		HttpSession session = request.getSession();
 		session.setAttribute("viewDataArray", array);
-
-		response.sendRedirect("selectDepartment.jsp");
+		getServletContext().getRequestDispatcher("/selectDepartment.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		doGet(request, response);
 	}
 
 }

@@ -13,21 +13,6 @@
 			out.println("<p>ユーザ名またはパスワードが違います</p>");
 		}
 	%>
-
-	<!--
-		<dl>
-			<dt>ユーザ名</dt>
-			<dd>
-				<input type="text" name="name" />
-			</dd>
-			<dt>パスワード</dt>
-			<dd>
-				<input type="password" name="pass" />
-			</dd>
-		</dl>
-		<button type="submit" name="login">ログイン</button>
-		-->
-
 	<div class="container">
 		<form action="Login" method="post">
 			<div class="LoginForm ">

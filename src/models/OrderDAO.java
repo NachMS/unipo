@@ -27,13 +27,15 @@ public class OrderDAO {
 	}
 
 	public boolean cancelOrderByID(int orderID) {
+
 		return false;
 	}
 
 	public Order getOrderByID(int orderID) {
-		String sql = "SELECT * FROM order_details WHERE order_id=?";
+		String sql = "SELECT * FROM orders WHERE order_id=?";
 		Connection connection;
 		ResultSet resultSet;
+		Order order = new Order();
 		try {
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
@@ -42,15 +44,13 @@ public class OrderDAO {
 			resultSet = pstmt.executeQuery();
 
 			while (resultSet.next()) {
-				Order order = new Order();
-				// Date timestamp = resultSet.getTimestamp("order_timestamp");
-				// int total_price = resultSet.getInt("total_price");
-				// Date retimestamp =
-				// resultSet.getTimestamp("receipt_timestamp");
+				Date timestamp = resultSet.getTimestamp("order_timestamp");
+				int total_price = resultSet.getInt("total_price");
+				Date retimestamp = resultSet.getTimestamp("receipt_timestamp");
 				//
-				// order.setTotalAmount(total_price);
-				// order.setOrderDate(timestamp);
-				// order.setReceiveDate(retimestamp);
+				order.setTotalAmount(total_price);
+				order.setOrderDate(timestamp);
+				order.setReceiveDate(retimestamp);
 
 			}
 			resultSet.close();
@@ -59,11 +59,11 @@ public class OrderDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return order;
 	}
 
 	public ArrayList<Order> getOrdersByStudentID(String studentID) {
-		String sql = "SELECT order_timestamp,total_price,receipt_timestamp FROM orders WHERE student_id=?";
+		String sql = "SELECT * FROM orders WHERE student_id=?";
 		Connection connection;
 		ResultSet resultSet;
 		ArrayList<Order> list = new ArrayList<Order>();
@@ -76,10 +76,11 @@ public class OrderDAO {
 
 			while (resultSet.next()) {
 				Order order = new Order();
+				int orderID = resultSet.getInt("order_id");
 				Date timestamp = resultSet.getTimestamp("order_timestamp");
 				int total_price = resultSet.getInt("total_price");
 				Date retimestamp = resultSet.getTimestamp("receipt_timestamp");
-
+				order.setOrderID(orderID);
 				order.setTotalAmount(total_price);
 				order.setOrderDate(timestamp);
 				order.setReceiveDate(retimestamp);

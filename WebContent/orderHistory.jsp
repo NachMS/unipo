@@ -29,7 +29,8 @@
 				<li>合計: <%=order.getTotalAmount()%> 円
 				</li>
 				<li>受け取り日時: <%=formatedReceiveDate%></li>
-				<li><a class="btn" href="OrderDetail">注文詳細</a></li>
+				<li><a class="btn"
+					href="OrderDetail?selection=<%=order.getOrderID()%>">注文詳細</a></li>
 			</ul></li>
 
 		<%

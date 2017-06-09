@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.Order;
+import models.OrderDAO;
+
 /**
  * Servlet implementation class OrderDetail
  */
@@ -23,6 +26,11 @@ public class OrderDetail extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		int orderSelection = Integer.parseInt(request.getParameter("selection"));
+		OrderDAO dao = new OrderDAO();
+
+		Order order = dao.getOrderByID(orderSelection);
+		request.setAttribute("order", order);
 		getServletContext().getRequestDispatcher("/orderDetail.jsp").forward(request, response);
 	}
 

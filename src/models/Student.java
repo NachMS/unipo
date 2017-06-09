@@ -1,6 +1,7 @@
 package models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Student implements Serializable {
 	private String studentID;
@@ -8,21 +9,15 @@ public class Student implements Serializable {
 	private String faculty;
 	private String department;
 	private int grade;
-	private String pass;
-	//private ArrayList<Course> courses;
-
-	public Student() {
-		name = "";
-		pass = "";
-	}
-
+	private String password;
+	private ArrayList<Course> courses;
 
 	public String getStudentID() {
-	    return studentID;
+		return studentID;
 	}
 
 	public void setStudentID(String studentID) {
-	    this.studentID = studentID;
+		this.studentID = studentID;
 	}
 
 	public String getName() {
@@ -33,44 +28,43 @@ public class Student implements Serializable {
 		this.name = name;
 	}
 
-
 	public String getFaculty() {
-	    return faculty;
+		return faculty;
 	}
-
-
 
 	public void setFaculty(String faculty) {
-	    this.faculty = faculty;
+		this.faculty = faculty;
 	}
-
-
 
 	public String getDepartment() {
-	    return department;
+		return department;
 	}
-
-
 
 	public void setDepartment(String department) {
-	    this.department = department;
+		this.department = department;
 	}
-
 
 	public int getGrade() {
-	    return grade;
+		return grade;
 	}
-
 
 	public void setGrade(int grade) {
-	    this.grade = grade;
+		this.grade = grade;
 	}
 
-	public String getPass() {
-		return pass;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPass(String pass) {
-		this.pass = pass;
+	public ArrayList<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(ArrayList<Course> courses) {
+		this.courses = courses;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

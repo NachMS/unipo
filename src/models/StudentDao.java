@@ -17,15 +17,17 @@ public class StudentDao {
 		// memberがDBにあるかどうかを調べる
 		boolean result = false;
 		Connection connection;
-		String sql = "select * from member where name=? and pass=?";
+		String sql = "SELECT * FROM students WHERE student_id=? AND password=?";
 
 		try {
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
-			pstmt.setString(1, student.getName());
-			pstmt.setString(2, student.getPass());
+			pstmt.setString(1, student.getStudentID());
+			pstmt.setString(2, student.getPassword());
+			System.out.println(student.getStudentID());
+			System.out.println(student.getPassword());
 
 			ResultSet resultSet = pstmt.executeQuery();
 			if (resultSet.next())

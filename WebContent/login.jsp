@@ -19,11 +19,11 @@
 				<h1 class="LoginForm__title">UNIPO</h1>
 
 				<div class="LoginForm__student">
-					<input type="text" placeholder="STUDENT ID" name="name" />
+					<input type="text" placeholder="STUDENT ID" name="studentID" />
 				</div>
 
 				<div class="LoginForm__password">
-					<input type="password" placeholder="PASSWORD" name="pass" />
+					<input type="password" placeholder="PASSWORD" name="password" />
 				</div>
 
 				<div class="LoginForm__submit">

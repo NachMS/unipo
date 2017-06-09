@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import models.Order;
 import models.OrderDAO;
@@ -23,9 +24,11 @@ public class OrderHistory extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String studentID = (String) session.getAttribute("studentID");
 		OrderDAO dao = new OrderDAO();
 		ArrayList<Order> list;
-		list = dao.getOrdersByStudentID("15FI001"); //ログインIDが入るようにする
+		list = dao.getOrdersByStudentID(studentID); // ログインIDが入るようにする
 		request.setAttribute("orders", list);
 		request.setAttribute("ordersLength", list.size());
 		getServletContext().getRequestDispatcher("/orderHistory.jsp").forward(request, response);

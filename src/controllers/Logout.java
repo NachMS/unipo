@@ -19,15 +19,15 @@ public class Logout extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// doPostと同じでよいでしょう
-		this.doPost(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
 		// セッションを破棄する
 		HttpSession session = request.getSession();
 		session.invalidate();
 		response.sendRedirect("Login");
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// doGetと同じでよいでしょう
+		this.doPost(request, response);
 	}
 }

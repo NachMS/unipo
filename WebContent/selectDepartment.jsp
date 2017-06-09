@@ -15,7 +15,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>学科選択</title>
-<link rel="stylesheet" href="selectDepartment.css" />
+<link rel="stylesheet" href="css/selectDepartment.css" />
 </head>
 <body>
 	<a class="btn" href="SelectFaculty">戻る</a>

@@ -2,8 +2,8 @@ package models;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -35,28 +35,23 @@ public class OrderDAO {
 	}
 
 	public ArrayList<Order> getOrdersByStudentID(String studentID) {
-		String sql = "SELECT order_timestamp,total_price,receipt_timestamp FROM orders WHERE student_id='15FI001'";
+		String sql = "SELECT order_timestamp,total_price,receipt_timestamp FROM orders WHERE student_id=?";
 		Connection connection;
-		Statement statement;
 		ResultSet resultSet;
 		ArrayList<Order> list = new ArrayList<Order>();
 		try {
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
-			statement = connection.createStatement();
-			 resultSet = statement.executeQuery(sql);
-			//PreparedStatement pstmt = connection.prepareStatement(sql);
-			//pstmt.setString(1, studentID);
-			while (resultSet.next()) {
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, studentID);
+			resultSet = pstmt.executeQuery();
 
+			while (resultSet.next()) {
+				Order order = new Order();
 				Date timestamp = resultSet.getTimestamp("order_timestamp");
-				// System.out.println("toString:" + timestamp);
-				// SimpleDateFormat sdf = new SimpleDateFormat("書式設定：y/M/d
-				// hh:mm");
-				// System.out.println(sdf.format(timestamp.getTime()));
 				int total_price = resultSet.getInt("total_price");
 				Date retimestamp = resultSet.getTimestamp("receipt_timestamp");
-				Order order = new Order();
+
 				order.setTotalAmount(total_price);
 				order.setOrderDate(timestamp);
 				order.setReceiveDate(retimestamp);
@@ -68,7 +63,6 @@ public class OrderDAO {
 			e.printStackTrace();
 		}
 		return list;
-
 	}
 
 	public ArrayList<Order> getAllOrders() {

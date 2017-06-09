@@ -22,15 +22,43 @@ public class OrderDAO {
 		return null;
 	}
 
-	public boolean registerOrder(Order oreder) {
+	public boolean registerOrder(Order order) {
 		return false;
 	}
 
-	public boolean cancelOrderByID(Order order) {
+	public boolean cancelOrderByID(int orderID) {
 		return false;
 	}
 
 	public Order getOrderByID(int orderID) {
+		String sql = "SELECT * FROM order_details WHERE order_id=?";
+		Connection connection;
+		ResultSet resultSet;
+		try {
+			Class.forName(driverClassName);
+			connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, orderID);
+			resultSet = pstmt.executeQuery();
+
+			while (resultSet.next()) {
+				Order order = new Order();
+				// Date timestamp = resultSet.getTimestamp("order_timestamp");
+				// int total_price = resultSet.getInt("total_price");
+				// Date retimestamp =
+				// resultSet.getTimestamp("receipt_timestamp");
+				//
+				// order.setTotalAmount(total_price);
+				// order.setOrderDate(timestamp);
+				// order.setReceiveDate(retimestamp);
+
+			}
+			resultSet.close();
+			connection.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 

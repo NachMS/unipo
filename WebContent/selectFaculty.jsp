@@ -6,18 +6,22 @@
 		response.sendRedirect("login.jsp");
 	}
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+    <!-- Normalize.css -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/selectFaculty.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 </head>
 <body>
-	<ul>
-		<li><a href="/unipo/HomeStudent">戻る</a></li>
-		<li><a href="/unipo/SelectDepartment?selection=s">システムデザイン工学部</a></li>
-		<li><a href="/unipo/SelectDepartment?selection=f">未来科学部</a></li>
-		<li><a href="/unipo/SelectDepartment?selection=e">工学部</a></li>
-	</ul>
+	<a class="btn" href="SelectFaculty">戻る</a>
+	<div class="message">学部を選んでください</div>
+	<div class="cards-container">
+		<a class="card animated zoomIn S" href="/unipo/SelectDepartment?selection=s">システムデザイン工学部</a>
+		<a class="card animated zoomIn F" href="/unipo/SelectDepartment?selection=f">未来科学部</a>
+		<a class="card animated zoomIn E" href="/unipo/SelectDepartment?selection=e">工学部</a>
+	</div>
 </body>
 </html>

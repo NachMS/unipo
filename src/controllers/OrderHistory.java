@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,25 +10,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/Logout")
-public class Logout extends HttpServlet {
+import models.Order;
+import models.OrderDAO;
+
+@WebServlet("/OrderHistory")
+public class OrderHistory extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public Logout() {
+	public OrderHistory() {
 		super();
+
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// セッションを破棄する
 		HttpSession session = request.getSession();
-		session.invalidate();
-		response.sendRedirect("Login");
+		String studentID = (String) session.getAttribute("studentID");
+		OrderDAO dao = new OrderDAO();
+		ArrayList<Order> list;
+		list = dao.getOrdersByStudentID(studentID); // ログインIDが入るようにする
+		request.setAttribute("orders", list);
+		request.setAttribute("ordersLength", list.size());
+		getServletContext().getRequestDispatcher("/orderHistory.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// doGetと同じでよいでしょう
-		this.doPost(request, response);
+
+		doGet(request, response);
 	}
+
 }

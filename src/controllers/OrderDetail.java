@@ -7,27 +7,37 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-@WebServlet("/Logout")
-public class Logout extends HttpServlet {
+import models.Order;
+import models.OrderDAO;
+
+/**
+ * Servlet implementation class OrderDetail
+ */
+@WebServlet("/OrderDetail")
+public class OrderDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public Logout() {
+	public OrderDetail() {
 		super();
+
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// セッションを破棄する
-		HttpSession session = request.getSession();
-		session.invalidate();
-		response.sendRedirect("Login");
+
+		int orderSelection = Integer.parseInt(request.getParameter("selection"));
+		OrderDAO dao = new OrderDAO();
+
+		Order order = dao.getOrderByID(orderSelection);
+		request.setAttribute("order", order);
+		getServletContext().getRequestDispatcher("/orderDetail.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// doGetと同じでよいでしょう
-		this.doPost(request, response);
+
+		doGet(request, response);
 	}
+
 }

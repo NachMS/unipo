@@ -1,10 +1,12 @@
 package models;
 
+import java.util.Date;
+
 public class Order {
 	private int orderID;
 	private String studentID;
-	private int orderDatetime;
-	private int receiveDatetime;
+	private Date orderDate;
+	private Date receiveDate;
 	private int totalAmount;
 	private boolean completeFlag;
 	private boolean cancelFlag;
@@ -26,20 +28,20 @@ public class Order {
 		this.studentID = studentID;
 	}
 
-	public int getOrderDatetime() {
-		return orderDatetime;
+	public Date getOrderDate() {
+		return orderDate;
 	}
 
-	public void setOrderDatetime(int orderDatetime) {
-		this.orderDatetime = orderDatetime;
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
 	}
 
-	public int getReceiveDatetime() {
-		return receiveDatetime;
+	public Date getReceiveDate() {
+		return receiveDate;
 	}
 
-	public void setReceiveDatetime(int receiveDatetime) {
-		this.receiveDatetime = receiveDatetime;
+	public void setReceiveDate(Date receiveDate) {
+		this.receiveDate = receiveDate;
 	}
 
 	public int getTotalAmount() {

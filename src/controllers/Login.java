@@ -34,8 +34,8 @@ public class Login extends HttpServlet {
 		Student student = new Student();
 		StudentDao dao = new StudentDao();
 
-		student.setName(request.getParameter("name"));
-		student.setPass(request.getParameter("pass"));
+		student.setStudentID(request.getParameter("studentID"));
+		student.setPassword(request.getParameter("password"));
 
 		boolean result = false;
 		try {
@@ -47,7 +47,8 @@ public class Login extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("login", result);
 		if (result) {
-			// ログインに成功している場合はHomeStudentへ
+			// ログインに成功している場合はstudentIDをセッションに格納してHomeStudentへ
+			session.setAttribute("studentID", request.getParameter("studentID"));
 			session.setAttribute("student", student);
 			response.sendRedirect("HomeStudent");
 		} else {

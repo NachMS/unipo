@@ -19,7 +19,7 @@
 <title>ホーム</title>
     <!-- Normalize.css -->
     <link rel="stylesheet" href="css/normalize.css">
-<link rel="css/stylesheet" href="css/homeStudent.css">
+<link rel="stylesheet" href="css/homeStudent.css">
 </head>
 <body>
             <div class="Button__container">

@@ -67,4 +67,11 @@ public class Student implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	@Override
+	public String toString() {
+		return "Student [studentID=" + studentID + ", name=" + name + ", faculty=" + faculty + ", department="
+				+ department + ", grade=" + grade + ", password=" + password + ", courses=" + courses + "]";
+	}
+
 }

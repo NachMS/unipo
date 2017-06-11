@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>教科書選択</title>
+	<title>履修科目選択</title>
     <!-- Normalize.css -->
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/selectOwnCourse.css">
@@ -35,7 +35,7 @@
       </section>
     </form>
         <div class="Button">
-            <a class="next" href="">次へ</a>
+            <a class="next" href="">科目選択</a>
     </div>
 </body>
 </html>

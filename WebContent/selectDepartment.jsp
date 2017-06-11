@@ -6,7 +6,7 @@
 		response.sendRedirect("login.jsp");
 	}
 	//学部が選択されてない場合、学部選択画面へ転送
-	if (session.getAttribute("viewDataArray") == null) {
+	if (request.getAttribute("viewDataArray") == null) {
 		response.sendRedirect("selectFaculty.jsp");
 	}
 %>
@@ -22,7 +22,7 @@
 	<div class="message">学科を選んでください</div>
 	<div class="cards-container">
 		<%
-			String[][] array = (String[][]) session.getAttribute("viewDataArray");
+			String[][] array = (String[][]) request.getAttribute("viewDataArray");
 			for (int i = 0; i < array.length; i++) {
 		%>
 		<a class="card animated zoomIn"

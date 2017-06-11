@@ -88,3 +88,13 @@ a.btn:hover {
 	background: orangered;
 	transform: translate3d(0, -10px, 0);
 }
+
+.A {
+	background-color: #F06292
+}
+.F {
+	background-color: #FFA726;
+}
+.E {
+	background-color: #03A9F4;
+}

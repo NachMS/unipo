@@ -27,9 +27,9 @@ public class SelectDepartment extends HttpServlet {
 		System.out.println(screenName + "URLのselectionパラメータ:" + selectionParameter);
 		Student studentSession = (Student) session.getAttribute("student");
 		System.out.println(screenName + "session.student:" + studentSession);
-		String facultyToShow;
+		String faculty;
 		if (selectionParameter == null) {
-			// selectionパラメータがnullだった場合（次のページから戻ってきたはず）
+			// URLのselectionパラメータがnullだった場合（次のページから戻ってきたはず）
 			// 学生が前に選んだ学部をセッションから取得します
 			if (studentSession.getFaculty() == null) {
 				// session.studentが存在しない場合
@@ -41,28 +41,55 @@ public class SelectDepartment extends HttpServlet {
 			// session.studentが存在する場合
 			// 学生が選んだ学部をセッションから取得します
 			System.out.println(screenName + "session.student.facultyが格納済みなので取得します。");
-			facultyToShow = studentSession.getFaculty();
+			faculty = studentSession.getFaculty();
 		} else {
-			// selectionパラメータが格納されている場合（順路通り学部選択画面から来た）
+			// URLのselectionパラメータが格納されている場合（順路通り学部選択画面から来た）
 			// 学生が選んだ学部をセッションに格納します
 			System.out.println(screenName + "学生が選んだ学部" + selectionParameter + "をsession.student.facultyに格納します。");
-			facultyToShow = selectionParameter;
+			faculty = selectionParameter;
 			studentSession.setFaculty(selectionParameter);
 			System.out.println(screenName + "session.student:" + studentSession);
 		}
 		// ビューの描画
-		String[][] array = new String[3][2];
-		if (facultyToShow.equals("F")) {
+		String[][] array;
+		if (faculty.equals("F")) {
+			array = new String[3][2];
 			array[0][0] = "FA";
 			array[0][1] = "建築科";
 			array[1][0] = "FI";
 			array[1][1] = "情報メディア科";
 			array[2][0] = "FR";
 			array[2][1] = "ロボメカ科";
-		} else if (facultyToShow.equals("E")) {
-			array[0][0] = "工学部入力まーだ";
+		} else if (faculty.equals("E")) {
+			array = new String[6][2];
+			array[0][0] = "EJ";
+			array[0][1] = "電気電子工学科";
+			array[1][0] = "EH";
+			array[1][1] = "電子システム工学科";
+			array[2][0] = "ES";
+			array[2][1] = "応用化学科";
+			array[3][0] = "EK";
+			array[3][1] = "機械工学科";
+			array[4][0] = "EF";
+			array[4][1] = "先端機械工学科";
+			array[5][0] = "EC";
+			array[5][1] = "情報通信工学科";
+		} else if (faculty.equals("A")) {
+			array = new String[2][2];
+			array[0][0] = "AJ";
+			array[0][1] = "情報システム工学科";
+			array[1][0] = "AD";
+			array[1][1] = "デザイン工学科";
+		} else {
+			// F,E,A以外のURLのselectionパラメータの場合は学科選択画面にリダイレクト
+			array = new String[0][0]; // 未初期化エラーの回避
+			faculty = "";// 未初期化エラーの回避
+			System.out.println(screenName + "F,E,A以外のURLのselectionパラメータ" + faculty + "が来たので学科選択画面にリダイレクト");
+			response.sendRedirect("SelectFaculty");
+			return;
 		}
 		request.setAttribute("viewDataArray", array);
+		request.setAttribute("faculty", faculty);
 		getServletContext().getRequestDispatcher("/selectDepartment.jsp").forward(request, response);
 	}
 

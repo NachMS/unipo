@@ -22,6 +22,12 @@ public class SelectGrade extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		// 未ログインの場合ログイン画面ヘ転送
+		if (session.getAttribute("login") == null || !(Boolean) session.getAttribute("login")) {
+			response.sendRedirect("Login");
+			return;
+		}
 
 		// 学生が選択した学科をセッションに格納します
 		String selectionParameter = request.getParameter("selection");
@@ -31,7 +37,6 @@ public class SelectGrade extends HttpServlet {
 			response.sendRedirect("SelectDepartment");
 			return;
 		}
-		HttpSession session = request.getSession();
 		Student student = (Student) session.getAttribute("student");
 		System.out.println(screenName + "session.student:" + student);
 		System.out.println(screenName + "学生が選択した学科" + selectionParameter + "をsession.student.departmentに格納します。");

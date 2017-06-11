@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/SelectFaculty")
 public class SelectFaculty extends HttpServlet {
@@ -18,6 +19,13 @@ public class SelectFaculty extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		// 未ログインの場合ログイン画面ヘ転送
+		if (session.getAttribute("login") == null || !(Boolean) session.getAttribute("login")) {
+			response.sendRedirect("Login");
+			return;
+		}
+
 		getServletContext().getRequestDispatcher("/selectFaculty.jsp").forward(request, response);
 	}
 

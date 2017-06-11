@@ -22,8 +22,14 @@ public class SelectDepartment extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String selectionParameter = request.getParameter("selection");
 		HttpSession session = request.getSession();
+		// 未ログインの場合ログイン画面ヘ転送
+		if (session.getAttribute("login") == null || !(Boolean) session.getAttribute("login")) {
+			response.sendRedirect("Login");
+			return;
+		}
+
+		String selectionParameter = request.getParameter("selection");
 		System.out.println(screenName + "URLのselectionパラメータ:" + selectionParameter);
 		Student studentSession = (Student) session.getAttribute("student");
 		System.out.println(screenName + "session.student:" + studentSession);

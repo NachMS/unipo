@@ -25,6 +25,11 @@ public class OrderHistory extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		// 未ログインの場合ログイン画面ヘ転送
+		if (session.getAttribute("login") == null || !(Boolean) session.getAttribute("login")) {
+			response.sendRedirect("Login");
+			return;
+		}
 		String studentID = (String) session.getAttribute("studentID");
 		OrderDAO dao = new OrderDAO();
 		ArrayList<Order> list;

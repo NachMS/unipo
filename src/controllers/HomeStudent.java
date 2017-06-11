@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/HomeStudent")
 public class HomeStudent extends HttpServlet {
@@ -18,6 +19,18 @@ public class HomeStudent extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//未ログインの場合ログイン画面ヘ転送
+		HttpSession session = request.getSession();
+		if (session.getAttribute("login") == null || !(Boolean) session.getAttribute("login")) {
+			response.sendRedirect("Login");
+			return;
+		}
+		//ログアウト後にブラウザの戻るボタンで前の画面に戻らないようにするおまじない
+		//ブラウザがこの画面をcacheで保存しないようにしていると思われる
+		response.setHeader("Pragma", "no-cache");
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Cache-Control", "no-store");
+		response.setDateHeader("Expires", 0);
 		getServletContext().getRequestDispatcher("/homeStudent.jsp").forward(request, response);
 	}
 

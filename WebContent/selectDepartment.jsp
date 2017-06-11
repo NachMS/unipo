@@ -15,7 +15,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>学科選択</title>
-<link rel="stylesheet" href="css/selectDepartment.css" />
+  <!-- Normalize.css -->
+    <link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/selectDepartment.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
 </head>
 <body>
 	<a class="btn" href="SelectFaculty">戻る</a>
@@ -25,8 +29,7 @@
 			String[][] array = (String[][]) request.getAttribute("viewDataArray");
 			for (int i = 0; i < array.length; i++) {
 		%>
-		<a class="card animated zoomIn"
-			href="SelectGrade?selection=<%=array[i][0]%>">
+		<a class="card animated zoomIn" href="SelectGrade?selection=<%=array[i][0]%>">
 			<div class="card-top"><%=array[i][0]%></div>
 			<div class="card-bottom"><%=array[i][1]%></div>
 		</a>

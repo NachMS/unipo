@@ -26,8 +26,11 @@
 
 		<li><ul>
 				<li>注文日時: <%=formatedOrderDate%></li>
-				<li>合計: <%=order.getTotalAmount()%> 円</li>
+				<li>合計: <%=order.getTotalAmount()%> 円
+				</li>
 				<li>受け取り日時: <%=formatedReceiveDate%></li>
+				<li><a class="btn"
+					href="OrderDetail?selection=<%=order.getOrderID()%>">注文詳細</a></li>
 			</ul></li>
 
 		<%

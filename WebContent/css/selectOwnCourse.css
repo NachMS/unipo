@@ -1,0 +1,99 @@
+input[type=radio] {
+  display: none; }
+
+p {
+  font-size: 40px;
+  margin-left: 3vw;
+  margin-top: 3vw;
+  margin-bottom: 3vw; }
+
+.teacher {
+  float: right; }
+
+label {
+  text-align: left;
+  vertical-align: middle; }
+
+.radio {
+  box-sizing: border-box;
+  transition: background-color 0.2s linear;
+  position: relative;
+  display: inline-block;
+  margin: 0 20px 10px 3vw;
+  padding: 33px 12px 12px 100px;
+  border-radius: 2px;
+  background-color: #f6f7f8;
+  vertical-align: middle;
+  cursor: pointer;
+  height: 100px;
+  width: 1000px;
+  font-size: 30px; }
+  .radio:hover {
+    background-color: #67daff; }
+    .radio:hover:after {
+      border-color: #FFF; }
+  .radio:before {
+    transition: opacity 0.2s linear;
+    position: absolute;
+    top: 52%;
+    left: 23px;
+    display: block;
+    margin-top: -12px;
+    width: 20px;
+    height: 20px;
+    border-radius: 20%;
+    background-color: #FFF;
+    content: '';
+    opacity: 0; }
+    input[type=radio]:checked + .radio:before {
+      opacity: 1; }
+  .radio:after {
+    transition: border-color 0.2s linear;
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    display: block;
+    margin-top: -18px;
+    width: 32px;
+    height: 32px;
+    border: 2px solid #bbb;
+    border-radius: 6px;
+    content: ''; }
+
+input[type="radio"]:checked + label {
+  background-color: #03a9f4;
+  color: #fff; }
+
+input[type="radio"]:checked + .radio::after {
+  border-color: #FFF; }
+
+.Button {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: end;
+      justify-content: flex-end; }
+
+a.next {
+  background: #4CAF50;
+  border: none;
+  border-radius: 2px;
+  color: white;
+  font-size: 30px;
+  padding: 10px 20px;
+  text-decoration: none;
+  transition: .2s;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 100px;
+  width: 200px;
+  margin-right: 10px;
+  margin-top: 10px;
+  position: absolute;
+  left: 3vw; }
+
+a.next:hover {
+  background: forestgreen; }

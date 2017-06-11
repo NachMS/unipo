@@ -17,27 +17,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ホーム</title>
-<link rel="css/stylesheet" href="main.css">
+    <!-- Normalize.css -->
+    <link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="css/homeStudent.css">
 </head>
 <body>
-	<%
-		//if (session.getAttribute("login") == null || !(Boolean) session.getAttribute("login")) {
-		//response.sendRedirect("login.jsp");
-		//}
-	%>
-<%-- 	<p>ようこそ ${sessionScope.student.name} さん</p>
-	<ul>
-		<li><a href="/unipo/selectFaculty.jsp">注文する</a></li>
-		<li><a href="">注文履歴</a></li>
-		<li><a href="">評価する</a></li>
-		<p>
-			<a href="Logout">ログアウト</a>
-		</p> --%>
-		<div class="Button">
-                <a class="Button__logout" href="Logout">ログアウト</a>
-                <a class="Button__order" href="SelectFaculty">注文する</a>
-                <a class="Button__order-history" href="OrderHistory">注文履歴</a>
-                <a class="Button__evaluate" href="#">評価する</a>
-        </div>
+            <div class="Button__container">
+        <a class="Button--element logout" href="Logout">ログアウト</a>
+        <a class="Button--element order" href="SelectFaculty">注文する</a>
+        <a class="Button--element history" href="#">注文履歴</a>
+        <a class="Button--element evaluate" href="#">評価する</a>
+    </div>
 </body>
 </html>

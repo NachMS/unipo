@@ -7,22 +7,22 @@
 	}
 %>
 <!DOCTYPE html>
-<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>学年選択</title>
     <!-- Normalize.css -->
     <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" type="text/css" href="css/selectFaculty.css">
+    <link rel="stylesheet" type="text/css" href="css/selectGrader.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 </head>
 <body>
-	<a class="btn" href="SelectFaculty">戻る</a>
-	<div class="message">学部を選んでください</div>
-	<div class="cards-container">
-		<a class="card animated zoomIn S" href="/unipo/SelectDepartment?selection=S">システムデザイン工学部</a>
-		<a class="card animated zoomIn F" href="/unipo/SelectDepartment?selection=Ff">未来科学部</a>
-		<a class="card animated zoomIn E" href="/unipo/SelectDepartment?selection=E">工学部</a>
-	</div>
+    <a class="btn" href="SelectFaculty">戻る</a>
+    <div class="message">学年を選んでください</div>
+    <div class="cards-container">
+        <a class="card animated zoomIn" href="">1</a>
+        <a class="card animated zoomIn" href="">2</a>
+        <a class="card animated zoomIn" href="">3</a>
+        <a class="card animated zoomIn" href="">4</a>
+    </div>
 </body>
 </html>

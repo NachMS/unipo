@@ -12,7 +12,7 @@
 	<title>教科書選択</title>
     <!-- Normalize.css -->
     <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" type="text/css" href="css/selectTextbook.css">
+    <link rel="stylesheet" type="text/css" href="css/selectOwnCourse.css">
 </head>
 <body>
     <form action="">

@@ -47,10 +47,10 @@ public class Login extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("login", result);
 		if (result) {
-			// ログインに成功している場合はstudentIDをセッションに格納してHomeStudentへ
+			// ログインに成功している場合はstudentIDをセッションに格納してHomeへ
 			session.setAttribute("studentID", request.getParameter("studentID"));
 			session.setAttribute("student", student);
-			response.sendRedirect("HomeStudent");
+			response.sendRedirect("Home");
 		} else {
 			// ログインに失敗している場合はLoginへ
 			response.sendRedirect("Login");

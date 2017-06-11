@@ -41,7 +41,7 @@ public class SelectDepartment extends HttpServlet {
 				// session.studentが存在しない場合
 				// セッションがないはずがないのでホームにリダイレクトします。
 				System.out.println(screenName + "URLのselectionパラメータもsession.student.facultyも空でそんなはずないのでホームにリダイレクトします");
-				response.sendRedirect("HomeStudent");
+				response.sendRedirect("Home");
 				return;
 			}
 			// session.studentが存在する場合

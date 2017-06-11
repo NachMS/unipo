@@ -30,6 +30,6 @@
 		%>
 	</ol>
 
-	<a class="btn" href="HomeStudent">戻る</a>
+	<a class="btn" href="Home">戻る</a>
 </body>
 </html>

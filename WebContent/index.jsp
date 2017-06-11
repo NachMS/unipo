@@ -5,7 +5,7 @@
 	//理由はファイル名がindexになっているからです(http://hoge/ = http://hoge/index.jsp)
 	if (session.getAttribute("login") != null && (Boolean) session.getAttribute("login")) {
 		//ログイン済みの場合はホーム画面へ転送
-		response.sendRedirect("HomeStudent");
+		response.sendRedirect("Home");
 	} else {
 		//未ログインの場合ログイン画面ヘ転送
 		response.sendRedirect("Login");

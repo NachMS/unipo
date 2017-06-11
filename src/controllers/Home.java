@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/HomeStudent")
-public class HomeStudent extends HttpServlet {
+@WebServlet("/Home")
+public class Home extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public HomeStudent() {
+	public Home() {
 		super();
 	}
 
@@ -31,7 +31,7 @@ public class HomeStudent extends HttpServlet {
 		response.setHeader("Cache-Control", "no-cache");
 		response.setHeader("Cache-Control", "no-store");
 		response.setDateHeader("Expires", 0);
-		getServletContext().getRequestDispatcher("/homeStudent.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

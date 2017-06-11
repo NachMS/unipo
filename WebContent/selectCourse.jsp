@@ -12,7 +12,7 @@
 	<title>履修科目選択</title>
     <!-- Normalize.css -->
     <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" type="text/css" href="css/selectOwnCourse.css">
+    <link rel="stylesheet" type="text/css" href="css/selectCourse.css">
 </head>
 <body>
     <form action="">

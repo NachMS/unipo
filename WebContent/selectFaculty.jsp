@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 </head>
 <body>
-	<a class="btn" href="HomeStudent">戻る</a>
+	<a class="btn" href="Home">戻る</a>
 	<div class="message">学部を選んでください</div>
 	<div class="cards-container">
 		<a class="card animated zoomIn A" href="/unipo/SelectDepartment?selection=A">システムデザイン工学部</a>

@@ -27,8 +27,23 @@ public class OrderDAO {
 	}
 
 	public boolean cancelOrderByID(int orderID) {
-
-		return false;
+		String sql = "UPDATE orders SET cancel_flag = 't' WHERE order_id=?";
+		Connection connection;
+		ResultSet resultSet;
+		Order order = new Order();
+		try {
+			Class.forName(driverClassName);
+			connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, orderID);
+			resultSet = pstmt.executeQuery();
+			resultSet.updateRow();
+			// キャンセルフラグをtrueに
+			order.setCancelFlag(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	public Order getOrderByID(int orderID) {

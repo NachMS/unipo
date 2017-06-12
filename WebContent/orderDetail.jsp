@@ -19,7 +19,7 @@
 		</ul></li>
 
 	<a class="btn" href="OrderHistory">戻る</a>
-	<a class="btn" href="orderDetail">注文削除</a>
+	<a class="btn" href="orderhistory">注文削除</a>
 	<a class="btn" href="CourseList">注文変更</a>
 	<a class="btn" href="SelectDate">受け取り日時変更</a>
 </body>

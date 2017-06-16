@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Date;
+
 public class Course {
 	private int courseID;
 	private String name;
@@ -7,13 +9,26 @@ public class Course {
 	private String department;
 	private int grade;
 	private int semester;
-	private int day;
+	private int dayOfWeek;
 	private int hour;
 	private int likes;
 	private int dislikes;
+	private Date regDate;
 
-	public Course() {
-
+	public Course(int courseID, String name, String teacher, String department, int grade, int semester, int dayOfWeek,
+			int hour, int likes, int dislikes, Date regDate) {
+		super();
+		this.courseID = courseID;
+		this.name = name;
+		this.teacher = teacher;
+		this.department = department;
+		this.grade = grade;
+		this.semester = semester;
+		this.dayOfWeek = dayOfWeek;
+		this.hour = hour;
+		this.likes = likes;
+		this.dislikes = dislikes;
+		this.regDate = regDate;
 	}
 
 	public int getCourseID() {
@@ -64,12 +79,12 @@ public class Course {
 		this.semester = semester;
 	}
 
-	public int getDay() {
-		return day;
+	public int getDayOfWeek() {
+		return dayOfWeek;
 	}
 
-	public void setDay(int day) {
-		this.day = day;
+	public void setDay(int dayOfWeek) {
+		this.dayOfWeek = dayOfWeek;
 	}
 
 	public int getHour() {

@@ -27,7 +27,7 @@ public class OrderDAO {
 	}
 
 	public boolean cancelOrderByID(int orderID) {
-		String sql = "UPDATE orders SET cancel_flag = 't' WHERE order_id=?";
+		String sql = "UPDATE orders SET cancel_flag = 'true' WHERE order_id=?";
 		Connection connection;
 		ResultSet resultSet;
 		Order order = new Order();
@@ -39,7 +39,7 @@ public class OrderDAO {
 			resultSet = pstmt.executeQuery();
 			resultSet.updateRow();
 			// キャンセルフラグをtrueに
-			order.setCancelFlag(true);
+			// order.setCancelFlag(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

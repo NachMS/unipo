@@ -13,10 +13,10 @@
     <a class="btn" href="SelectDepartment">戻る</a>
     <div class="message">学年を選んでください</div>
     <div class="cards-container">
-        <a class="card animated zoomIn" href="/unipo/CourseTable?selection=1">1</a>
-        <a class="card animated zoomIn" href="/unipo/CourseTable?selection=2">2</a>
-        <a class="card animated zoomIn" href="/unipo/CourseTable?selection=3">3</a>
-        <a class="card animated zoomIn" href="/unipo/CourseTable?selection=4">4</a>
+        <a class="card animated zoomIn" href="/unipo/SelectGrade?grade=1">1</a>
+        <a class="card animated zoomIn" href="/unipo/SelectGrade?grade=2">2</a>
+        <a class="card animated zoomIn" href="/unipo/SelectGrade?grade=3">3</a>
+        <a class="card animated zoomIn" href="/unipo/SelectGrade?grade=4">4</a>
     </div>
 </body>
 </html>

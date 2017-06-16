@@ -14,7 +14,6 @@ import models.Student;
 @WebServlet("/SelectGrade")
 public class SelectGrade extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String screenName = "[G005学年選択画面]"; // デバッグ用
 
 	public SelectGrade() {
 		super();
@@ -22,27 +21,34 @@ public class SelectGrade extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		log("こんにちは。");
 		HttpSession session = request.getSession();
-		// 未ログインの場合ログイン画面ヘ転送
+		/*
+		 * (例外) 未ログインの場合ログイン画面ヘ転送
+		 */
 		if (session.getAttribute("login") == null || !(Boolean) session.getAttribute("login")) {
 			response.sendRedirect("Login");
 			return;
 		}
 
-		// 学生が選択した学科をセッションに格納します
-		String selectionParameter = request.getParameter("selection");
-		if (selectionParameter == null) {
-			// URLのselectionパラメータが空の場合学科選択画面にリダイレクト
-			System.out.println(screenName + "URLのselectionパラメータが空なので学科選択画面にリダイレクトします");
-			response.sendRedirect("SelectDepartment");
+		/*
+		 * (非DT) 学生が選択した学年をセッションに格納します
+		 */
+		if (request.getParameter("grade") != null) {
+			Student student = (Student) session.getAttribute("student");
+			log("session.student:" + student);
+			log("学生が選択した学年" + request.getParameter("grade") + "をsession.student.gradeに格納します。");
+			int gradeInt = Integer.parseInt(request.getParameter("grade"));
+			student.setGrade(gradeInt);
+			log("session.student:" + student);
+			log("CourseTableにリダイレクトします");
+			response.sendRedirect("CourseTable");
 			return;
 		}
-		Student student = (Student) session.getAttribute("student");
-		System.out.println(screenName + "session.student:" + student);
-		System.out.println(screenName + "学生が選択した学科" + selectionParameter + "をsession.student.departmentに格納します。");
-		student.setDepartment(selectionParameter);
-		System.out.println(screenName + "session.student:" + student);
-		// ビューの描画
+
+		/*
+		 * (DT) ビューの描画
+		 */
 		getServletContext().getRequestDispatcher("/selectGrade.jsp").forward(request, response);
 	}
 
@@ -50,5 +56,4 @@ public class SelectGrade extends HttpServlet {
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }

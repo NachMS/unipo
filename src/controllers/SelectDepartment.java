@@ -14,7 +14,6 @@ import models.Student;
 @WebServlet("/SelectDepartment")
 public class SelectDepartment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String screenName = "[G004学科選択画面]"; // デバッグ用
 
 	public SelectDepartment() {
 		super();
@@ -23,40 +22,41 @@ public class SelectDepartment extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		// 未ログインの場合ログイン画面ヘ転送
+
+		/*
+		 * (例外) 未ログインの場合ログイン画面ヘ転送
+		 */
 		if (session.getAttribute("login") == null || !(Boolean) session.getAttribute("login")) {
 			response.sendRedirect("Login");
 			return;
 		}
 
-		String selectionParameter = request.getParameter("selection");
-		System.out.println(screenName + "URLのselectionパラメータ:" + selectionParameter);
-		Student studentSession = (Student) session.getAttribute("student");
-		System.out.println(screenName + "session.student:" + studentSession);
-		String faculty;
-		if (selectionParameter == null) {
-			// URLのselectionパラメータがnullだった場合（次のページから戻ってきたはず）
-			// 学生が前に選んだ学部をセッションから取得します
-			if (studentSession.getFaculty() == null) {
-				// session.studentが存在しない場合
-				// セッションがないはずがないのでホームにリダイレクトします。
-				System.out.println(screenName + "URLのselectionパラメータもsession.student.facultyも空でそんなはずないのでホームにリダイレクトします");
-				response.sendRedirect("Home");
-				return;
-			}
-			// session.studentが存在する場合
-			// 学生が選んだ学部をセッションから取得します
-			System.out.println(screenName + "session.student.facultyが格納済みなので取得します。");
-			faculty = studentSession.getFaculty();
-		} else {
-			// URLのselectionパラメータが格納されている場合（順路通り学部選択画面から来た）
-			// 学生が選んだ学部をセッションに格納します
-			System.out.println(screenName + "学生が選んだ学部" + selectionParameter + "をsession.student.facultyに格納します。");
-			faculty = selectionParameter;
-			studentSession.setFaculty(selectionParameter);
-			System.out.println(screenName + "session.student:" + studentSession);
+		Student student = (Student) session.getAttribute("student");
+		log("URLのdepartmentパラメータ:" + request.getParameter("department"));
+
+		/*
+		 * (非DT) 学生が選択した学科をセッションに格納します
+		 */
+		if (request.getParameter("department") != null) {
+			// URLのfacultyパラメータが格納されている場合（学部をクリックした）
+			log("学生が選んだ学科" + request.getParameter("department") + "をsession.student.facultyに格納します。");
+			student.setDepartment(request.getParameter("department"));
+			log("session.student:" + student);
+			response.sendRedirect("SelectGrade");
+			return;
 		}
-		// ビューの描画
+
+
+		/*
+		 * (DT) ビューの描画
+		 */
+		String faculty = student.getFaculty();
+		if (faculty == null) {
+			log("session.student.facultyがnullなのでSelectFacultyにリダイレクトします");
+			response.sendRedirect("SelectFaculty");
+			return;
+		}
+
 		String[][] array;
 		if (faculty.equals("F")) {
 			array = new String[3][2];
@@ -90,7 +90,7 @@ public class SelectDepartment extends HttpServlet {
 			// F,E,A以外のURLのselectionパラメータの場合は学科選択画面にリダイレクト
 			array = new String[0][0]; // 未初期化エラーの回避
 			faculty = "";// 未初期化エラーの回避
-			System.out.println(screenName + "F,E,A以外のURLのselectionパラメータ" + faculty + "が来たので学科選択画面にリダイレクト");
+			log("F,E,A以外のURLのselectionパラメータ" + faculty + "が来たので学科選択画面にリダイレクト");
 			response.sendRedirect("SelectFaculty");
 			return;
 		}

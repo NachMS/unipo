@@ -20,7 +20,7 @@
 			String[][] array = (String[][]) request.getAttribute("viewDataArray");
 			for (int i = 0; i < array.length; i++) {
 		%>
-		<a class="card <%=faculty%> animated zoomIn" href="SelectGrade?selection=<%=array[i][0]%>">
+		<a class="card <%=faculty%> animated zoomIn" href="SelectDepartment?department=<%=array[i][0]%>">
 			<div class="card-top"><%=array[i][0]%></div>
 			<div class="card-bottom"><%=array[i][1]%></div>
 		</a>

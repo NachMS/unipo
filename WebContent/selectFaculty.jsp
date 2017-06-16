@@ -14,9 +14,9 @@
 	<a class="btn" href="Home">戻る</a>
 	<div class="message">学部を選んでください</div>
 	<div class="cards-container">
-		<a class="card animated zoomIn A" href="/unipo/SelectDepartment?selection=A">システムデザイン工学部</a>
-		<a class="card animated zoomIn F" href="/unipo/SelectDepartment?selection=F">未来科学部</a>
-		<a class="card animated zoomIn E" href="/unipo/SelectDepartment?selection=E">工学部</a>
+		<a class="card animated zoomIn A" href="/unipo/SelectFaculty?faculty=A">システムデザイン工学部</a>
+		<a class="card animated zoomIn F" href="/unipo/SelectFaculty?faculty=F">未来科学部</a>
+		<a class="card animated zoomIn E" href="/unipo/SelectFaculty?faculty=E">工学部</a>
 	</div>
 </body>
 </html>

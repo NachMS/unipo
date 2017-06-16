@@ -4,13 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class CourseDAO {
-	private String url = "jdbc:postgresql://localhost/test";
+	private String url = "jdbc:postgresql://localhost/tutorial";
 	private String user = "wspuser";
 	private String password = "hogehoge";
 
@@ -33,9 +32,10 @@ public class CourseDAO {
 	public List<Course> getCoursesByProperties(String department, int grade, int semester, int dayOfWeek,
 			int hour) {
 		try {
+			Class.forName("org.postgresql.Driver");
 			Connection connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement preparedStatement;
-			String sql = "SELECT * FROM courses WHERE department=?, grade=?, day_of_week=?, hour=?";
+			String sql = "SELECT * FROM courses WHERE department=? AND grade=? AND day_of_week=? AND hour=?";
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, department);
 			preparedStatement.setInt(2, grade);
@@ -55,7 +55,7 @@ public class CourseDAO {
 				list.add(course);
 			}
 			return list;
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;

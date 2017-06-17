@@ -36,9 +36,15 @@ public class SelectGrade extends HttpServlet {
 		 */
 		if (request.getParameter("grade") != null) {
 			Student student = (Student) session.getAttribute("student");
-			log("session.student:" + student);
-			log("学生が選択した学年" + request.getParameter("grade") + "をsession.student.gradeに格納します。");
 			int gradeInt = Integer.parseInt(request.getParameter("grade"));
+			log("session.student:" + student);
+			if (student.getCourses() != null && student.getGrade() != 0) {
+				if (student.getGrade() != gradeInt) {
+					log("G006から戻ってきて別の学年を選んだ場合セッションから科目を破棄");
+					student.setCourses(null);
+				}
+			}
+			log("学生が選択した学年" + request.getParameter("grade") + "をsession.student.gradeに格納します。");
 			student.setGrade(gradeInt);
 			log("session.student:" + student);
 			log("CourseTableにリダイレクトします");

@@ -12,7 +12,7 @@
 <body>
 	<div class="Button__container">
 		<a class="Button--element btn"
-			href="SelectGrade?selection=${student.department}">戻る</a> <a
+			href="SelectGrade">戻る</a> <a
 			class="Button--element next" href="">次へ</a>
 		<p class="Button--element MON">月</p>
 		<p class="Button--element TUE">火</p>
@@ -29,14 +29,22 @@
 			String[] dayOfWeekStr = {"MON", "TUE", "WED", "THU", "FRI"};
 			for (int dayOfWeek = 1; dayOfWeek <= 5; dayOfWeek++) {
 				for (int hour = 1; hour <= 5; hour++) {
-					//String storedOrNot = "";
-					// 				if(dayOfWeek == 3 && hour == 2) {
-					// 					storedOrNot = " stored";
-					// 				}
+					String storedOrNothing;
+					String link;
+					String plusOrCourseName;
+					if( (dayOfWeek == 1 && hour == 1) || (dayOfWeek == 3 && hour == 2)) {
+						storedOrNothing = " stored";
+						link = "#";
+						plusOrCourseName = "選択された科目名のサンプル";
+					} else {
+						storedOrNothing = "";
+						link = "SelectCourse?dayOfWeek=" + dayOfWeek + "&hour=" + hour;
+						plusOrCourseName = "+";
+					}
 		%>
-		<a class="Button--element HOVER stored"
+		<div class="Button--element HOVER<%=storedOrNothing%>"
 			id="<%=dayOfWeekStr[dayOfWeek - 1]%><%=hour%>"
-			href="SelectCourse?dayOfWeek=<%=dayOfWeek%>&hour=<%=hour%>">
+			href="<%=link%>">
 			<div class="close-button" id="<%=dayOfWeekStr[dayOfWeek - 1]%><%=hour%>close">
 				<svg fill="#FFFFFF" height="26" viewBox="0 0 24 24" width="26"
 					xmlns="http://www.w3.org/2000/svg">
@@ -44,8 +52,8 @@
 						d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
                         <path d="M0 0h24v24H0z" fill="none" />
                     </svg>
-			</div>サンプル
-		</a>
+			</div><%=plusOrCourseName%>
+		</div>
 		<%
 			}
 			}
@@ -59,19 +67,33 @@
 
 		function test() {
 			var id2 = array[j] + i;
-			console.log(id2);
-			$(id2).hover(function() {
-				$(id2 + "close").css('display', 'flex');
-			}, function() {
-				$(id2 + "close").hide();
-			});
+			var ii = i; //なぜかi=6,j=5になる
+			var jj = j;
+			var flag = true;
+			if($(id2).hasClass('stored')){
+		    	$(id2).hover(function() {
+					$(id2 + "close").css('display', 'flex');
+					console.log(i +":"+ j);
+					console.log(ii +":"+ jj);
+					flag = true;
+				}, function() {
+					$(id2 + "close").hide();
+				});
 
-			$(id2 + "close").click(function() {
-				$(id2).text("+");
-				$(id2).toggleClass("stored");
+				$(id2 + "close").click(function() {
+					$(id2).text("+");
+					$(id2).toggleClass("stored");
+					flag = false;
+				});
+			}
+			$(id2).click(function() {
+				if(!$(id2).hasClass('stored') && flag){
+					location.href = "SelectCourse?dayOfWeek=" + (jj+1) +"&hour=" + ii;
+				}
 			});
 		}
 		for (var j = 0; j < 5; j++) {
+			console.log(j);
 			for (var i = 1; i <= 5; i++) {
 				test();
 			}

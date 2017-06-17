@@ -34,6 +34,12 @@ public class SelectFaculty extends HttpServlet {
 		 * (非DT) 学生が選択した学年をセッションに格納します
 		 */
 		Student student = (Student) session.getAttribute("student");
+		log("session.student:" + student);
+		if (student == null) {
+			log("session.student:nullなのでログアウトします。");
+			response.sendRedirect("Logout");
+			return;
+		}
 		log("URLのselectionパラメータ:" + request.getParameter("faculty"));
 		if (request.getParameter("faculty") != null) {
 			// URLのfacultyパラメータが格納されている場合（学部をクリックした）

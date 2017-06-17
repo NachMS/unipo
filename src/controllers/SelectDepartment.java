@@ -31,6 +31,10 @@ public class SelectDepartment extends HttpServlet {
 			return;
 		}
 
+		if (session.getAttribute("student") == null) {
+			response.sendRedirect("SelectFaculty");
+			return;
+		}
 		Student student = (Student) session.getAttribute("student");
 		log("URLのdepartmentパラメータ:" + request.getParameter("department"));
 
@@ -46,10 +50,13 @@ public class SelectDepartment extends HttpServlet {
 			return;
 		}
 
-
 		/*
 		 * (DT) ビューの描画
 		 */
+		if (student.getFaculty() == null) {
+			response.sendRedirect("SelectFaculty");
+			return;
+		}
 		String faculty = student.getFaculty();
 		if (faculty == null) {
 			log("session.student.facultyがnullなのでSelectFacultyにリダイレクトします");
@@ -90,7 +97,7 @@ public class SelectDepartment extends HttpServlet {
 			// F,E,A以外のURLのselectionパラメータの場合は学科選択画面にリダイレクト
 			array = new String[0][0]; // 未初期化エラーの回避
 			faculty = "";// 未初期化エラーの回避
-			log("F,E,A以外のURLのselectionパラメータ" + faculty + "が来たので学科選択画面にリダイレクト");
+			log("F,E,A以外のURLのselectionパラメータ" + faculty + "が来たので学部選択画面にリダイレクト");
 			response.sendRedirect("SelectFaculty");
 			return;
 		}

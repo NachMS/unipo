@@ -10,10 +10,11 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
+<% String[][] selectedCourses = (String[][]) request.getAttribute("selectedCourses"); %>
 	<div class="Button__container">
 		<a class="Button--element btn"
 			href="SelectGrade">戻る</a> <a
-			class="Button--element next" href="">次へ</a>
+			class="Button--element next" href="SelectTextbooks">次へ</a>
 		<p class="Button--element MON">月</p>
 		<p class="Button--element TUE">火</p>
 		<p class="Button--element WED">水</p>
@@ -32,10 +33,10 @@
 					String storedOrNothing;
 					String link;
 					String plusOrCourseName;
-					if( (dayOfWeek == 1 && hour == 1) || (dayOfWeek == 3 && hour == 2)) {
+					if( selectedCourses[dayOfWeek-1][hour-1] != null) {
 						storedOrNothing = " stored";
 						link = "#";
-						plusOrCourseName = "選択された科目名のサンプル";
+						plusOrCourseName = selectedCourses[dayOfWeek-1][hour-1];
 					} else {
 						storedOrNothing = "";
 						link = "SelectCourse?dayOfWeek=" + dayOfWeek + "&hour=" + hour;
@@ -83,6 +84,7 @@
 				$(id2 + "close").click(function() {
 					$(id2).text("+");
 					$(id2).toggleClass("stored");
+					$.post( "CourseTable", { act: "remove", dayOfWeek : jj+1, hour: ii } );
 					flag = false;
 				});
 			}
@@ -93,7 +95,6 @@
 			});
 		}
 		for (var j = 0; j < 5; j++) {
-			console.log(j);
 			for (var i = 1; i <= 5; i++) {
 				test();
 			}

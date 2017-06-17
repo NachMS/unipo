@@ -3,6 +3,7 @@ package models;
 import java.util.Date;
 
 public class Course {
+
 	private int courseID;
 	private String name;
 	private String teacher;
@@ -109,6 +110,12 @@ public class Course {
 
 	public void setDislikes(int dislikes) {
 		this.dislikes = dislikes;
+	}
+
+	public String toString() {
+		return "Course [courseID=" + courseID + ", name=" + name + ", teacher=" + teacher + ", department=" + department
+				+ ", grade=" + grade + ", semester=" + semester + ", dayOfWeek=" + dayOfWeek + ", hour=" + hour
+				+ ", likes=" + likes + ", dislikes=" + dislikes + ", regDate=" + regDate + "]";
 	}
 
 }

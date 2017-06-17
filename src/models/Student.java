@@ -1,7 +1,7 @@
 package models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Student implements Serializable {
 	private String studentID;
@@ -10,7 +10,7 @@ public class Student implements Serializable {
 	private String department;
 	private int grade;
 	private String password;
-	private ArrayList<Course> courses;
+	private List<Course> courses;
 
 	public String getStudentID() {
 		return studentID;
@@ -56,11 +56,11 @@ public class Student implements Serializable {
 		return password;
 	}
 
-	public ArrayList<Course> getCourses() {
+	public List<Course> getCourses() {
 		return courses;
 	}
 
-	public void setCourses(ArrayList<Course> courses) {
+	public void setCourses(List<Course> courses) {
 		this.courses = courses;
 	}
 

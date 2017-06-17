@@ -25,12 +25,43 @@ public class CourseDAO {
 		return false;
 	}
 
-	public Course getCourseByID(String courseID) {
+	public Course getCourseByID(int courseID) {
+		try {
+			Class.forName("org.postgresql.Driver");
+			Connection connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement preparedStatement;
+			String sql = "SELECT * FROM courses WHERE course_id=?";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, courseID);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			Course course;
+			if (resultSet.next()) {
+				String name = resultSet.getString("name");
+				String teacher = resultSet.getString("teacher");
+				String department = resultSet.getString("department");
+				int grade = resultSet.getInt("grade");
+				int semester = resultSet.getInt("semester");
+				int dayOfWeek = resultSet.getInt("day_of_week");
+				int hour = resultSet.getInt("hour");
+				int likes = resultSet.getInt("likes");
+				int dislikes = resultSet.getInt("dislikes");
+				Date regDate = resultSet.getTimestamp("reg_date");
+				course = new Course(courseID, name, teacher, department, grade, semester, dayOfWeek, hour, likes,
+						dislikes, regDate);
+				System.out.println(course);
+				resultSet.close();
+				preparedStatement.close();
+				connection.close();
+				return course;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("getCourseByIDの結果nullでした。");
 		return null;
 	}
 
-	public List<Course> getCoursesByProperties(String department, int grade, int semester, int dayOfWeek,
-			int hour) {
+	public List<Course> getCoursesByProperties(String department, int grade, int semester, int dayOfWeek, int hour) {
 		try {
 			Class.forName("org.postgresql.Driver");
 			Connection connection = DriverManager.getConnection(url, user, password);
@@ -54,6 +85,9 @@ public class CourseDAO {
 						dislikes, regDate);
 				list.add(course);
 			}
+			resultSet.close();
+			preparedStatement.close();
+			connection.close();
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();

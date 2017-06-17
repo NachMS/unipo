@@ -26,7 +26,7 @@
 		String[] dow = {"月", "火", "水", "木", "金"};
 		String iIn2Digits = String.format("%02d", i); //1→"01"
 %>
-        <input type="radio" name="hoge" value="<%=course.getName()%>" id="radio<%=iIn2Digits%>" />
+        <input type="radio" name="courseID" value="<%=course.getCourseID()%>" id="radio<%=iIn2Digits%>" />
         <label for="radio<%=iIn2Digits%>" class="radio">
             <span class="period"><%=dow[course.getDayOfWeek()-1]%><%=course.getHour()%></span>&emsp;<%=course.getName()%><span class="teacher"><%=course.getTeacher()%>&emsp;</span>
         </label>
@@ -35,9 +35,7 @@
 	}
 %>
       </section>
+      <input type="submit" class="Button next" value="科目選択" />
     </form>
-        <div class="Button">
-            <a class="next" href="">科目選択</a>
-    </div>
 </body>
 </html>

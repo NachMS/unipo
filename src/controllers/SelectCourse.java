@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -68,9 +69,35 @@ public class SelectCourse extends HttpServlet {
 		getServletContext().getRequestDispatcher("/selectCourse.jsp").forward(request, response);
 	}
 
+	/*
+	 * 科目を選択すると、フォームなのでここが呼び出される。
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+
+		/*
+		 * 選ばれた科目をセッションに格納
+		 */
+		// 選ばれた科目のIDを取得
+		int courseID = Integer.parseInt(request.getParameter("courseID"));
+		CourseDAO dao = new CourseDAO();
+		Course course = dao.getCourseByID(courseID);
+		HttpSession session = request.getSession();
+		Student student = (Student) session.getAttribute("student");
+		log("session.student:" + student);
+		List<Course> courses;
+		if (student.getCourses() == null) {
+			courses = new ArrayList<Course>();
+		} else {
+			courses = student.getCourses();
+		}
+		courses.add(course);
+		student.setCourses(courses);
+
+		/*
+		 * リダイレクト
+		 */
+		response.sendRedirect("CourseTable");
 	}
 
 }

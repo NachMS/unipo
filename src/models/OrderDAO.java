@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class OrderDAO {
 	final private static String dbname = "tutorial"; // データベース名
@@ -47,30 +48,43 @@ public class OrderDAO {
 	}
 
 	public Order getOrderByID(int orderID) {
+		System.out.println("getOrderByID(" + orderID + ")");
 		String sql = "SELECT * FROM orders WHERE order_id=?";
+		String sql2 = "SELECT textbook_id FROM order_details NATURAL JOIN textbooks WHERE order_id=?;";
 		Connection connection;
 		ResultSet resultSet;
+		ResultSet resultSet2;
 		Order order = new Order();
+		TextbookDAO tdao = new TextbookDAO();
 		try {
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
+			PreparedStatement pstmt2 = connection.prepareStatement(sql2);
 			pstmt.setInt(1, orderID);
 			resultSet = pstmt.executeQuery();
-
-			while (resultSet.next()) {
+			pstmt2.setInt(1, orderID);
+			resultSet2 = pstmt2.executeQuery();
+			if (resultSet.next()) {
 				Date timestamp = resultSet.getTimestamp("order_timestamp");
 				int total_price = resultSet.getInt("total_price");
 				Date retimestamp = resultSet.getTimestamp("receipt_timestamp");
-				//
+				order.setOrderID(orderID);
 				order.setTotalAmount(total_price);
 				order.setOrderDate(timestamp);
 				order.setReceiveDate(retimestamp);
-
+				// 注文に含まれる教科書リストを得る
+				List<Textbook> textbooks = new ArrayList<Textbook>();
+				while (resultSet2.next()) {
+					int textbookID = resultSet2.getInt("textbook_id");
+					Textbook textbook = tdao.getTextbookByID(textbookID);
+					textbooks.add(textbook);
+				}
+				order.setTextbooks(textbooks);
 			}
 			resultSet.close();
+			resultSet2.close();
 			connection.close();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -78,7 +92,7 @@ public class OrderDAO {
 	}
 
 	public ArrayList<Order> getOrdersByStudentID(String studentID) {
-		String sql = "SELECT * FROM orders WHERE student_id=?";
+		String sql = "SELECT order_id FROM orders WHERE student_id=?";
 		Connection connection;
 		ResultSet resultSet;
 		ArrayList<Order> list = new ArrayList<Order>();
@@ -88,17 +102,10 @@ public class OrderDAO {
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, studentID);
 			resultSet = pstmt.executeQuery();
-
+			OrderDAO odao = new OrderDAO();
 			while (resultSet.next()) {
-				Order order = new Order();
 				int orderID = resultSet.getInt("order_id");
-				Date timestamp = resultSet.getTimestamp("order_timestamp");
-				int total_price = resultSet.getInt("total_price");
-				Date retimestamp = resultSet.getTimestamp("receipt_timestamp");
-				order.setOrderID(orderID);
-				order.setTotalAmount(total_price);
-				order.setOrderDate(timestamp);
-				order.setReceiveDate(retimestamp);
+				Order order = odao.getOrderByID(orderID);
 				list.add(order);
 			}
 			resultSet.close();

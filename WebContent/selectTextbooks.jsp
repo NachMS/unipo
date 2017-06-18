@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.List, models.Textbook, models.Course"%>
 <%
-	//未ログインの場合ログイン画面ヘ転送
-	if (session.getAttribute("login") == null || !(Boolean) session.getAttribute("login")) {
-		response.sendRedirect("login.jsp");
-	}
+	String[][] dataArray = (String[][]) request.getAttribute("dataArray");
 %>
 <!DOCTYPE html>
 <head>
@@ -16,29 +13,30 @@
 </head>
 <body>
   <div class="Button__back">
-          <a class="back" href="">戻る</a>
+          <a class="back" href="CourseTable">戻る</a>
   </div>
     <p>購入する教科書にチェックを入れてください</p>
     <form action="">
       <section>
-        <input type="checkbox" name="hoge" value="科目名１" checked id="checkbox01" />
-        <label for="checkbox01" class="checkbox">
-            <span class="period">火１</span>&emsp;科目名１
-            <span class="textbook">「教科書名１」&emsp;</span>
-        </label>
 
-        <input type="checkbox" name="hoge" value="科目名２" checked id="checkbox02" />
-        <label for="checkbox02" class="checkbox">
-            <span class="period">火１</span>&emsp;科目名２
-            <span class="textbook">「教科書名２」&emsp;</span>
+      <%
+		int i = 1;
+		for (String[] dat : dataArray) {
+		  String iIn2Digits = String.format("%02d", i); //1→"01"
+		%>
+        <input type="checkbox" name="textbookID" value="<%=dat[0]%>" checked id="checkbox<%=iIn2Digits%>" />
+        <label for="checkbox<%=iIn2Digits%>" class="checkbox">
+            <span class="period"><%=dat[1]%></span>&emsp;<%=dat[2]%>
+            <span class="textbook">「<%=dat[3]%>」&emsp;</span>
         </label>
-
-        <input type="checkbox" name="hoge" value="科目名３" checked id="checkbox03" />
-        <label for="checkbox03" class="checkbox">
-            <span class="period">火１</span>&emsp;科目名３
-            <span class="textbook">「教科書名３」&emsp;</span>
-        </label>
+        <%
+        	i++;
+        }
+        %>
       </section>
+      <% if(dataArray.length == 0){ %>
+    	  <p>科目を少なくとも一つは選んでください。</p>
+    	<% } %>
     </form>
     <div class="Button__next">
             <a class="next" href="">確定</a>

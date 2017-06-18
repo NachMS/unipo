@@ -43,11 +43,8 @@ public class CourseDAO {
 				int semester = resultSet.getInt("semester");
 				int dayOfWeek = resultSet.getInt("day_of_week");
 				int hour = resultSet.getInt("hour");
-				int likes = resultSet.getInt("likes");
-				int dislikes = resultSet.getInt("dislikes");
 				Date regDate = resultSet.getTimestamp("reg_date");
-				course = new Course(courseID, name, teacher, department, grade, semester, dayOfWeek, hour, likes,
-						dislikes, regDate);
+				course = new Course(courseID, name, teacher, department, grade, semester, dayOfWeek, hour, regDate);
 				System.out.println(course);
 				resultSet.close();
 				preparedStatement.close();
@@ -78,11 +75,9 @@ public class CourseDAO {
 				int courseID = resultSet.getInt("course_id");
 				String name = resultSet.getString("name");
 				String teacher = resultSet.getString("teacher");
-				int likes = resultSet.getInt("likes");
-				int dislikes = resultSet.getInt("dislikes");
 				Date regDate = resultSet.getTimestamp("reg_date");
-				Course course = new Course(courseID, name, teacher, department, grade, semester, dayOfWeek, hour, likes,
-						dislikes, regDate);
+				Course course = new Course(courseID, name, teacher, department, grade, semester, dayOfWeek, hour,
+						regDate);
 				list.add(course);
 			}
 			resultSet.close();

@@ -12,12 +12,10 @@ public class Course {
 	private int semester;
 	private int dayOfWeek;
 	private int hour;
-	private int likes;
-	private int dislikes;
 	private Date regDate;
 
 	public Course(int courseID, String name, String teacher, String department, int grade, int semester, int dayOfWeek,
-			int hour, int likes, int dislikes, Date regDate) {
+			int hour, Date regDate) {
 		super();
 		this.courseID = courseID;
 		this.name = name;
@@ -27,8 +25,6 @@ public class Course {
 		this.semester = semester;
 		this.dayOfWeek = dayOfWeek;
 		this.hour = hour;
-		this.likes = likes;
-		this.dislikes = dislikes;
 		this.regDate = regDate;
 	}
 
@@ -96,26 +92,10 @@ public class Course {
 		this.hour = hour;
 	}
 
-	public int getLikes() {
-		return likes;
-	}
-
-	public void setLikes(int likes) {
-		this.likes = likes;
-	}
-
-	public int getDislikes() {
-		return dislikes;
-	}
-
-	public void setDislikes(int dislikes) {
-		this.dislikes = dislikes;
-	}
-
 	public String toString() {
 		return "Course [courseID=" + courseID + ", name=" + name + ", teacher=" + teacher + ", department=" + department
 				+ ", grade=" + grade + ", semester=" + semester + ", dayOfWeek=" + dayOfWeek + ", hour=" + hour
-				+ ", likes=" + likes + ", dislikes=" + dislikes + ", regDate=" + regDate + "]";
+				+ ", regDate=" + regDate + "]";
 	}
 
 }

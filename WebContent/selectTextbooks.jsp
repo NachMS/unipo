@@ -25,12 +25,10 @@
 				for (String[] dat : dataArray) {
 					String iIn2Digits = String.format("%02d", i); //1→"01"
 			%>
-			<input type="checkbox" name="textbookID" value="<%=dat[0]%>" checked
-				id="checkbox<%=iIn2Digits%>" /> <label
-				for="checkbox<%=iIn2Digits%>" class="checkbox"> <span
-				class="period"><%=dat[1]%></span>&emsp;<%=dat[2]%> <span
-				class="textbook">「<%=dat[3]%>」&emsp;
-			</span>
+			<input type="checkbox" name="textbookID" value="<%=dat[0]%>" checked id="checkbox<%=iIn2Digits%>" />
+			<label for="checkbox<%=iIn2Digits%>" class="checkbox">
+				<span class="period"><%=dat[1]%></span>&emsp;<%=dat[2]%>
+				<span class="textbook">「<%=dat[3]%>」&emsp;</span>
 			</label>
 			<%
 				i++;
@@ -40,7 +38,7 @@
 		<%
 			if (dataArray.length == 0) {
 		%>
-		<p>科目を少なくとも一つは選んでください。</p>
+		<p>このサービスの存在価値がなくなっちまう！頼むから一個はえらんでくれ！</p>
 		<%
 			}
 		%>

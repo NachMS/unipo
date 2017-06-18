@@ -30,7 +30,7 @@
 			<li>注文日時: <%=formatedOrderDate%></li>
 			<li>合計: <%=order.getTotalAmount()%>円
 			</li>
-			<li><%="受取日:"+dateStr1%>
+			<li><%="受取日:" + dateStr1%>
 			<li><%=weekStr1%>
 			<li>
 			<li>受け取り日時: <%=formatedReceiveDate%></li>

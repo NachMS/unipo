@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*,models.Order,models.OrderDAO,java.text.SimpleDateFormat"%>
+	pageEncoding="UTF-8"
+	import="java.util.*,models.Order,models.OrderDAO,java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
 <html>
 <head>

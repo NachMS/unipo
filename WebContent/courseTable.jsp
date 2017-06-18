@@ -7,13 +7,15 @@
 <!-- Normalize.css -->
 <link rel="stylesheet" href="css/normalize.css">
 <link rel="stylesheet" type="text/css" href="css/courseTable.css">
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
-<% String[][] selectedCourses = (String[][]) request.getAttribute("selectedCourses"); %>
+	<%
+		String[][] selectedCourses = (String[][]) request.getAttribute("selectedCourses");
+	%>
 	<div class="Button__container">
-		<a class="Button--element btn"
-			href="SelectGrade">戻る</a> <a
+		<a class="Button--element btn" href="SelectGrade">戻る</a> <a
 			class="Button--element next" href="SelectTextbooks">次へ</a>
 		<p class="Button--element MON">月</p>
 		<p class="Button--element TUE">火</p>
@@ -33,10 +35,10 @@
 					String storedOrNothing;
 					String link;
 					String plusOrCourseName;
-					if( selectedCourses[dayOfWeek-1][hour-1] != null) {
+					if (selectedCourses[dayOfWeek - 1][hour - 1] != null) {
 						storedOrNothing = " stored";
 						link = "#";
-						plusOrCourseName = selectedCourses[dayOfWeek-1][hour-1];
+						plusOrCourseName = selectedCourses[dayOfWeek - 1][hour - 1];
 					} else {
 						storedOrNothing = "";
 						link = "SelectCourse?dayOfWeek=" + dayOfWeek + "&hour=" + hour;
@@ -44,9 +46,9 @@
 					}
 		%>
 		<div class="Button--element HOVER<%=storedOrNothing%>"
-			id="<%=dayOfWeekStr[dayOfWeek - 1]%><%=hour%>"
-			href="<%=link%>">
-			<div class="close-button" id="<%=dayOfWeekStr[dayOfWeek - 1]%><%=hour%>close">
+			id="<%=dayOfWeekStr[dayOfWeek - 1]%><%=hour%>" href="<%=link%>">
+			<div class="close-button"
+				id="<%=dayOfWeekStr[dayOfWeek - 1]%><%=hour%>close">
 				<svg fill="#FFFFFF" height="26" viewBox="0 0 24 24" width="26"
 					xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -71,11 +73,11 @@
 			var ii = i; //なぜかi=6,j=5になる
 			var jj = j;
 			var flag = true;
-			if($(id2).hasClass('stored')){
-		    	$(id2).hover(function() {
+			if ($(id2).hasClass('stored')) {
+				$(id2).hover(function() {
 					$(id2 + "close").css('display', 'flex');
-					console.log(i +":"+ j);
-					console.log(ii +":"+ jj);
+					console.log(i + ":" + j);
+					console.log(ii + ":" + jj);
 					flag = true;
 				}, function() {
 					$(id2 + "close").hide();
@@ -84,15 +86,21 @@
 				$(id2 + "close").click(function() {
 					$(id2).text("+");
 					$(id2).toggleClass("stored");
-					$.post( "CourseTable", { act: "remove", dayOfWeek : jj+1, hour: ii } );
+					$.post("CourseTable", {
+						act : "remove",
+						dayOfWeek : jj + 1,
+						hour : ii
+					});
 					flag = false;
 				});
 			}
-			$(id2).click(function() {
-				if(!$(id2).hasClass('stored') && flag){
-					location.href = "SelectCourse?dayOfWeek=" + (jj+1) +"&hour=" + ii;
-				}
-			});
+			$(id2).click(
+					function() {
+						if (!$(id2).hasClass('stored') && flag) {
+							location.href = "SelectCourse?dayOfWeek="
+									+ (jj + 1) + "&hour=" + ii;
+						}
+					});
 		}
 		for (var j = 0; j < 5; j++) {
 			for (var i = 1; i <= 5; i++) {

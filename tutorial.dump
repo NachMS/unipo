@@ -141,8 +141,6 @@ CREATE TABLE textbooks (
     course_id integer,
     price integer,
     stock integer,
-    likes integer,
-    dislikes integer,
     reg_date timestamp without time zone
 );
 
@@ -160,7 +158,6 @@ COPY courses (course_id, name, teacher, department, grade, semester, day_of_week
 4	サンプル4	D先生	FI	4	2	4	3	1	1	2017-04-01 13:00:00
 5	サンプル5	E先生	FI	1	1	5	1	1	1	2017-04-01 13:00:00
 6	サンプル6	F先生	FI	3	2	4	2	1	1	2017-04-01 13:00:00
-7	サンプル7	G先生	FI	1	1	1	1	10	0	2017-06-17 04:00:00
 \.
 
 
@@ -170,10 +167,6 @@ COPY courses (course_id, name, teacher, department, grade, semester, day_of_week
 
 COPY member (name, pass) FROM stdin;
 test	pass
-jun	jun
-kasu	kasu
-test	pass
-test	pass
 \.
 
 
@@ -182,6 +175,12 @@ test	pass
 --
 
 COPY order_details (order_detail_id, order_id, textbook_id, purchace_price) FROM stdin;
+1	1	1	1000
+2	1	5	2300
+3	2	1	1000
+4	2	2	2000
+5	3	3	3000
+6	3	4	1500
 \.
 
 
@@ -190,6 +189,10 @@ COPY order_details (order_detail_id, order_id, textbook_id, purchace_price) FROM
 --
 
 COPY orders (order_id, student_id, order_timestamp, receipt_timestamp, total_price, complete_flag, cancel_flag) FROM stdin;
+3	15FI002	2017-06-12 17:00:00	2017-06-17 15:00:00	3200	f	f
+4	15FI002	2017-06-13 13:00:00	2017-06-18 11:00:00	2400	f	f
+5	15FI003	2017-06-15 11:00:00	2017-06-19 09:00:00	2000	f	f
+6	15FI003	2017-06-19 14:00:00	2017-06-21 16:00:00	5600	f	f
 1	15FI001	2017-06-09 19:20:00	2017-06-15 19:15:00	5000	f	f
 2	15FI001	2017-06-10 19:21:00	2017-06-20 12:30:00	3000	f	f
 \.
@@ -214,8 +217,10 @@ COPY student_courses (student_course_id, student_id, course_id, year, semester) 
 --
 
 COPY students (student_id, name, faculty, department, grade, password, reg_date) FROM stdin;
-15FI001	電大太郎	f	FI	1	pass	2017-06-09 19:15:00
 test   	\N	\N	\N	\N	pass	\N
+15FI001	電大太郎	F	FI	1	pass	2017-06-09 19:15:00
+15FI002	電大花子	F	FI	2	pass	2017-06-12 18:00:00
+15FI003	電大次郎	F	FI	3	pass	2017-06-12 14:00:00
 \.
 
 
@@ -223,14 +228,13 @@ test   	\N	\N	\N	\N	pass	\N
 -- Data for Name: textbooks; Type: TABLE DATA; Schema: public; Owner: wspuser
 --
 
-COPY textbooks (textbook_id, name, reading, course_id, price, stock, likes, dislikes, reg_date) FROM stdin;
-2	教科書2	きょうかしょに	2	2000	100	1	0	2017-04-02 10:00:00
-3	教科書3	きょうかしょさん	3	3000	100	1	0	2017-04-02 10:00:00
-4	教科書4	きょうかしょよん	4	1500	100	1	0	2017-04-02 10:00:00
-6	教科書6	きょうかしょろく	6	2700	100	1	0	2017-04-02 10:00:00
-1	教科書1	きょうかしょいち	1	1000	100	4	1	2017-04-02 10:00:00
-5	教科書5	きょうかしょご	5	2300	100	1	9	2017-04-02 10:00:00
-7	NOと言えない日本人	のおといえないにほんじん	7	882	1234	50	40	2017-06-18 17:08:20
+COPY textbooks (textbook_id, name, reading, course_id, price, stock, reg_date) FROM stdin;
+1	教科書1	きょうかしょいち	1	1000	100	2017-04-02 10:00:00
+2	教科書2	きょうかしょに	2	2000	100	2017-04-02 10:00:00
+3	教科書3	きょうかしょさん	3	3000	100	2017-04-02 10:00:00
+4	教科書4	きょうかしょよん	4	1500	100	2017-04-02 10:00:00
+5	教科書5	きょうかしょご	5	2300	100	2017-04-02 10:00:00
+6	教科書6	きょうかしょろく	6	2700	100	2017-04-02 10:00:00
 \.
 
 
@@ -312,6 +316,14 @@ ALTER TABLE ONLY orders
 
 ALTER TABLE ONLY student_courses
     ADD CONSTRAINT student_courses_course_id_fkey FOREIGN KEY (course_id) REFERENCES courses(course_id);
+
+
+--
+-- Name: student_courses student_courses_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: wspuser
+--
+
+ALTER TABLE ONLY student_courses
+    ADD CONSTRAINT student_courses_student_id_fkey FOREIGN KEY (student_id) REFERENCES students(student_id);
 
 
 --

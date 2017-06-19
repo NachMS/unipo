@@ -10,6 +10,7 @@
 <body>
 	<%
 		Order order = (Order) request.getAttribute("order");
+		int num = (int) request.getAttribute("num");
 	%>
 	<%
 		SimpleDateFormat sdf = new SimpleDateFormat("y年M月d日 hh:mm");
@@ -39,7 +40,7 @@
 		</ul></li>
 
 	<a class="btn" href="OrderHistory">戻る</a>
-	<a class="btn" href="CancelOrder">注文削除</a>
+	<a class="btn" href="CancelOrder?selection=<%=num%>">注文削除</a>
 	<a class="btn" href="CourseList">注文変更</a>
 	<a class="btn" href="SelectDate">受け取り日時変更</a>
 </body>

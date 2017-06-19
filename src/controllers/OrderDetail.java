@@ -38,6 +38,7 @@ public class OrderDetail extends HttpServlet {
 
 		Order order = dao.getOrderByID(orderSelection);
 		request.setAttribute("order", order);
+		request.setAttribute("num", orderSelection);
 		getServletContext().getRequestDispatcher("/orderDetail.jsp").forward(request, response);
 	}
 

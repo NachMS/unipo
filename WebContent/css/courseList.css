@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+* {
+  font-size: 30px;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif; }
+
+p {
+  display: block;
+  font-size: 3vw;
+  margin-left: 3vw;
+  margin-top: 3vw;
+  margin-bottom: 3vw; }
+
+a {
+  font-size: 0px;
+  text-decoration: none; }
+
+.Subjects {
+  height: 55vh;
+  overflow: scroll;
+  margin-bottom: 10px; }
+
+.Subject {
+  margin-left: 3vw;
+  height: 100px;
+  border-radius: 3px;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 10px; }
+  .Subject:last-child {
+    margin-bottom: 0; }
+
+.Subject__detail {
+  background-color: #f6f7f8;
+  height: 100px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+  width: 65vw;
+  border-radius: 2px; }
+
+.textbook {
+  padding-left: 10vw; }
+
+.name,
+.period,
+.textbook {
+  font-size: 2vw; }
+
+.period {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  height: 100px;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
+  width: 8vw;
+  border-radius: 2px; }
+  .period-mon {
+    background-color: #ffd54f; }
+  .period-tue {
+    background-color: #ff8a65; }
+  .period-wen {
+    background-color: #64b5f6; }
+  .period-thu {
+    background-color: #81c784; }
+  .period-fri {
+    background-color: #bcaaa4; }
+
+.setting {
+  margin-left: 1vw;
+  background-color: #ffb300;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
+  height: 100px;
+  width: 8vw;
+  transition: background-color 0.2s linear;
+  border-radius: 2px; }
+  .setting:hover {
+    background-color: #c68400; }
+
+.delete {
+  background-color: #ff5252;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
+  height: 100px;
+  width: 8vw;
+  transition: background-color 0.2s linear;
+  border-radius: 2px;
+  margin-left: 1vw; }
+  .delete:hover {
+    background-color: #c50e29; }
+
+.Buttons {
+  display: -ms-flexbox;
+  display: flex; }
+
+a.back {
+  background: #4CAF50;
+  border: none;
+  border-radius: 2px;
+  color: white;
+  font-size: 30px;
+  text-decoration: none;
+  transition: 0.2s;
+  display: -ms-flexbox;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 100px;
+  width: 17vw;
+  margin-right: 10px; }
+  a.back:hover {
+    background: forestgreen; }
+
+a.add {
+  background-color: #f6f7f8;
+  border: none;
+  border-radius: 2px;
+  color: #212121;
+  font-size: 5vw;
+  transition: 0.2s;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+  height: 100px;
+  width: 8vw;
+  margin-right: 58vw;
+  margin-left: 3vw; }
+  a.add:hover {
+    background: #039be5;
+    color: white; }

@@ -56,10 +56,11 @@
 	<a class="btn" href="CourseList">注文変更</a>
 	<a class="btn" href="SelectDate">受け取り日時変更</a>
 
-	<div class="message__top">
+	<body>
+    <a class="btn back" href="#">戻る</a>
+    <div class="message__top">
         注文詳細
     </div>
-
     <div class="order__card">
         <span class="order__date">注文日時&nbsp;
             <span class="order__datetime__value">2017/04/04</span>
@@ -72,7 +73,7 @@
 
     <div class="message__bottom">
         <span class="message__textbook">購入教科書</span>
-        <span class="message__datetime">受け取り日時</span>
+        <span class="message__datetime">受取日時</span>
     </div>
     <div class="order">
 
@@ -105,5 +106,6 @@
         <a class="btn datetime__edit" href="#">受取日時変更</a>
         <a class="btn cancel" href="#">注文キャンセル</a>
     </div>
+</body>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="models.Order, java.text.SimpleDateFormat,java.util.Date,java.text.DateFormat,java.util.Locale"%>
+	import="models.Order,models.Textbook,java.text.SimpleDateFormat,java.util.Date,java.text.DateFormat,java.util.Locale,java.util.List"%>
 <!DOCTYPE html >
 <html>
 <head>
@@ -11,6 +11,7 @@
 	<%
 		Order order = (Order) request.getAttribute("order");
 		int num = (int) request.getAttribute("num");
+		List<Textbook> textbooks = (List) request.getAttribute("textbooks");
 	%>
 	<%
 		SimpleDateFormat sdf = new SimpleDateFormat("y年M月d日 hh:mm");
@@ -29,6 +30,14 @@
 	%>
 	<li><ul>
 			<li>注文日時: <%=formatedOrderDate%></li>
+			<li>購入教科書:</li>
+			<%
+				for (Textbook textbook : textbooks) {
+			%>
+			<li><%=textbook.getName()%></li>
+			<%
+				}
+			%>
 			<li>合計: <%=order.getTotalAmount()%>円
 			</li>
 			<li><%="受取日:" + dateStr1%>

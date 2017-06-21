@@ -65,7 +65,28 @@ public class TextbookDAO {
 	}
 
 	public ArrayList<Textbook> getTxtebooksByCourseID(String courseID) {
-		return null;
+		String sql = "SELECT textbook_id FROM textbooks WHERE course_id=?";
+		Connection connection;
+		ResultSet resultSet;
+		ArrayList<Textbook> list = new ArrayList<Textbook>();
+		try {
+			Class.forName(driverClassName);
+			connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, courseID);
+			resultSet = pstmt.executeQuery();
+			TextbookDAO tdao = new TextbookDAO();
+			while (resultSet.next()) {
+				int textbookID = resultSet.getInt("textbook_id");
+				Textbook textbook = tdao.getTextbookByID(textbookID);
+				list.add(textbook);
+			}
+			resultSet.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 }

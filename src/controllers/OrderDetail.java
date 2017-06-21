@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import models.Order;
 import models.OrderDAO;
+import models.Textbook;
 
 /**
  * Servlet implementation class OrderDetail
@@ -35,9 +37,13 @@ public class OrderDetail extends HttpServlet {
 
 		int orderSelection = Integer.parseInt(request.getParameter("selection"));
 		OrderDAO dao = new OrderDAO();
-
+		// TextbookDAO tdao = new TextbookDAO();
 		Order order = dao.getOrderByID(orderSelection);
+		ArrayList<Textbook> textbooks = (ArrayList<Textbook>) order.getTextbooks();
+		// ArrayList<Course> list = new ArrayList<Course>();
+		// Textbook course =dao.getOrderByID(orderID);
 		request.setAttribute("order", order);
+		request.setAttribute("textbooks", textbooks);
 		request.setAttribute("num", orderSelection);
 		getServletContext().getRequestDispatcher("/orderDetail.jsp").forward(request, response);
 	}

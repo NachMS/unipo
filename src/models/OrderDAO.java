@@ -79,8 +79,10 @@ public class OrderDAO {
 					int textbookID = resultSet2.getInt("textbook_id");
 					Textbook textbook = tdao.getTextbookByID(textbookID);
 					textbooks.add(textbook);
+
 				}
 				order.setTextbooks(textbooks);
+
 			}
 			resultSet.close();
 			resultSet2.close();

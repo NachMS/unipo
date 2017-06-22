@@ -17,7 +17,7 @@
 		<a class="back" href="CourseTable">戻る</a>
 	</div>
 	<p>購入する教科書にチェックを入れてください</p>
-	<form action="">
+	<form action="SelectTextbooks" method="post">
 		<section>
 
 			<%
@@ -25,10 +25,12 @@
 				for (String[] dat : dataArray) {
 					String iIn2Digits = String.format("%02d", i); //1→"01"
 			%>
-			<input type="checkbox" name="textbookID" value="<%=dat[0]%>" checked id="checkbox<%=iIn2Digits%>" />
-			<label for="checkbox<%=iIn2Digits%>" class="checkbox">
-				<span class="period"><%=dat[1]%></span>&emsp;<%=dat[2]%>
-				<span class="textbook">「<%=dat[3]%>」&emsp;</span>
+			<input type="checkbox" name="textbookID" value="<%=dat[0]%>" checked
+				id="checkbox<%=iIn2Digits%>" /> <label
+				for="checkbox<%=iIn2Digits%>" class="checkbox"> <span
+				class="period"><%=dat[1]%></span>&emsp;<%=dat[2]%> <span
+				class="textbook">「<%=dat[3]%>」&emsp;
+			</span>
 			</label>
 			<%
 				i++;
@@ -42,9 +44,7 @@
 		<%
 			}
 		%>
+		<input type="submit" class="Button__next" value="確定"/>
 	</form>
-	<div class="Button__next">
-		<a class="next" href="">確定</a>
-	</div>
 </body>
 </html>

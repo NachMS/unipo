@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import models.Course;
 import models.CourseDAO;
+import models.Order;
 import models.Student;
 import models.Textbook;
 import models.TextbookDAO;
@@ -92,9 +94,71 @@ public class SelectTextbooks extends HttpServlet {
 		getServletContext().getRequestDispatcher("/selectTextbooks.jsp").forward(request, response);
 	}
 
+	/**
+	 * 教科書選択画面で教科書を選んで「確定」を選ぶとここに来ます。
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		HttpSession session = request.getSession();
+		log("POST");
+
+		/*
+		 * (例外) 未ログインの場合ログイン画面ヘ転送
+		 */
+		if (session.getAttribute("login") == null || !(Boolean) session.getAttribute("login")) {
+			response.sendRedirect("Login");
+			return;
+		}
+
+		/*
+		 * (例外) 学生セッションが空の場合、学部選択画面画面へ転送
+		 */
+		if (session.getAttribute("student") == null) {
+			log("session.studentが空なのでSelectFacultyにリダイレクトします");
+			response.sendRedirect("SelectFaculty");
+			return;
+		}
+
+		/*
+		 * (例外) POSTパラメータが空の場合、教科書選択画面画面へ転送
+		 */
+		if (session.getAttribute("student") == null) {
+			log("param.studentIDが空なのでSelectTextbooksにリダイレクトします");
+			log("少なくともひとつは教科書を選べ");
+			response.sendRedirect("SelectTextbooks");
+			return;
+		}
+
+		/**
+		 * 選ばれし教科書諸君を取得。
+		 */
+		String[] textbookIDs = request.getParameterValues("textbookID"); // String→int変換は後で
+		log("params:" + Arrays.toString(textbookIDs));
+
+		/**
+		 * 教科書リスト(のみ)を注文セッションに格納する。
+		 */
+		List<Textbook> textbooks = new ArrayList<Textbook>();
+		TextbookDAO tdao = new TextbookDAO();
+		for (String textbookIDstr : textbookIDs) {
+			int textbookID = Integer.parseInt(textbookIDstr);
+			Textbook textbook = tdao.getTextbookByID(textbookID);
+			textbooks.add(textbook);
+		}
+		log("[格納前] session.order:" + session.getAttribute("order"));
+		if (session.getAttribute("order") == null) {
+			log("session.orderが存在しないので空のOrderを格納");
+			session.setAttribute("order", new Order());
+		}
+		Order order = (Order) session.getAttribute("order");
+		order.setTextbooks(textbooks);
+		log("[格納後] session.order:" + session.getAttribute("order"));
+
+		/**
+		 * 受取日時選択画面へ遷移
+		 */
+		log("役目は果たしたので受取日時選択画面へ遷移します。");
+		response.sendRedirect("SelectDatetime");
 	}
 
 }

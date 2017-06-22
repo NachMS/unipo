@@ -17,7 +17,7 @@
 	<%
 		List<Order> list = (List) request.getAttribute("orders");
 		for (Order order : list) {
-			SimpleDateFormat sdf = new SimpleDateFormat("y年M月d日 hh:mm");
+			SimpleDateFormat sdf = new SimpleDateFormat("y年M月d日 HH:mm");
 			String formatedOrderDate = sdf.format(order.getOrderDate());
 			String formatedReceiveDate = sdf.format(order.getReceiveDate());
 	%>

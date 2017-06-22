@@ -17,7 +17,7 @@
 		List<Textbook> textbooks = (List) request.getAttribute("textbooks");
 	%>
 	<%
-		SimpleDateFormat sdf = new SimpleDateFormat("y年M月d日 hh:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("y年M月d日 HH:mm");
 		String formatedOrderDate = sdf.format(order.getOrderDate());
 		String formatedReceiveDate = sdf.format(order.getReceiveDate());
 		Date date1 = sdf.parse(formatedOrderDate);
@@ -27,7 +27,7 @@
 		DateFormat dateFormat1 = new SimpleDateFormat("d", Locale.JAPANESE);
 		DateFormat weekFormat2 = new SimpleDateFormat("EEE", Locale.JAPANESE);
 		DateFormat dateFormat2 = new SimpleDateFormat("dd", Locale.JAPANESE);
-		DateFormat timeFormat = new SimpleDateFormat("hh", Locale.JAPANESE);
+		DateFormat timeFormat = new SimpleDateFormat("HH", Locale.JAPANESE);
 		String weekStr1 = weekFormat1.format(date1);
 		String dateStr1 = dateFormat1.format(date1);
 		String weekStr2 = weekFormat2.format(date2);

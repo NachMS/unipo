@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="models.Order,models.Textbook,java.text.SimpleDateFormat,java.util.Date,java.text.DateFormat,java.util.Locale,java.util.List"%>
+	import="models.Order,models.Textbook,models.CourseDAO,models.Course,java.text.SimpleDateFormat,java.util.Date,java.text.DateFormat,java.util.Locale,java.util.List"%>
 <!DOCTYPE html >
 <html>
 <head>
@@ -12,35 +12,16 @@
 </head>
 <body>
 	<%
-		Order order = (Order) request.getAttribute("order");
 		int num = (int) request.getAttribute("num");
-		List<Textbook> textbooks = (List) request.getAttribute("textbooks");
+		String[][] textbooks = (String[][]) request.getAttribute("textbooks");
+		String[] dateArray = (String[]) request.getAttribute("date");
 	%>
-	<%
-		SimpleDateFormat sdf = new SimpleDateFormat("y年M月d日 HH:mm");
-		String formatedOrderDate = sdf.format(order.getOrderDate());
-		String formatedReceiveDate = sdf.format(order.getReceiveDate());
-		Date date1 = sdf.parse(formatedOrderDate);
-		Date date2 = sdf.parse(formatedReceiveDate);
-		Date date3 = sdf.parse(formatedReceiveDate);
-		DateFormat weekFormat1 = new SimpleDateFormat("E", Locale.JAPANESE);
-		DateFormat dateFormat1 = new SimpleDateFormat("d", Locale.JAPANESE);
-		DateFormat weekFormat2 = new SimpleDateFormat("EEE", Locale.JAPANESE);
-		DateFormat dateFormat2 = new SimpleDateFormat("dd", Locale.JAPANESE);
-		DateFormat timeFormat = new SimpleDateFormat("HH", Locale.JAPANESE);
-		String weekStr1 = weekFormat1.format(date1);
-		String dateStr1 = dateFormat1.format(date1);
-		String weekStr2 = weekFormat2.format(date2);
-		String dateStr2 = dateFormat2.format(date2);
-		String timeStr = timeFormat.format(date3);
-	%>
-
 	<a class="btn back" href="OrderHistory">戻る</a>
 	<div class="message__top">注文詳細</div>
 	<div class="order__card">
 		<span class="order__date">注文日時&nbsp; <span
-			class="order__datetime__value"><%=formatedOrderDate%></span>
-		</span> <span class="order__sum">合計 <span class="order__sum__value">¥&nbsp;<%=order.getTotalAmount()%></span>
+			class="order__datetime__value"><%=dateArray[0]%></span>
+		</span> <span class="order__sum">合計 <span class="order__sum__value">¥&nbsp;<%=dateArray[1]%></span>
 		</span>
 	</div>
 
@@ -51,11 +32,12 @@
 	<div class="order">
 		<div class="order__textbook">
 			<%
-				for (Textbook textbook : textbooks) {
+				for (int i = 0; i < textbooks.length; i++) {
 			%>
 			<div class="textbook">
-				<span class="DOW DOW-mon">月１</span> <span class="course__name">電大演習A</span>
-				<span class="textbook__name"><%=textbook.getName()%></span>
+				<span class="DOW DOW-mon"><%=textbooks[i][0]%></span> <span
+					class="course__name"><%=textbooks[i][1]%></span> <span
+					class="textbook__name"><%=textbooks[i][2]%></span>
 			</div>
 			<%
 				}
@@ -63,15 +45,15 @@
 		</div>
 
 		<div class="order__datetime">
-			<div class="date__top L"><%=dateStr2%></div>
-			<div class="date__middle"><%=weekStr2%></div>
-			<div class="date__bottom"><%=timeStr %></div>
+			<div class="date__top L"><%=dateArray[2]%></div>
+			<div class="date__middle"><%=dateArray[3]%></div>
+			<div class="date__bottom"><%=dateArray[4]%></div>
 		</div>
 	</div>
 	<div class="Button">
 		<a class="btn order__edit" href="#">注文変更</a> <a
 			class="btn datetime__edit" href="#">受取日時変更</a> <a class="btn cancel"
-			href="#">注文キャンセル</a>
+			href="CancelOrder?selection=<%=num%>">注文キャンセル</a>
 	</div>
 </body>
 </body>

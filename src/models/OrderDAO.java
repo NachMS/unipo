@@ -40,7 +40,7 @@ public class OrderDAO {
 			resultSet = pstmt.executeQuery();
 			resultSet.updateRow();
 			// キャンセルフラグをtrueに
-			// order.setCancelFlag(true);
+			 order.setCancelFlag(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -31,6 +31,7 @@ public class CourseDAO {
 			Connection connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement preparedStatement;
 			String sql = "SELECT * FROM courses WHERE course_id=?";
+			String sql2 = "SELECT course_id FROM textbok WHERE textbook_id=?";
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, courseID);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -46,6 +47,7 @@ public class CourseDAO {
 				Date regDate = resultSet.getTimestamp("reg_date");
 				course = new Course(courseID, name, teacher, department, grade, semester, dayOfWeek, hour, regDate);
 				System.out.println(course);
+
 				resultSet.close();
 				preparedStatement.close();
 				connection.close();

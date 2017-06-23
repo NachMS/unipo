@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -30,12 +31,21 @@ public class OrderHistory extends HttpServlet {
 			response.sendRedirect("Login");
 			return;
 		}
+		// 注文情報の取得
 		String studentID = (String) session.getAttribute("studentID");
 		OrderDAO dao = new OrderDAO();
-		ArrayList<Order> list;
-		list = dao.getOrdersByStudentID(studentID); // ログインIDが入るようにする
-		request.setAttribute("orders", list);
-		request.setAttribute("ordersLength", list.size());
+		ArrayList<Order> list = dao.getOrdersByStudentID(studentID);// ログインIDが入るようにする
+		SimpleDateFormat sdf = new SimpleDateFormat("y年M月d日 HH:mm");
+		String[][] orderList = new String[list.size()][4];
+		int i = 0;
+		for (Order order : list) {
+			orderList[i][0] = sdf.format(order.getOrderDate());
+			orderList[i][1] = String.valueOf(order.getTotalAmount());
+			orderList[i][2] = sdf.format(order.getReceiveDate());
+			orderList[i][3] = String.valueOf(order.getOrderID());
+			i++;
+		}
+		request.setAttribute("orders", orderList);
 		getServletContext().getRequestDispatcher("/orderHistory.jsp").forward(request, response);
 	}
 

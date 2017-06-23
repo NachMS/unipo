@@ -15,23 +15,20 @@
 <body>
 	<div class="TITLE">注文履歴</div>
 	<%
-		List<Order> list = (List) request.getAttribute("orders");
-		for (Order order : list) {
-			SimpleDateFormat sdf = new SimpleDateFormat("y年M月d日 HH:mm");
-			String formatedOrderDate = sdf.format(order.getOrderDate());
-			String formatedReceiveDate = sdf.format(order.getReceiveDate());
+		String[][] orders = (String[][]) request.getAttribute("orders");
+		for (int i = 0; i < orders.length; i++) {
 	%>
 
 	<div class="order__card">
 		<span class="order__datetime">注文日時
-			<div class="order__datetime__value"><%=formatedOrderDate%></div>
+			<div class="order__datetime__value"><%=orders[i][0]%></div>
 		</span> <span class="order__sum">合計
 			<div class="order__sum__value">
-				¥&nbsp;<%=order.getTotalAmount()%></div>
+				¥&nbsp;<%=orders[i][1]%></div>
 		</span> <span class="order__receive">受取日時
-			<div class="order__receive__value"><%=formatedReceiveDate%></div>
+			<div class="order__receive__value"><%=orders[i][2]%></div>
 		</span> <a class="order__detail"
-			href="OrderDetail?selection=<%=order.getOrderID()%>">注文詳細</a>
+			href="OrderDetail?selection=<%=orders[i][3]%>">注文詳細</a>
 	</div>
 
 	<%

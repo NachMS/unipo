@@ -55,7 +55,7 @@ body {
   width: 55vw;
   margin-right: 3vw;
   height: 20vw;
-  overflow: scroll; }
+  overflow-y: scroll; }
 
 .order__datetime {
   width: 10vw;

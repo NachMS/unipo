@@ -66,10 +66,12 @@ public class OrderDAO {
 			pstmt2.setInt(1, orderID);
 			resultSet2 = pstmt2.executeQuery();
 			if (resultSet.next()) {
+				String studentID = resultSet.getString("student_id");
 				Date timestamp = resultSet.getTimestamp("order_timestamp");
 				int total_price = resultSet.getInt("total_price");
 				Date retimestamp = resultSet.getTimestamp("receipt_timestamp");
 				order.setOrderID(orderID);
+				order.setStudentID(studentID);
 				order.setTotalAmount(total_price);
 				order.setOrderDate(timestamp);
 				order.setReceiveDate(retimestamp);
@@ -119,8 +121,27 @@ public class OrderDAO {
 	}
 
 	public ArrayList<Order> getAllOrders() {
-
-		return null;
+		String sql = "SELECT order_id FROM orders";
+		Connection connection;
+		ResultSet resultSet;
+		ArrayList<Order> list = new ArrayList<Order>();
+		try {
+			Class.forName(driverClassName);
+			connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			resultSet = pstmt.executeQuery();
+			OrderDAO odao = new OrderDAO();
+			while (resultSet.next()) {
+				int orderID = resultSet.getInt("order_id");
+				Order order = odao.getOrderByID(orderID);
+				list.add(order);
+			}
+			resultSet.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 }

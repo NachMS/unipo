@@ -1,7 +1,6 @@
 package models;
 
 import java.util.Date;
-import java.util.Set;
 
 public class Textbook {
 
@@ -11,12 +10,12 @@ public class Textbook {
 	private int courseID;
 	private int price;
 	private int stock;
-	private Set<String> whoLikes;
-	private Set<String> whoDislikes;
+	private int likes;
+	private int dislikes;
 	private Date regDate;
 
-	public Textbook(int textbookID, String name, String reading, int courseID, int price, int stock,
-			Set<String> whoLikes, Set<String> whoDislikes, Date regDate) {
+	public Textbook(int textbookID, String name, String reading, int courseID, int price, int stock, int likes,
+			int dislikes, Date regDate) {
 		super();
 		this.textbookID = textbookID;
 		this.name = name;
@@ -24,15 +23,15 @@ public class Textbook {
 		this.courseID = courseID;
 		this.price = price;
 		this.stock = stock;
-		this.whoLikes = whoLikes;
-		this.whoDislikes = whoDislikes;
+		this.likes = likes;
+		this.dislikes = dislikes;
 		this.regDate = regDate;
 	}
 
 	public String toString() {
 		return "Textbook [textbookID=" + textbookID + ", name=" + name + ", reading=" + reading + ", courseID="
-				+ courseID + ", price=" + price + ", stock=" + stock + ", whoLikes=" + whoLikes + ", whoDislikes="
-				+ whoDislikes + ", regDate=" + regDate + "]";
+				+ courseID + ", price=" + price + ", stock=" + stock + ", likes=" + likes + ", dislikes=" + dislikes
+				+ ", regDate=" + regDate + "]";
 	}
 
 	public int getTextbookID() {
@@ -83,20 +82,20 @@ public class Textbook {
 		this.stock = stock;
 	}
 
-	public Set<String> getWhoLikes() {
-		return whoLikes;
+	public int getLikes() {
+		return likes;
 	}
 
-	public void setWhoLikes(Set<String> whoLikes) {
-		this.whoLikes = whoLikes;
+	public void setLikes(int likes) {
+		this.likes = likes;
 	}
 
-	public Set<String> getWhoDislikes() {
-		return whoDislikes;
+	public int getDislikes() {
+		return dislikes;
 	}
 
-	public void setWhoDislikes(Set<String> whoDislikes) {
-		this.whoDislikes = whoDislikes;
+	public void setDislikes(int dislikes) {
+		this.dislikes = dislikes;
 	}
 
 	public Date getRegDate() {

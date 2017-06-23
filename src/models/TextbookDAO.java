@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 public class TextbookDAO {
 	private String driverClassName = "org.postgresql.Driver";
@@ -38,17 +36,10 @@ public class TextbookDAO {
 			Class.forName(driverClassName);
 			Connection connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement preparedStatement;
-			PreparedStatement preparedStatement2;
 			String sql = "SELECT * FROM textbooks WHERE textbook_id=?";
-			String sql2 = "SELECT student_id,like_flag FROM evaluations WHERE  textbook_id=?";
-
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, textbookID);
-			preparedStatement2 = connection.prepareStatement(sql2);
-			preparedStatement2.setInt(1, textbookID);
-
 			ResultSet resultSet = preparedStatement.executeQuery();
-			ResultSet resultSet2 = preparedStatement2.executeQuery();
 			Textbook textbook;
 			if (resultSet.next()) {
 				String name = resultSet.getString("name");
@@ -56,27 +47,13 @@ public class TextbookDAO {
 				int courseID = resultSet.getInt("course_id");
 				int price = resultSet.getInt("price");
 				int stock = resultSet.getInt("stock");
+				int likes = resultSet.getInt("likes");
+				int dislikes = resultSet.getInt("dislikes");
 				Date regDate = resultSet.getTimestamp("reg_date");
-
-				Set<String> whoLikes = new HashSet<String>();
-				Set<String> whoDislikes = new HashSet<String>();
-				while (resultSet2.next()) {
-					String studentID = resultSet2.getString("student_id");
-					Boolean likeFlag = resultSet2.getBoolean("like_flag");
-					if (likeFlag) {
-						whoLikes.add(studentID);
-					} else {
-						whoDislikes.add(studentID);
-					}
-				}
-				textbook = new Textbook(textbookID, name, reading, courseID, price, stock, whoLikes, whoDislikes,
-						regDate);
+				textbook = new Textbook(textbookID, name, reading, courseID, price, stock, likes, dislikes, regDate);
 				System.out.println(textbook);
-				resultSet2.close();
 				resultSet.close();
-				preparedStatement2.close();
 				preparedStatement.close();
-
 				connection.close();
 				return textbook;
 			}

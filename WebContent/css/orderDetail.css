@@ -45,14 +45,14 @@ body {
 
 .message__datetime {
   position: absolute;
-  left: 56vw; }
+  left: 61vw; }
 
 .order {
   display: -ms-flexbox;
   display: flex; }
 
 .order__textbook {
-  width: 50vw;
+  width: 55vw;
   margin-right: 3vw;
   height: 20vw;
   overflow: scroll; }

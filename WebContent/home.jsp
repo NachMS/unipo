@@ -10,11 +10,12 @@
 <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
-            <div class="Button__container">
-        <a class="Button--element logout" href="Logout">ログアウト</a>
-        <a class="Button--element order" href="SelectFaculty">注文する</a>
-        <a class="Button--element history" href="OrderHistory">注文履歴</a>
-        <a class="Button--element evaluate" href="#">評価する</a>
+    <div class="flex dark">
+        <a href="SelectFaculty" class="bttn-dark">注文する</a>
+        <a href="OrderHistory" class="bttn-dark">注文履歴</a>
+        <a href="#" class="bttn-dark">評価する</a>
     </div>
+
+    <a class="logout" href="Logout">logout</a>
 </body>
 </html>

@@ -71,10 +71,10 @@
         <section>
             <span class="radio__name2">開講曜日</span>
             <input type="radio" name="DOW" value="MON" id="radio13" />
-            <label for="radio013" class="radio2">月</label>
+            <label for="radio13" class="radio2">月</label>
 
             <input type="radio" name="DOW" value="TUE" id="radio14" />
-            <label for="radio014" class="radio2">火</label>
+            <label for="radio14" class="radio2">火</label>
 
             <input type="radio" name="DOW" value="WED" id="radio15" />
             <label for="radio15" class="radio2">水</label>
@@ -88,10 +88,10 @@
         <section>
             <span class="radio__name">時限</span>
             <input type="radio" name="time" value="1" id="radio18" />
-            <label for="radio018" class="radio2">1</label>
+            <label for="radio18" class="radio2">1</label>
 
             <input type="radio" name="time" value="2" id="radio19" />
-            <label for="radio019" class="radio2">2</label>
+            <label for="radio19" class="radio2">2</label>
 
             <input type="radio" name="time" value="3" id="radio20" />
             <label for="radio20" class="radio2">3</label>

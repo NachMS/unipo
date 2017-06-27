@@ -16,25 +16,26 @@
 		}
 	%>
 	<div class="container">
-		<form action="Login" method="post">
-			<div class="LoginForm ">
-				<h1 class="LoginForm__title">UNIPO</h1>
+        <img class="dots" draggable="false" oncontextmenu="return false;" src="images/dots.svg" alt="">
+        <img class="dots2" draggable="false" oncontextmenu="return false;" src="images/dots2.svg" alt="">
+        <form action="Login" method="post">
+        <div class="LoginForm ">
+            <h1 class="LoginForm__title">UNIPO</h1>
 
-				<div class="LoginForm__student">
-					<input type="text" placeholder="STUDENT ID" name="studentID" />
-				</div>
+            <div class="LoginForm__student">
+               <input type="text" placeholder="STUDENT ID" name="studentID"/>
+           </div>
 
-				<div class="LoginForm__password">
-					<input type="password" placeholder="PASSWORD" name="password" />
-				</div>
+           <div class="LoginForm__password">
+               <input type="password" placeholder="PASSWORD" name="password"/>
+           </div>
 
-				<div class="LoginForm__submit">
-					<input type="submit" value="ログイン" />
-				</div>
-			</div>
-		</form>
-	</div>
-
+           <div class="LoginForm__submit">
+               <input type="submit" value="ログイン"/>
+           </div>
+       </div>
+       </form>
+    </div>
 
 </body>
 </html>

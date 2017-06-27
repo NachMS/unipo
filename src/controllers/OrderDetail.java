@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import models.Course;
-import models.CourseDAO;
 import models.Order;
 import models.OrderDAO;
 import models.Textbook;
@@ -46,12 +45,11 @@ public class OrderDetail extends HttpServlet {
 		Order order = dao.getOrderByID(orderSelection);
 		ArrayList<Textbook> textbooks = (ArrayList<Textbook>) order.getTextbooks();
 		// request.setAttribute("textbooks", textbooks);
-		CourseDAO cdao = new CourseDAO();
 		String[] dow = { "月", "火", "水", "木", "金" };
 		String[][] array = new String[textbooks.size()][3];
 		int i = 0;
 		for (Textbook textbook : textbooks) {
-			Course course = (Course) cdao.getCourseByID(textbook.getCourseID());
+			Course course = textbook.getCourse();
 			array[i][0] = dow[course.getDayOfWeek() - 1] + String.valueOf(course.getHour());
 			array[i][1] = course.getName();
 			array[i][2] = textbook.getName();

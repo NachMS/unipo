@@ -45,12 +45,14 @@ public class TextbookDAO {
 				String name = resultSet.getString("name");
 				String reading = resultSet.getString("reading");
 				int courseID = resultSet.getInt("course_id");
+				CourseDAO cdao = new CourseDAO();
+				Course course = cdao.getCourseByID(courseID);
 				int price = resultSet.getInt("price");
 				int stock = resultSet.getInt("stock");
 				int likes = resultSet.getInt("likes");
 				int dislikes = resultSet.getInt("dislikes");
 				Date regDate = resultSet.getTimestamp("reg_date");
-				textbook = new Textbook(textbookID, name, reading, courseID, price, stock, likes, dislikes, regDate);
+				textbook = new Textbook(textbookID, name, reading, course, price, stock, likes, dislikes, regDate);
 				System.out.println(textbook);
 				resultSet.close();
 				preparedStatement.close();
@@ -64,7 +66,7 @@ public class TextbookDAO {
 		return null;
 	}
 
-	public ArrayList<Textbook> getTxtebooksByCourseID(String courseID) {
+	public ArrayList<Textbook> getTextbooksByCourseID(String courseID) {
 		String sql = "SELECT textbook_id FROM textbooks WHERE course_id=?";
 		Connection connection;
 		ResultSet resultSet;

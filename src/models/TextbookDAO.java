@@ -66,7 +66,7 @@ public class TextbookDAO {
 		return null;
 	}
 
-	public ArrayList<Textbook> getTxtebooksByCourseID(String courseID) {
+	public ArrayList<Textbook> getTextbooksByCourseID(String courseID) {
 		String sql = "SELECT textbook_id FROM textbooks WHERE course_id=?";
 		Connection connection;
 		ResultSet resultSet;

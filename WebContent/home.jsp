@@ -25,6 +25,6 @@
 			<div class="description">購入した教科書が<br>必要かどうかを評価します。</div>
 		</span>
 	</div>
-	<a class="logout" href="#">logout</a>
+	<a class="logout" href="Logout">logout</a>
 </body>
 </html>

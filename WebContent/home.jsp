@@ -10,12 +10,21 @@
 <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
-    <div class="flex dark">
-        <a href="SelectFaculty" class="bttn-dark">注文する</a>
-        <a href="OrderHistory" class="bttn-dark">注文履歴</a>
-        <a href="#" class="bttn-dark">評価する</a>
-    </div>
-
-    <a class="logout" href="Logout">logout</a>
+	<div class="flex dark">
+		<span class="block"> <a href="SelectFaculty" class="bttn-dark">注文する</a>
+			<div class="description">
+				あなたが履修している科目を選択し、<br>その科目に応じた教科書を注文します。
+			</div>
+		</span>
+		<span class="block"> <a href="OrderHistory" class="bttn-dark">注文履歴</a>
+			<div class="description">
+				注文履歴を確認します。<br>変更・キャンセルもこちらで。
+			</div>
+		</span>
+		<span class="block"> <a href="#0" class="bttn-dark">評価する</a>
+			<div class="description">購入した教科書が<br>必要かどうかを評価します。</div>
+		</span>
+	</div>
+	<a class="logout" href="#">logout</a>
 </body>
 </html>

@@ -7,31 +7,25 @@ public class Textbook {
 	private int textbookID;
 	private String name;
 	private String reading;
-	private int courseID;
+	private Course course;
 	private int price;
 	private int stock;
 	private int likes;
 	private int dislikes;
 	private Date regDate;
 
-	public Textbook(int textbookID, String name, String reading, int courseID, int price, int stock, int likes,
+	public Textbook(int textbookID, String name, String reading, Course course, int price, int stock, int likes,
 			int dislikes, Date regDate) {
 		super();
 		this.textbookID = textbookID;
 		this.name = name;
 		this.reading = reading;
-		this.courseID = courseID;
+		this.course = course;
 		this.price = price;
 		this.stock = stock;
 		this.likes = likes;
 		this.dislikes = dislikes;
 		this.regDate = regDate;
-	}
-
-	public String toString() {
-		return "Textbook [textbookID=" + textbookID + ", name=" + name + ", reading=" + reading + ", courseID="
-				+ courseID + ", price=" + price + ", stock=" + stock + ", likes=" + likes + ", dislikes=" + dislikes
-				+ ", regDate=" + regDate + "]";
 	}
 
 	public int getTextbookID() {
@@ -58,12 +52,12 @@ public class Textbook {
 		this.reading = reading;
 	}
 
-	public int getCourseID() {
-		return courseID;
+	public Course getCourse() {
+		return course;
 	}
 
-	public void setCourseID(int courseID) {
-		this.courseID = courseID;
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 
 	public int getPrice() {
@@ -104,6 +98,13 @@ public class Textbook {
 
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
+	}
+
+	@Override
+	public String toString() {
+		return "Textbook [textbookID=" + textbookID + ", name=" + name + ", reading=" + reading + ", course=" + course
+				+ ", price=" + price + ", stock=" + stock + ", likes=" + likes + ", dislikes=" + dislikes + ", regDate="
+				+ regDate + "]";
 	}
 
 }

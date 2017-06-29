@@ -21,7 +21,7 @@
 				注文履歴を確認します。<br>変更・キャンセルもこちらで。
 			</div>
 		</span>
-		<span class="block"> <a href="#0" class="bttn-dark">評価する</a>
+		<span class="block"> <a href="EvaluateTextbook" class="bttn-dark">評価する</a>
 			<div class="description">購入した教科書が<br>必要かどうかを評価します。</div>
 		</span>
 	</div>

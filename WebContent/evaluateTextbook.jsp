@@ -68,7 +68,7 @@
 	</div>
 
 	<div class="Button__back">
-		<a class="back" href="">戻る</a>
+		<a class="back" href="Home">戻る</a>
 	</div>
 </body>
 </html>

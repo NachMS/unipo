@@ -98,4 +98,13 @@ public class Course {
 				+ ", regDate=" + regDate + "]";
 	}
 
+	/**
+	 * @return 科目の開講曜日の漢字一文字をString型で得る (月曜日:"月"～金曜日:"金")
+	 */
+	public String getDayOfWeekKanji() {
+		String[] dowKanjis = { "月", "火", "水", "木", "金" };
+		int i = getDayOfWeek() - 1;
+		return dowKanjis[i];
+	}
+
 }

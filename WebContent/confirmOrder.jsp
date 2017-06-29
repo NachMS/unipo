@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.*,models.Order,models.OrderDAO,java.text.SimpleDateFormat"%>
+	import="java.util.*,models.Order,models.Textbook,java.text.SimpleDateFormat"%>
+<%
+	Order order = (Order) request.getAttribute("order");
+	List<Textbook> textbooks = order.getTextbooks();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,28 +25,26 @@
 	<div class="order">
 
 		<div class="order__textbook">
+			<%
+				for (Textbook textbook : textbooks) {
+			%>
 			<div class="textbook">
-				<span class="DOW DOW-mon">月１</span> <span class="course__name">電大演習A</span>
-				<span class="textbook__name">実学とはなんなのか</span>
+				<span class="DOW DOW-mon"><%=textbook.getCourse().getDayOfWeekKanji()%><%=textbook.getCourse().getHour()%></span> <span class="course__name"><%=textbook.getCourse().getName()%></span>
+				<span class="textbook__name"><%=textbook.getName()%></span>
 			</div>
-			<div class="textbook">
-				<span class="DOW DOW-mon">月１</span> <span class="course__name">電大演習A</span>
-				<span class="textbook__name">実学とはなんなのか</span>
-			</div>
-			<div class="textbook">
-				<span class="DOW DOW-mon">月１</span> <span class="course__name">電大演習A</span>
-				<span class="textbook__name">実学とはなんなのか</span>
-			</div>
+			<%
+				}
+			%>
 		</div>
 
 		<div class="order__datetime">
-			<div class="date__top L">26</div>
-			<div class="date__middle">木</div>
-			<div class="date__bottom">12~20</div>
+			<div class="date__top L"><%=order.getReceiveDateInt()%></div>
+			<div class="date__middle"><%=order.getReceiveDayOfWeekKanji()%></div>
+			<div class="date__bottom"><%=order.getReceiveHour() %>~<%=order.getReceiveHour() + 1%></div>
 		</div>
 	</div>
 	<div class="Button">
-		<a class="btn" href="Home">戻る</a> <a class="btn confirm" href="#">確定</a>
+		<a class="btn" href="SelectDatetime">戻る</a> <a class="btn confirm" href="ConfirmOrder?act=confirm">確定</a>
 	</div>
 
 </body>

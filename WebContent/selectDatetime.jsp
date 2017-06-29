@@ -30,7 +30,7 @@
 				}
 			%>
 		</tr>
-				<tr>
+		<tr>
 			<th></th>
 			<%
 				String[] daysOfWeekTowards7DaysAhead = (String[]) request.getAttribute("daysOfWeekTowards7DaysAhead");
@@ -42,15 +42,20 @@
 		</tr>
 
 		<%
+			int[] monthOfEachDateTowards7DaysAhead = (int[]) request.getAttribute("monthOfEachDateTowards7DaysAhead");
 			int hour = 10;
 			int[][] congestionDataArray = (int[][]) request.getAttribute("congestionDataArray");
-			for (int[] dateColumn : congestionDataArray) {
+			for (int[] hourRow : congestionDataArray) {
 				out.print("<tr>");
-				out.print("<th>" + hour + "-" + ++hour + "</th>");
-				for (int num : dateColumn) {
-					out.print("<td>" + num + "</td>");
+				out.print("<th>" + hour + "-" + (hour + 1) + "</th>");
+				for (int j = 0; j < hourRow.length; j++) {
+					int month = monthOfEachDateTowards7DaysAhead[j];
+					int date = datesTowards7DaysAhead[j];
+					out.print("<td><a href=\"SelectDatetime?month=" + month + "&date=" + date + "&hour=" + hour + "\">"
+							+ hourRow[j] + "</a></td>");
 				} ;
 				out.println("</tr>");
+				hour++;
 			}
 		%>
 	</table>

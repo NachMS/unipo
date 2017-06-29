@@ -335,7 +335,7 @@ COPY orders (order_id, student_id, order_timestamp, receipt_timestamp, total_pri
 -- Name: orders_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: wspuser
 --
 
-SELECT pg_catalog.setval('orders_order_id_seq', 9, true);
+SELECT pg_catalog.setval('orders_order_id_seq', 6, true);
 
 
 --
@@ -389,7 +389,7 @@ COPY textbooks (textbook_id, name, reading, course_id, price, stock, likes, disl
 -- Name: textbooks_textbook_id_seq; Type: SEQUENCE SET; Schema: public; Owner: wspuser
 --
 
-SELECT pg_catalog.setval('textbooks_textbook_id_seq', 8, true);
+SELECT pg_catalog.setval('textbooks_textbook_id_seq', 7, true);
 
 
 --

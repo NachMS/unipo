@@ -39,7 +39,7 @@ public class Login extends HttpServlet {
 
 		boolean result = false;
 		try {
-			result = dao.check(student);
+			result = dao.login(student);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

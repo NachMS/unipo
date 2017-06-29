@@ -136,11 +136,14 @@ public class SelectTextbooks extends HttpServlet {
 		/**
 		 * 教科書リスト(のみ)を注文セッションに格納する。
 		 */
+
 		List<Textbook> textbooks = new ArrayList<Textbook>();
+		int totalAmount = 0;
 		TextbookDAO tdao = new TextbookDAO();
 		for (String textbookIDstr : textbookIDs) {
 			int textbookID = Integer.parseInt(textbookIDstr);
 			Textbook textbook = tdao.getTextbookByID(textbookID);
+			totalAmount += textbook.getPrice();
 			textbooks.add(textbook);
 		}
 		log("[格納前] session.order:" + session.getAttribute("order"));
@@ -150,6 +153,7 @@ public class SelectTextbooks extends HttpServlet {
 		}
 		Order order = (Order) session.getAttribute("order");
 		order.setTextbooks(textbooks);
+		order.setTotalAmount(totalAmount);
 		log("[格納後] session.order:" + session.getAttribute("order"));
 
 		/**

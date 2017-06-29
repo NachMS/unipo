@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,8 +25,67 @@ public class OrderDAO {
 		return null;
 	}
 
-	public boolean registerOrder(Order order) {
-		return false;
+	public boolean registerOrder(Order order) throws SQLException {
+		System.out.println("registerOrder(" + order + ")");
+		try {
+			Class.forName(driverClassName);
+			Connection connection;
+			String sql = "INSERT INTO orders (student_id, order_timestamp, receipt_timestamp, total_price) VALUES (?, ?, ?, ?) RETURNING order_id";
+			connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, order.getStudentID());
+			Timestamp orderTimestamp = new Timestamp(order.getOrderDate().getTime());
+			pstmt.setTimestamp(2, orderTimestamp);
+			Timestamp receiptTimestamp = new Timestamp(order.getReceiveDate().getTime());
+			pstmt.setTimestamp(3, receiptTimestamp);
+			pstmt.setInt(4, order.getTotalAmount());
+			ResultSet resultSet = pstmt.executeQuery();
+			if (resultSet.next()) {
+				for (Textbook textbook : order.getTextbooks()) {
+					int orderID = resultSet.getInt("order_id");
+					int textbookID = textbook.getTextbookID();
+					sql = "INSERT INTO order_details (order_id, textbook_id) VALUES (?, ?)";
+					pstmt = connection.prepareStatement(sql);
+					pstmt.setInt(1, orderID);
+					pstmt.setInt(2, textbookID);
+					pstmt.executeQuery();
+					System.out.println("order_id:" + orderID + "でDBに保存しました。");
+				}
+			}
+			pstmt.close();
+			connection.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean login(Student student) throws SQLException {
+		boolean result = false;
+		Connection connection;
+		String sql = "SELECT * FROM students WHERE student_id=? AND password=?";
+
+		try {
+			Class.forName(driverClassName);
+			connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+
+			pstmt.setString(1, student.getStudentID());
+			pstmt.setString(2, student.getPassword());
+			System.out.println(student.getStudentID());
+			System.out.println(student.getPassword());
+
+			ResultSet resultSet = pstmt.executeQuery();
+			if (resultSet.next())
+				result = true;
+
+			resultSet.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	public boolean cancelOrderByID(int orderID) {
@@ -40,7 +101,7 @@ public class OrderDAO {
 			resultSet = pstmt.executeQuery();
 			resultSet.updateRow();
 			// キャンセルフラグをtrueに
-			 order.setCancelFlag(true);
+			order.setCancelFlag(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

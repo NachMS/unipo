@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="models.Order"%>
 <%
 	//未ログインの場合ログイン画面ヘ転送
 	if (session.getAttribute("login") == null || !(Boolean) session.getAttribute("login")) {
 		response.sendRedirect("login.jsp");
 	}
+	Order order = (Order) request.getAttribute("orders");
+	//for (Order order : orders) {
+	//	for (Textbook textbook : order.getTextbooks()) {
+	//	}
+	//}
 %>
 <!DOCTYPE html>
 <head>
@@ -70,5 +75,15 @@
 	<div class="Button__back">
 		<a class="back" href="Home">戻る</a>
 	</div>
+	<script type="text/javascript">
+		var i = 1;
+		//var evaluate = [ "smile", "sad" ];
+		$(".smile").click(function() {
+			$.post("EvaluateTextbook", {
+				textbookID : 1,
+
+			});
+		});
+	</script>
 </body>
 </html>

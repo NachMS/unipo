@@ -54,6 +54,27 @@ CREATE TABLE courses (
 ALTER TABLE courses OWNER TO wspuser;
 
 --
+-- Name: courses_course_id_seq; Type: SEQUENCE; Schema: public; Owner: wspuser
+--
+
+CREATE SEQUENCE courses_course_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE courses_course_id_seq OWNER TO wspuser;
+
+--
+-- Name: courses_course_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: wspuser
+--
+
+ALTER SEQUENCE courses_course_id_seq OWNED BY courses.course_id;
+
+
+--
 -- Name: order_details; Type: TABLE; Schema: public; Owner: wspuser
 --
 
@@ -66,6 +87,27 @@ CREATE TABLE order_details (
 
 
 ALTER TABLE order_details OWNER TO wspuser;
+
+--
+-- Name: order_details_order_detail_id_seq; Type: SEQUENCE; Schema: public; Owner: wspuser
+--
+
+CREATE SEQUENCE order_details_order_detail_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE order_details_order_detail_id_seq OWNER TO wspuser;
+
+--
+-- Name: order_details_order_detail_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: wspuser
+--
+
+ALTER SEQUENCE order_details_order_detail_id_seq OWNED BY order_details.order_detail_id;
+
 
 --
 -- Name: orders; Type: TABLE; Schema: public; Owner: wspuser
@@ -85,6 +127,27 @@ CREATE TABLE orders (
 ALTER TABLE orders OWNER TO wspuser;
 
 --
+-- Name: orders_order_id_seq; Type: SEQUENCE; Schema: public; Owner: wspuser
+--
+
+CREATE SEQUENCE orders_order_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE orders_order_id_seq OWNER TO wspuser;
+
+--
+-- Name: orders_order_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: wspuser
+--
+
+ALTER SEQUENCE orders_order_id_seq OWNED BY orders.order_id;
+
+
+--
 -- Name: student_courses; Type: TABLE; Schema: public; Owner: wspuser
 --
 
@@ -98,6 +161,27 @@ CREATE TABLE student_courses (
 
 
 ALTER TABLE student_courses OWNER TO wspuser;
+
+--
+-- Name: student_courses_student_course_id_seq; Type: SEQUENCE; Schema: public; Owner: wspuser
+--
+
+CREATE SEQUENCE student_courses_student_course_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE student_courses_student_course_id_seq OWNER TO wspuser;
+
+--
+-- Name: student_courses_student_course_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: wspuser
+--
+
+ALTER SEQUENCE student_courses_student_course_id_seq OWNED BY student_courses.student_course_id;
+
 
 --
 -- Name: students; Type: TABLE; Schema: public; Owner: wspuser
@@ -136,6 +220,62 @@ CREATE TABLE textbooks (
 ALTER TABLE textbooks OWNER TO wspuser;
 
 --
+-- Name: textbooks_textbook_id_seq; Type: SEQUENCE; Schema: public; Owner: wspuser
+--
+
+CREATE SEQUENCE textbooks_textbook_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE textbooks_textbook_id_seq OWNER TO wspuser;
+
+--
+-- Name: textbooks_textbook_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: wspuser
+--
+
+ALTER SEQUENCE textbooks_textbook_id_seq OWNED BY textbooks.textbook_id;
+
+
+--
+-- Name: courses course_id; Type: DEFAULT; Schema: public; Owner: wspuser
+--
+
+ALTER TABLE ONLY courses ALTER COLUMN course_id SET DEFAULT nextval('courses_course_id_seq'::regclass);
+
+
+--
+-- Name: order_details order_detail_id; Type: DEFAULT; Schema: public; Owner: wspuser
+--
+
+ALTER TABLE ONLY order_details ALTER COLUMN order_detail_id SET DEFAULT nextval('order_details_order_detail_id_seq'::regclass);
+
+
+--
+-- Name: orders order_id; Type: DEFAULT; Schema: public; Owner: wspuser
+--
+
+ALTER TABLE ONLY orders ALTER COLUMN order_id SET DEFAULT nextval('orders_order_id_seq'::regclass);
+
+
+--
+-- Name: student_courses student_course_id; Type: DEFAULT; Schema: public; Owner: wspuser
+--
+
+ALTER TABLE ONLY student_courses ALTER COLUMN student_course_id SET DEFAULT nextval('student_courses_student_course_id_seq'::regclass);
+
+
+--
+-- Name: textbooks textbook_id; Type: DEFAULT; Schema: public; Owner: wspuser
+--
+
+ALTER TABLE ONLY textbooks ALTER COLUMN textbook_id SET DEFAULT nextval('textbooks_textbook_id_seq'::regclass);
+
+
+--
 -- Data for Name: courses; Type: TABLE DATA; Schema: public; Owner: wspuser
 --
 
@@ -151,6 +291,13 @@ COPY courses (course_id, name, teacher, department, grade, semester, day_of_week
 
 
 --
+-- Name: courses_course_id_seq; Type: SEQUENCE SET; Schema: public; Owner: wspuser
+--
+
+SELECT pg_catalog.setval('courses_course_id_seq', 7, true);
+
+
+--
 -- Data for Name: order_details; Type: TABLE DATA; Schema: public; Owner: wspuser
 --
 
@@ -161,6 +308,13 @@ COPY order_details (order_detail_id, order_id, textbook_id, purchace_price) FROM
 4	2	7	882
 5	2	3	300
 \.
+
+
+--
+-- Name: order_details_order_detail_id_seq; Type: SEQUENCE SET; Schema: public; Owner: wspuser
+--
+
+SELECT pg_catalog.setval('order_details_order_detail_id_seq', 5, true);
 
 
 --
@@ -178,6 +332,13 @@ COPY orders (order_id, student_id, order_timestamp, receipt_timestamp, total_pri
 
 
 --
+-- Name: orders_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: wspuser
+--
+
+SELECT pg_catalog.setval('orders_order_id_seq', 9, true);
+
+
+--
 -- Data for Name: student_courses; Type: TABLE DATA; Schema: public; Owner: wspuser
 --
 
@@ -189,6 +350,13 @@ COPY student_courses (student_course_id, student_id, course_id, year, semester) 
 5	15FI001	5	2017	1
 6	15FI003	6	2017	2
 \.
+
+
+--
+-- Name: student_courses_student_course_id_seq; Type: SEQUENCE SET; Schema: public; Owner: wspuser
+--
+
+SELECT pg_catalog.setval('student_courses_student_course_id_seq', 6, true);
 
 
 --
@@ -215,6 +383,13 @@ COPY textbooks (textbook_id, name, reading, course_id, price, stock, likes, disl
 6	ã≥â»èë6	Ç´ÇÂÇ§Ç©ÇµÇÂÇÎÇ≠	6	2700	100	1	0	2017-04-02 10:00:00
 7	NOÇ∆åæÇ¶Ç»Ç¢ì˙ñ{êl	ÇÃÇ®Ç∆Ç¢Ç¶Ç»Ç¢Ç…ÇŸÇÒÇ∂ÇÒ	7	882	1234	50	40	2017-06-18 17:08:20
 \.
+
+
+--
+-- Name: textbooks_textbook_id_seq; Type: SEQUENCE SET; Schema: public; Owner: wspuser
+--
+
+SELECT pg_catalog.setval('textbooks_textbook_id_seq', 8, true);
 
 
 --

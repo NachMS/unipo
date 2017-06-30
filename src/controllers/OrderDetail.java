@@ -46,13 +46,14 @@ public class OrderDetail extends HttpServlet {
 		ArrayList<Textbook> textbooks = (ArrayList<Textbook>) order.getTextbooks();
 		// request.setAttribute("textbooks", textbooks);
 		String[] dow = { "月", "火", "水", "木", "金" };
-		String[][] array = new String[textbooks.size()][3];
+		String[][] array = new String[textbooks.size()][4];
 		int i = 0;
 		for (Textbook textbook : textbooks) {
 			Course course = textbook.getCourse();
 			array[i][0] = dow[course.getDayOfWeek() - 1] + String.valueOf(course.getHour());
 			array[i][1] = course.getName();
 			array[i][2] = textbook.getName();
+			array[i][3] = String.valueOf(course.getDayOfWeek());
 			i++;
 		}
 		request.setAttribute("textbooks", array);

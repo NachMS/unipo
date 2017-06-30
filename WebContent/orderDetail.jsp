@@ -35,7 +35,7 @@
 				for (int i = 0; i < textbooks.length; i++) {
 			%>
 			<div class="textbook">
-				<span class="DOW DOW-mon"><%=textbooks[i][0]%></span> <span
+				<span class="DOW DOW-<%=textbooks[i][3]%>"><%=textbooks[i][0]%></span> <span
 					class="course__name"><%=textbooks[i][1]%></span> <span
 					class="textbook__name"><%=textbooks[i][2]%></span>
 			</div>

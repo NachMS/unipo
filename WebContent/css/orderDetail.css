@@ -83,15 +83,15 @@ body {
         align-items: center;
     margin-right: 2vw;
     border-radius: 3px; }
-    .textbook .DOW-mon {
+    .textbook .DOW-1 {
       background-color: #ffd54f; }
-    .textbook .DOW-tue {
+    .textbook .DOW-2 {
       background-color: #ff8a65; }
-    .textbook .DOW-wen {
+    .textbook .DOW-3 {
       background-color: #64b5f6; }
-    .textbook .DOW-thu {
+    .textbook .DOW-4 {
       background-color: #81c784; }
-    .textbook .DOW-fri {
+    .textbook .DOW-5 {
       background-color: #bcaaa4; }
   .textbook .textbook__name {
     margin-left: auto;

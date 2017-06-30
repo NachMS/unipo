@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import models.Order;
 import models.OrderDAO;
 import models.Student;
+import models.TextbookDAO;
 
 @WebServlet("/EvaluateTextbook")
 public class EvaluateTextbook extends HttpServlet {
@@ -41,8 +42,21 @@ public class EvaluateTextbook extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		doGet(request, response);
+		log("postとんできたああ");
+		//HttpSession session = request.getSession();
+		TextbookDAO tdao = new TextbookDAO();
+		//Student student = (Student) session.getAttribute("student");
+		int textbookID = Integer.parseInt(request.getParameter("textbookID"));
+		String val = request.getParameter("val");
+		System.out.println(textbookID);
+		System.out.println(val);
+		if (val.equals("like")) {
+			log("いいね");
+			tdao.registerEvaluation(textbookID, 0);
+		} else if (val.equals("dislike")) {
+			log("死ね");
+			tdao.registerEvaluation(textbookID, 1);
+		}
 	}
 
 }

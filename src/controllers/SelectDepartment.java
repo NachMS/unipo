@@ -68,19 +68,19 @@ public class SelectDepartment extends HttpServlet {
 		if (faculty.equals("F")) {
 			array = new String[3][2];
 			array[0][0] = "FA";
-			array[0][1] = "建築科";
+			array[0][1] = "建築学科";
 			array[1][0] = "FI";
-			array[1][1] = "情報メディア科";
+			array[1][1] = "情報メディア学科";
 			array[2][0] = "FR";
-			array[2][1] = "ロボメカ科";
+			array[2][1] = "ロボメカ学科";
 		} else if (faculty.equals("E")) {
 			array = new String[6][2];
 			array[0][0] = "EJ";
 			array[0][1] = "電気電子工学科";
 			array[1][0] = "EH";
-			array[1][1] = "電子システム工学科";
+			array[1][1] = "電子シス工学科";
 			array[2][0] = "ES";
-			array[2][1] = "応用化学科";
+			array[2][1] = "応用化学学科";
 			array[3][0] = "EK";
 			array[3][1] = "機械工学科";
 			array[4][0] = "EF";
@@ -90,7 +90,7 @@ public class SelectDepartment extends HttpServlet {
 		} else if (faculty.equals("A")) {
 			array = new String[2][2];
 			array[0][0] = "AJ";
-			array[0][1] = "情報システム工学科";
+			array[0][1] = "情報シス工学科";
 			array[1][0] = "AD";
 			array[1][1] = "デザイン工学科";
 		} else {

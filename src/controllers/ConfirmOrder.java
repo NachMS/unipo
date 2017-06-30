@@ -53,7 +53,7 @@ public class ConfirmOrder extends HttpServlet {
 		 * (例外) 注文セッションのデータに抜けがある場合教科書選択画面へ転送
 		 */
 		Order order = (Order) session.getAttribute("order");
-		//TODO
+		// TODO
 		// int dow = order.getReceiveDayOfWeek();
 		// int date = order.getReceiveDateInt();
 		// int hour = order.getReceiveHour();
@@ -77,6 +77,10 @@ public class ConfirmOrder extends HttpServlet {
 			OrderDAO odao = new OrderDAO();
 			try {
 				odao.registerOrder(order);
+				String[] message = { "success", "注文を受け取りました。（っていうサビースがあればね・・・）" };
+				session.setAttribute("message", message);
+				response.sendRedirect("OrderHistory");
+				return;
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

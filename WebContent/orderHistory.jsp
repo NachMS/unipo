@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="java.util.*,models.Order,models.OrderDAO,java.text.SimpleDateFormat"%>
+<%
+	String[] message = { "neutral", "メッセージはありません。" };
+	if (request.getAttribute("message") != null) {
+		message = (String[]) request.getAttribute("message");
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +20,8 @@
 </head>
 <body>
 	<div class="TITLE">注文履歴</div>
+	<div class="message <%=message[0]%>">
+		メッセージ：<%=message[1]%></div>
 	<%
 		String[][] orders = (String[][]) request.getAttribute("orders");
 		for (int i = 0; i < orders.length; i++) {

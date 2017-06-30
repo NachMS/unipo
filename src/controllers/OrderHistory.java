@@ -31,6 +31,19 @@ public class OrderHistory extends HttpServlet {
 			response.sendRedirect("Login");
 			return;
 		}
+
+		/**
+		 * メッセージがあれば抜いてjspに繋ぎ渡し @author jun
+		 */
+		if (session.getAttribute("message") != null) {
+			String[] message = (String[]) session.getAttribute("message");
+			session.removeAttribute("message");
+			log("message:" + message[0] + ", " + message[1]);
+			request.setAttribute("message", message);
+		} else {
+			log("message:空");
+		}
+
 		// 注文情報の取得
 		String studentID = (String) session.getAttribute("studentID");
 		OrderDAO dao = new OrderDAO();

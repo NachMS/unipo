@@ -27,6 +27,7 @@ public class OrderDAO {
 
 	public boolean registerOrder(Order order) throws SQLException {
 		System.out.println("registerOrder(" + order + ")");
+		System.out.println("HERE WE GO!");
 		try {
 			Class.forName(driverClassName);
 			Connection connection;
@@ -41,15 +42,16 @@ public class OrderDAO {
 			pstmt.setInt(4, order.getTotalAmount());
 			ResultSet resultSet = pstmt.executeQuery();
 			if (resultSet.next()) {
+				int orderID = resultSet.getInt("order_id");
+				System.out.println("【ODAO】  order_id:" + orderID + "でDB(orders)に保存しました。");
 				for (Textbook textbook : order.getTextbooks()) {
-					int orderID = resultSet.getInt("order_id");
 					int textbookID = textbook.getTextbookID();
 					sql = "INSERT INTO order_details (order_id, textbook_id) VALUES (?, ?)";
 					pstmt = connection.prepareStatement(sql);
 					pstmt.setInt(1, orderID);
 					pstmt.setInt(2, textbookID);
-					pstmt.executeQuery();
-					System.out.println("order_id:" + orderID + "でDBに保存しました。");
+					pstmt.executeUpdate();
+					System.out.println("◆ODAO◆ textbook_id:" + textbookID + "→ DB(order_details)");
 				}
 			}
 			pstmt.close();

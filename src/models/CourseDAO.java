@@ -92,6 +92,44 @@ public class CourseDAO {
 		return null;
 	}
 
+	public List<Course> getSelectableCourses(String department, int grade, int semester) {
+		System.out.println("getSelectableCourses(" + department + ", " + grade + ", " + semester + ")");
+
+		try {
+			Class.forName("org.postgresql.Driver");
+			Connection connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement preparedStatement;
+			String sql = "SELECT * FROM courses WHERE department=? AND grade=? AND semester=?";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, department);
+			preparedStatement.setInt(2, grade);
+			preparedStatement.setInt(3, semester);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			List<Course> list = new ArrayList<Course>();
+			while (resultSet.next()) {
+				int courseID = resultSet.getInt("course_id");
+				String name = resultSet.getString("name");
+				String teacher = resultSet.getString("teacher");
+				int dayOfWeek = resultSet.getInt("day_of_week");
+				int hour = resultSet.getInt("hour");
+				Date regDate = resultSet.getTimestamp("reg_date");
+				Course course = new Course(courseID, name, teacher, department, grade, semester, dayOfWeek, hour,
+						regDate);
+				list.add(course);
+			}
+			resultSet.close();
+			preparedStatement.close();
+			connection.close();
+			for (Course c : list) {
+				System.out.println(c);
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public ArrayList<Course> getAllCourses() {
 		return null;
 	}

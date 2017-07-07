@@ -42,10 +42,11 @@ td a {
 	align-items: center;
 
 }
-table:hover tr:hover td {
+table:hover tr:hover td:hover {
     color: #FFF;
     background: #002171;
 }
+
 table:hover tr:hover a {
     color: #FFF;
 }

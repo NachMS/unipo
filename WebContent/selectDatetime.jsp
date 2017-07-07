@@ -56,7 +56,7 @@
 					int month = monthOfEachDateTowards7DaysAhead[j];
 					int date = datesTowards7DaysAhead[j];
 		%>
-		<td class="L"><a href="SelectDatetime?month=<%=month%>&hour=<%=hour%>">
+		<td class="L"><a href="SelectDatetime?month=<%=month%>&date=<%=date%>&hour=<%=hour%>">
 				<%=hourRow[j]%></a></td>
 		<%
 			}

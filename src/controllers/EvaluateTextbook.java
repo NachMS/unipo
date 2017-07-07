@@ -36,7 +36,6 @@ public class EvaluateTextbook extends HttpServlet {
 		OrderDAO odao = new OrderDAO();
 		ArrayList<Order> orders = odao.getOrdersByStudentID(student.getStudentID());
 		request.setAttribute("orders", orders);
-
 		getServletContext().getRequestDispatcher("/evaluateTextbook.jsp").forward(request, response);
 	}
 

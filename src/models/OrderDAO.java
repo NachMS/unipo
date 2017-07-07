@@ -159,7 +159,7 @@ public class OrderDAO {
 	}
 
 	public ArrayList<Order> getOrdersByStudentID(String studentID) {
-		String sql = "SELECT order_id FROM orders WHERE student_id=?";
+		String sql = "SELECT order_id FROM orders WHERE student_id=? ORDER BY order_id DESC";
 		Connection connection;
 		ResultSet resultSet;
 		ArrayList<Order> list = new ArrayList<Order>();

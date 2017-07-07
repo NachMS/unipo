@@ -14,10 +14,6 @@
 <body>
 	<%
 		ArrayList<Order> orders = (ArrayList<Order>) request.getAttribute("orders");
-		//for (Order order : orders) {
-		//	for (Textbook textbook : order.getTextbooks()) {
-		//	}
-		//}
 	%>
 	<p>教科書評価</p>
 
@@ -29,10 +25,13 @@
 			for (Textbook textbook : order.getTextbooks()) {
 	%>
 	<div class="Subject">
-		<span class="Subject__detail"> <span class="period period-tue">火１</span>&emsp;
-			<span class="name">科目名１</span> <span class="textbook">「教科書名１」</span>
+		<span class="Subject__detail"> <span class="period period-tue"><%=textbook.getCourse().getDayOfWeekKanji()%><%=textbook.getCourse().getHour()%></span>&emsp;
+			<span class="name"><%=textbook.getCourse().getName()%></span> <span
+			class="textbook">「<%=textbook.getName()%>」<span
+				id="likes<%=i%>"><%=textbook.getLikes()%></span> <span
+				id="dislikes<%=i%>"><%=textbook.getDislikes()%></span></span>
 		</span> <span class="evaluate" textbookID="<%=textbook.getTextbookID()%>">
-			<a id="good<%=i%>" val="like" href="#"> <span class="smile">
+			<a id="good<%=i%>" val="like"> <span class="smile">
 					<svg fill="#FFFFFF" height="48" viewBox="0 0 24 24" width="48"
 						xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -40,7 +39,7 @@
                         <path d="M0 0h24v24H0z" fill="none" />
                     </svg>
 			</span>
-		</a> <a id="bad<%=i%>" val="dislike" href="#"> <span class="sad">
+		</a> <a id="bad<%=i%>" val="dislike"> <span class="sad">
 					<svg fill="#FFFFFF" height="48" viewBox="0 0 24 24" width="48"
 						xmlns="http://www.w3.org/2000/svg">
                         <path d="M0 0h24v24H0z" fill="none" />
@@ -66,16 +65,37 @@
 		var n =
 	<%=textbooksNum%>
 		;
+		var likeCount = 0;
+		var dislikeCount = 0
+		var i = 0;
 		var evaluation = [ "good", "bad" ];
-		for (var i = 0; i < n; i++) {
-			for (var j = 0; j < evaluation.length; j++) {
-				var id = "#" + evaluation[j] + i;
-				$(id).click(function() {
-						$.post("EvaluateTextbook", {
-							textbookID : $(this).parent().attr('textbookID'),
-							val : $(this).attr('val')
-						});
+		function evaluation_func() {
+			//var ii = i;
+			var jj = j;
+			var id = "#" + evaluation[jj] + i;
+			var likesFieldId = "#likes" + i;
+			var dislikesFieldId = "#dislikes" + i;
+			$(id).click(function() {
+				if (evaluation[jj] == ("good")) {
+					likeCount = $(likesFieldId).text();
+					likeCount++;
+					console.log($(likesFieldId).text());
+					$(likesFieldId).text(likeCount);
+				} else {
+					dislikeCount = $(dislikesFieldId).text();
+					dislikeCount++;
+					console.log($(dislikesFieldId).text());
+					$(dislikesFieldId).text(dislikeCount);
+				}
+				$.post("EvaluateTextbook", {
+					textbookID : $(this).parent().attr('textbookID'),
+					val : $(this).attr('val')
 				});
+			});
+		}
+		for (var j = 0; j <= evaluation.length; j++) {
+			for (var i = 0; i < n; i++) {
+				evaluation_func();
 			}
 		}
 	</script>

@@ -25,7 +25,11 @@ public class TextbookDAO {
 	public boolean deleteTextbookByID(Textbook textbook) {
 		return false;
 	}
-
+/**
+ *
+ * @param textbookID
+ * @param likeORDislike 0がlike 1がdislike
+ */
 	public void registerEvaluation(int textbookID, int likeORDislike) {
 		String sql = "UPDATE textbooks SET likes=likes+1 WHERE textbook_id=?";
 		String sql2 = "UPDATE textbooks SET dislikes=dislikes+1 WHERE textbook_id=?";

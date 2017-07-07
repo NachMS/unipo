@@ -46,14 +46,15 @@ public class OrderDetail extends HttpServlet {
 		ArrayList<Textbook> textbooks = (ArrayList<Textbook>) order.getTextbooks();
 		// request.setAttribute("textbooks", textbooks);
 		String[] dow = { "月", "火", "水", "木", "金" };
-		String[][] array = new String[textbooks.size()][4];
+		String[][] array = new String[textbooks.size()][5];
 		int i = 0;
 		for (Textbook textbook : textbooks) {
 			Course course = textbook.getCourse();
-			array[i][0] = dow[course.getDayOfWeek() - 1] + String.valueOf(course.getHour());
-			array[i][1] = course.getName();
-			array[i][2] = textbook.getName();
-			array[i][3] = String.valueOf(course.getDayOfWeek());
+			array[i][0] = String.valueOf(course.getDayOfWeek());
+			array[i][1] = dow[course.getDayOfWeek() - 1] + String.valueOf(course.getHour());
+			array[i][2] = course.getName();
+			array[i][3] = textbook.getName();
+			array[i][4] = String.valueOf(textbook.getPrice());
 			i++;
 		}
 		request.setAttribute("textbooks", array);
@@ -68,7 +69,7 @@ public class OrderDetail extends HttpServlet {
 		try {
 			Date date = sdf.parse(formatedReceiveDate);
 			DateFormat dowFormat = new SimpleDateFormat("EEE", Locale.JAPANESE);
-			DateFormat dateFormat = new SimpleDateFormat("dd", Locale.JAPANESE);
+			DateFormat dateFormat = new SimpleDateFormat("d", Locale.JAPANESE);
 			DateFormat timeFormat = new SimpleDateFormat("HH", Locale.JAPANESE);
 			String[] dateArray = new String[5];
 			dateArray[0] = formatedOrderDate;

@@ -120,6 +120,7 @@ a.back {
   width: 200px;
   margin-right: 10px;
   margin-top: 10px;
+  margin-bottom:20px;
   position: absolute;
   left: 3vw; }
   a.back:hover {

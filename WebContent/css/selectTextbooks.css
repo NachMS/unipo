@@ -32,8 +32,9 @@ margin-left : auto;
 width:100vw;
 }
 .course {
-	font-size:2vw;
+	font-size:1.8vw;
 	width:20vw;
+	margin-right:1vw;
 }
 .period {
 	width:5vw;
@@ -41,7 +42,7 @@ width:100vw;
 }
 .textbook {
   float: right;
-  font-size:2vw;
+  font-size:1.8vw;
   width:35vw;
   overflow:hidden;
 

@@ -133,11 +133,16 @@ public class OrderDAO {
 				Date timestamp = resultSet.getTimestamp("order_timestamp");
 				int total_price = resultSet.getInt("total_price");
 				Date retimestamp = resultSet.getTimestamp("receipt_timestamp");
+				boolean completeFlag = resultSet.getBoolean("complete_flag");
+				boolean cancelFlag = resultSet.getBoolean("cancel_flag");
+
 				order.setOrderID(orderID);
 				order.setStudentID(studentID);
 				order.setTotalAmount(total_price);
 				order.setOrderDate(timestamp);
 				order.setReceiveDate(retimestamp);
+				order.setCompleteFlag(completeFlag);
+				order.setCancelFlag(cancelFlag);
 				// 注文に含まれる教科書リストを得る
 				List<Textbook> textbooks = new ArrayList<Textbook>();
 				while (resultSet2.next()) {

@@ -25,12 +25,18 @@
 	<%
 		String[][] orders = (String[][]) request.getAttribute("orders");
 		for (int i = 0; i < orders.length; i++) {
+			String str = "";
+			log(orders[i][4]);
+			if (orders[i][4] == "true") {
+				//continue;
+				str = "キャンセル";
+			}
 	%>
 
-	<div class="order__card">
+	<div class="order__card"><%=str%>
 		<span class="order__datetime">注文日時
-			<div class="order__datetime__value"><%=orders[i][0]%></div>
-		</span> <span class="order__sum">合計
+			<div class="order__datetime__value"><%=orders[i][0]%></div> </span> <span
+			class="order__sum">合計
 			<div class="order__sum__value">
 				¥&nbsp;<%=orders[i][1]%></div>
 		</span> <span class="order__receive">受取日時

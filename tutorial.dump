@@ -285,9 +285,8 @@ COPY courses (course_id, name, teacher, department, grade, semester, day_of_week
 3	コンピュータアーキテクチャと機械語	中島	FI	3	1	4	2	2017-04-01 13:00:00
 4	画像処理	中島	FI	3	1	1	4	2017-04-01 13:00:00
 5	情報セキュリティの基礎と暗号技術	佐々木	FI	3	1	4	3	2017-04-01 13:00:00
-7	サーバプログラミング演習	柿崎	FI	3	1	5	3	2017-04-01 13:00:00
-8	CGモデリングおよび演習	森谷	FI	3	1	2	3	2017-04-01 13:00:00
-6	サーバ設計論	柿崎	FI	3	1	1	3	2017-04-01 13:00:00
+6	サーバプログラミング演習	柿崎	FI	3	1	5	3	2017-04-01 13:00:00
+7	CGモデリングおよび演習	森谷	FI	3	1	2	3	2017-04-01 13:00:00
 \.
 
 
@@ -295,7 +294,7 @@ COPY courses (course_id, name, teacher, department, grade, semester, day_of_week
 -- Name: courses_course_id_seq; Type: SEQUENCE SET; Schema: public; Owner: wspuser
 --
 
-SELECT pg_catalog.setval('courses_course_id_seq', 8, true);
+SELECT pg_catalog.setval('courses_course_id_seq', 7, true);
 
 
 --
@@ -363,8 +362,7 @@ COPY textbooks (textbook_id, name, reading, course_id, price, stock, likes, disl
 4	ディジタル画像処理改訂新班	でぃじたるがぞうしょりかいていしんばん	4	3900	100	1	0	2017-04-01 13:00:00
 5	情報セキュリティの基礎	じょほうせきゅりてぃのきそ	5	2800	100	1	0	2017-04-01 13:00:00
 6	ソフトウェアシステム工学入門	そふとうぇあしすてむこうがくにゅうもん	6	2600	100	1	0	2017-04-01 13:00:00
-7	ソフトウェアシステム工学入門	そふとうぇあしすてむこうがくにゅうもん	7	2600	100	1	0	2017-04-01 13:00:00
-8	コンピュータグラフィックス改訂新版	こんぴゅーたぐらふぃっくすかいていしんばん	8	3600	100	1	0	2017-04-01 13:00:00
+7	コンピュータグラフィックス改訂新版	こんぴゅーたぐらふぃっくすかいていしんばん	7	3600	100	1	0	2017-04-01 13:00:00
 \.
 
 
@@ -372,7 +370,7 @@ COPY textbooks (textbook_id, name, reading, course_id, price, stock, likes, disl
 -- Name: textbooks_textbook_id_seq; Type: SEQUENCE SET; Schema: public; Owner: wspuser
 --
 
-SELECT pg_catalog.setval('textbooks_textbook_id_seq', 8, true);
+SELECT pg_catalog.setval('textbooks_textbook_id_seq', 7, true);
 
 
 --

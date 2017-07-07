@@ -28,10 +28,11 @@
 			<input type="checkbox" name="textbookID" value="<%=dat[0]%>" checked
 				id="checkbox<%=iIn2Digits%>" /> <label
 				for="checkbox<%=iIn2Digits%>" class="checkbox"> <span
-				class="period"><%=dat[1]%></span>&emsp;<%=dat[2]%> <span
-				class="textbook">「<%=dat[3]%>」&emsp;
-			</span>
+				class="period"><%=dat[1]%></span><span class="course"><%=dat[2]%></span><span
+				class="textbook">「<%=dat[3]%>」
+			</span><span class="price">¥<%=dat[4]%></span>
 			</label>
+
 			<%
 				i++;
 				}
@@ -44,7 +45,10 @@
 		<%
 			}
 		%>
-		<input type="submit" class="Button__next" value="確定"/>
+		<div class="K">
+				<input type="submit" class="Button__next next" value="次へ"/>
+		</div>
+
 	</form>
 </body>
 </html>

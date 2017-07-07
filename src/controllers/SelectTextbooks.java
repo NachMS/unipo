@@ -77,7 +77,7 @@ public class SelectTextbooks extends HttpServlet {
 		 * dataArray[i][0]:textbookID, dataArray[i][1]:曜日と時限(例："金1"),
 		 * dataArray[i][2]:科目名, dataArray[i][3]:教科書名
 		 */
-		String[][] dataArray = new String[suggestedTextbooks.size()][4];
+		String[][] dataArray = new String[suggestedTextbooks.size()][5];
 		String[] dow = { "月", "火", "水", "木", "金" };
 		int i = 0;
 		for (Textbook t : suggestedTextbooks) {
@@ -86,6 +86,7 @@ public class SelectTextbooks extends HttpServlet {
 			dataArray[i][1] = dow[c.getDayOfWeek() - 1] + c.getHour(); // 曜日と時限(例："金1")
 			dataArray[i][2] = c.getName(); // 科目名
 			dataArray[i][3] = t.getName(); // 教科書名
+			dataArray[i][4] = String.valueOf(t.getPrice());
 			i++;
 		}
 		request.setAttribute("dataArray", dataArray);

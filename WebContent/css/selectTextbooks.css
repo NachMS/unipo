@@ -117,7 +117,7 @@ input[type="checkbox"]:checked + .checkbox::after {
  }
 
 input.next {
-  background: #8bc34a;
+  background: #4CAF50;
   border: none;
   border-radius: 3px;
   color: white;
@@ -138,7 +138,7 @@ input.next {
    }
 
 .next:hover {
-  background: #5a9216; }
+  background: forestgreen; }
 
 .back {
   position: absolute;

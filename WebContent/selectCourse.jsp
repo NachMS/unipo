@@ -14,12 +14,18 @@
 <body>
 	<form action="SelectCourse" method="post">
 		<section>
+			<%
+				if (list.size() != 0) {
+			%>
 			<p>履修している科目を選んでください</p>
+			<%
+				}
+			%>
 			<%
 				if (list.size() == 0) {
 			%>
 			<p>
-				この時間に履修できる科目はありません。<a href="CourseTable">戻る</a>
+				この時間に履修できる科目はありません。<a class ="back" href="CourseTable">戻る</a>
 			</p>
 			<%
 				}
@@ -38,7 +44,13 @@
 				}
 			%>
 		</section>
+			<%
+				if (list.size() != 0) {
+			%>
 		<input type="submit" class="Button next" value="科目選択" />
+			<%
+				}
+			%>
 	</form>
 </body>
 </html>

@@ -1,37 +1,44 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
 * {
-  font-size: 20px;
+  font-size: 1.5vw;
   margin: 0;
-  padding: 0; }
-
+  padding: 0;
+  font-family: 'Roboto', sans-serif; }
 body {
-  background-color: #2979ff; }
+	background:#0d47a1;
+}
 
 .message__top {
-  margin-left: 3vw;
+	display:flex;
+	justify-content:center;
   margin-top: 3vw;
   margin-bottom: 2vw;
   font-size: 3vw;
   color: white; }
 
 .message__bottom {
-  margin-left: 3vw;
+display:flex;
+justify-content:center;
   margin-bottom: 2vw;
-  color: white; }
+  color: white;
+  	font-size:1vw;}
 
 .message__datetime {
-  position: absolute;
-  left: 56vw; }
+	margin-left:50vw;
+
+ }
 
 .order {
+
   display: -ms-flexbox;
-  display: flex; }
+  display: flex;
+  justify-content:center;}
 
 .order__textbook {
-  width: 50vw;
-  margin-left: 3vw;
+  width: 55vw;
   margin-right: 3vw;
   height: 20vw;
-  overflow: scroll; }
+  overflow-y: scroll; }
 
 .order__datetime {
   width: 10vw;
@@ -135,7 +142,8 @@ body {
 .Button {
   margin-left: 3vw;
   display: -ms-flexbox;
-  display: flex; }
+  display: flex;
+  justify-content:center;}
 
 a.btn {
   background: #4CAF50;

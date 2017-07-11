@@ -11,8 +11,8 @@ body {
 .message__top {
 	display:flex;
 	justify-content:center;
-  margin-top: 3vw;
-  margin-bottom: 2vw;
+  margin-top: 5vw;
+  margin-bottom: 5vw;
   font-size: 3vw;
   color: white; }
 

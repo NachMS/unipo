@@ -15,7 +15,7 @@
 	<%
 		ArrayList<Order> orders = (ArrayList<Order>) request.getAttribute("orders");
 	%>
-	<p>教科書評価</p>
+	<span class="message__top">教科書評価</span>
 
 	<%
 		ArrayList<Integer> textbookIDs = new ArrayList<Integer>();

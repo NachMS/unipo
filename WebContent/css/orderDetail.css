@@ -11,6 +11,10 @@ body {
 	display:flex;
 	justify-content:center;
 }
+.course__name {
+	width:15vw;
+}
+
 .order__card {
   background-color: white;
   border-radius: 5px;
@@ -30,7 +34,7 @@ body {
   margin-right: 3vw; }
 
 .message__top {
-		display:flex;
+display:flex;
 justify-content:center;
   margin-left: 3vw;
   margin-top: 3vw;
@@ -97,11 +101,10 @@ justify-content:center;
       background-color: #81c784; }
     .textbook .DOW-5 {
       background-color: #ffa726; }
-  .textbook .textbook__name {
-    margin-left: auto;
+.textbook__name {
+	width:20vw;
     padding-right: 1vw;
-    display: -ms-inline-flexbox;
-    display: inline-flex; }
+}
 
 .date__top {
   font-family: 'Roboto', sans-serif;
@@ -169,7 +172,7 @@ a.btn {
   border: none;
   border-radius: 2px;
   color: white;
-  margin-top: 10px;
+  margin-top: 1vw;
   padding: 10px 10px;
   text-decoration: none;
   transition: 0.2s;

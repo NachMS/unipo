@@ -16,13 +16,15 @@
 		String[][] textbooks = (String[][]) request.getAttribute("textbooks");
 		String[] dateArray = (String[]) request.getAttribute("date");
 	%>
-	<a class="btn back" href="OrderHistory">戻る</a>
+	<a class="back" href="OrderHistory">戻る</a>
 	<div class="message__top">注文詳細</div>
+	<div class="top">
 	<div class="order__card">
 		<span class="order__date">注文日時&nbsp; <span
 			class="order__datetime__value"><%=dateArray[0]%></span>
 		</span> <span class="order__sum">合計 <span class="order__sum__value">¥&nbsp;<%=dateArray[1]%></span>
 		</span>
+	</div>
 	</div>
 
 	<div class="message__bottom">
@@ -51,9 +53,9 @@
 		</div>
 	</div>
 	<div class="Button">
-		<a class="btn order__edit" href="#">注文変更</a> <a
-			class="btn datetime__edit" href="#">受取日時変更</a> <a class="btn cancel"
-			href="CancelOrder?selection=<%=num%>">注文キャンセル</a>
+		<a class="btn order__edit" href="#">注文変更</a>  <a class="btn cancel"
+			href="CancelOrder?selection=<%=num%>">注文キャンセル</a><a
+			class="btn datetime__edit" href="#">受取日時変更</a>
 	</div>
 </body>
 </body>

@@ -19,7 +19,7 @@ body {
   background-color: white;
   border-radius: 5px;
   height: 5vw;
-  width: 60vw;
+  width: 57vw;
   margin-bottom: 2vw;
   display: -ms-flexbox;
   display: flex;
@@ -51,7 +51,7 @@ justify-content:center;
   color: white; }
 
 .message__datetime {
-	margin-left:50vw;
+	margin-left:48vw;
  }
 
 .order {
@@ -59,20 +59,22 @@ justify-content:center;
   display: flex;
   justify-content:center;}
 
+.order__textbook::-webkit-scrollbar {
+	display:none;
+}
 .order__textbook {
   width: 55vw;
-  margin-right: 3vw;
-  height: 20vw;
+  height: 18vw;
   overflow-y: scroll; }
 
 .order__datetime {
-  width: 10vw;
-  height: 20vw; }
+  width: 8vw;
+  height: 17vw; }
 
 .textbook {
   background-color: white;
   width: 50vw;
-  height: 70px;
+  height: 5vw;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
@@ -80,11 +82,10 @@ justify-content:center;
   margin-bottom: 1vw;
   border-radius: 3px; }
   .textbook .DOW {
-    background-color: green;
     display: -ms-inline-flexbox;
     display: inline-flex;
-    height: 70px;
-    width: 70px;
+    height: 5vw;
+    width: 5vw;
     -ms-flex-pack: center;
         justify-content: center;
     -ms-flex-align: center;
@@ -107,16 +108,14 @@ justify-content:center;
 }
 
 .date__top {
-  font-family: 'Roboto', sans-serif;
-  font-size: 6vw;
-  width: 9vw;
-  height: 9vw;
+  font-size: 5vw;
+  width: 8vw;
+  height:8vw;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-align: center;
-      align-items: center;
   -ms-flex-pack: center;
       justify-content: center;
+      align-items:center;
   border-radius: 5px 5px 0 0; }
 
 .date__middle {
@@ -124,8 +123,8 @@ justify-content:center;
   font-family: 'Roboto', sans-serif;
   font-size: 4vw;
   float: left;
-  width: 9vw;
-  height: 6vw;
+  width: 8vw;
+  height: 5vw;
   background-color: #FFF;
   display: -ms-flexbox;
   display: flex;
@@ -139,7 +138,7 @@ justify-content:center;
   border-radius: 5px;
   font-family: 'Roboto', sans-serif;
   font-size: 2vw;
-  width: 9vw;
+  width: 8vw;
   height: 3vw;
   background-color: #FFF;
   display: -ms-flexbox;
@@ -172,7 +171,7 @@ a.btn {
   border: none;
   border-radius: 2px;
   color: white;
-  margin-top: 1vw;
+  margin-top: 2vw;
   padding: 10px 10px;
   text-decoration: none;
   transition: 0.2s;
@@ -212,7 +211,8 @@ a.back {
     color: #0d47a1; }
 
 a.datetime__edit {
-  background: #ffa000; }
+  background: #ffa000;
+  margin-right:0;}
   a.datetime__edit:hover {
     background: #c67100; }
 

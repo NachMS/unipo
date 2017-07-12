@@ -10,9 +10,8 @@ body {
 .message__top {
 display:flex;
 justify-content:center;
-  margin-left: 3vw;
-  margin-top: 3vw;
-  margin-bottom: 3.5vw;
+  margin-top: 4vw;
+  margin-bottom: 4vw;
   font-size: 3vw;
   color: white; }
 p {
@@ -30,7 +29,7 @@ a {
 .Subject {
   width: 95vw;
   margin-left: 1.5vw;
-  height: 100px;
+  height: 7vw;
   border-radius: 3px;
   display: -ms-flexbox;
   display: flex;
@@ -39,7 +38,7 @@ a {
 
 .Subject__detail {
   background-color: #FFF;
-  height: 100px;
+  height: 7vw;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
@@ -61,12 +60,12 @@ a {
 .period {
   display: -ms-inline-flexbox;
   display: inline-flex;
-  height: 100px;
+  height: 7vw;
   -ms-flex-pack: center;
       justify-content: center;
   -ms-flex-align: center;
       align-items: center;
-  width: 100px;
+  width: 7vw;
   border-radius: 2px; }
   .period-mon {
     background-color: #ffd54f; }
@@ -88,8 +87,8 @@ a {
       justify-content: center;
   -ms-flex-align: center;
       align-items: center;
-  height: 100px;
-  width: 130px;
+  height: 7vw;
+  width: 10vw;
   transition: background-color 0.2s linear;
   border-radius: 2px; }
   .smile:hover {
@@ -103,8 +102,8 @@ a {
       justify-content: center;
   -ms-flex-align: center;
       align-items: center;
-  height: 100px;
-  width: 130px;
+  height: 7vw;
+  width: 10vw;
   transition: background-color 0.2s linear;
   border-radius: 2px;
   margin-left: -3px; }

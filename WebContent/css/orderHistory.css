@@ -13,14 +13,14 @@ body {
 	display:flex;
 	justify-content:center;
 	color:#FFF;
-	margin-top: 3vw;
+	margin-top: 4vw;
 	font-size: 3vw;
-	margin-bottom: 3vw;
+	margin-bottom: 2vw;
 }
 .message {
 	color:#FFF;
 	margin-left: 7vw;
-	margin-bottom: 2vw;
+	margin-bottom: 1.5vw;
 	font-size: 1.5vw;
 }
 
@@ -33,7 +33,7 @@ body {
 .order__card {
 	background-color: white;
 	border-radius: 5px;
-	height: 15vh;
+	height: 7vw;
 	width: 80vw;
 	margin-bottom: 3vw;
 	display: -ms-flexbox;
@@ -50,7 +50,7 @@ body {
 
 .order__detail {
 	border-radius: 2px;
-	height: 8vh;
+	height: 4vw;
 	width: 12vw;
 	background-color: #ffa726;
 	display: -ms-flexbox;

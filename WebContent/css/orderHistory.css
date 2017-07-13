@@ -47,6 +47,9 @@ body {
 	border: solid;
 	border-color: #E0E0E0;
 }
+.order__card.canceled {
+	opacity:0.3;
+}
 
 .order__detail {
 	border-radius: 2px;

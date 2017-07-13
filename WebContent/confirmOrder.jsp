@@ -29,7 +29,7 @@
 				for (Textbook textbook : textbooks) {
 			%>
 			<div class="textbook">
-				<span class="DOW DOW-mon"><%=textbook.getCourse().getDayOfWeekKanji()%><%=textbook.getCourse().getHour()%></span> <span class="course__name"><%=textbook.getCourse().getName()%></span>
+				<span class="DOW DOW-<%=textbook.getCourse().getDayOfWeek()%>"><%=textbook.getCourse().getDayOfWeekKanji()%><%=textbook.getCourse().getHour()%></span> <span class="course__name"><%=textbook.getCourse().getName()%></span>
 				<span class="textbook__name"><%=textbook.getName()%></span>
 			</div>
 			<%

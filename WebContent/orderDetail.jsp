@@ -9,6 +9,8 @@
 <!-- Normalize.css -->
 <link rel="stylesheet" href="normalize.css">
 <link rel="stylesheet" type="text/css" href="css/orderDetail.css">
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
 	<%
@@ -64,13 +66,21 @@
 		if (!canceled) {
 	%>
 	<div class="Button">
-		<a class="btn order__edit" href="#">注文変更</a> <a class="btn cancel"
-			href="CancelOrder?selection=<%=num%>">注文キャンセル</a><a
-			class="btn datetime__edit" href="#">受取日時変更</a>
+		<a class="btn order__edit" href="#">注文変更</a>
+		<!--<a class="btn cancel" href="CancelOrder?selection=<%=num%>">注文キャンセル</a>-->
+		<a class="btn cancel" value="注文キャンセル確認ダイアログ"
+			onClick="cancelAlert()">注文キャンセル</a>
+		<a class="btn datetime__edit" href="#">受取日時変更</a>
 	</div>
 	<%
 		}
 	%>
-</body>
+<script type="text/javascript">
+	function cancelAlert(){
+		if(window.confirm('本当に注文をキャンセルしますか')){
+		location.href="CancelOrder?selection=<%=num%>";
+		}
+	}
+	</script>
 </body>
 </html>

@@ -73,9 +73,6 @@ public class SelectTextbooks extends HttpServlet {
 
 		/**
 		 * ビューの描画。
-		 *
-		 * dataArray[i][0]:textbookID, dataArray[i][1]:曜日と時限(例："金1"),
-		 * dataArray[i][2]:科目名, dataArray[i][3]:教科書名
 		 */
 		request.setAttribute("suggestedTextbooks", suggestedTextbooks);
 		getServletContext().getRequestDispatcher("/selectTextbooks.jsp").forward(request, response);

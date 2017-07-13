@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import models.Student;
-import models.StudentDao;
+import models.StudentDAO;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet {
@@ -32,14 +32,14 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Student student = new Student();
-		StudentDao dao = new StudentDao();
+		StudentDAO dao = new StudentDAO();
 
 		student.setStudentID(request.getParameter("studentID"));
 		student.setPassword(request.getParameter("password"));
 
 		boolean result = false;
 		try {
-			result = dao.check(student);
+			result = dao.login(student);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

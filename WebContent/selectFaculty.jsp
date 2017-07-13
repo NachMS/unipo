@@ -12,14 +12,26 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 </head>
 <body>
-	<a class="btn" href="Home">戻る</a>
-	<div class="message">学部を選んでください</div>
-	<div class="cards-container">
-		<a class="card animated zoomIn A"
-			href="/unipo/SelectFaculty?faculty=A">システムデザイン工学部</a> <a
-			class="card animated zoomIn F" href="/unipo/SelectFaculty?faculty=F">未来科学部</a>
-		<a class="card animated zoomIn E"
-			href="/unipo/SelectFaculty?faculty=E">工学部</a>
-	</div>
+	    <div class="flex dark">
+        <div class="message">学部を選択してください</div>
+        <div class="main">
+            <span class="block">
+                <a href="/unipo/SelectFaculty?faculty=A" class="bttn-dark A">シスデザ工学部</a>
+
+            </span>
+
+            <span class="block">
+                <a href="/unipo/SelectFaculty?faculty=F" class="bttn-dark F">未来科学部</a>
+
+            </span>
+
+            <span class="block">
+                <a href="/unipo/SelectFaculty?faculty=E" class="bttn-dark E">工学部</a>
+            </span>
+        </div>
+
+    </div>
+
+    <a class="back" href="Home">戻る</a>
 </body>
 </html>

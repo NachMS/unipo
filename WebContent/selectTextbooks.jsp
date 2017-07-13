@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"
 	import="java.util.List, models.Textbook, models.Course"%>
 <%
-	String[][] dataArray = (String[][]) request.getAttribute("dataArray");
+	List<Textbook> suggestedTextbooks = (List<Textbook>) request.getAttribute("suggestedTextbooks");
 %>
 <!DOCTYPE html>
 <head>
@@ -22,29 +22,33 @@
 
 			<%
 				int i = 1;
-				for (String[] dat : dataArray) {
-					String iIn2Digits = String.format("%02d", i); //1→"01"
+				for (Textbook tb : suggestedTextbooks) {
+					Course course = tb.getCourse();
 			%>
-			<input type="checkbox" name="textbookID" value="<%=dat[0]%>" checked
-				id="checkbox<%=iIn2Digits%>" /> <label
-				for="checkbox<%=iIn2Digits%>" class="checkbox"> <span
-				class="period"><%=dat[1]%></span>&emsp;<%=dat[2]%> <span
-				class="textbook">「<%=dat[3]%>」&emsp;
-			</span>
+			<input type="checkbox" name="textbookID" value="<%=tb.getTextbookID()%>" checked
+				id="checkbox<%=i%>" /> <label
+				for="checkbox<%=i%>" class="checkbox"> <span
+				class="period"><%=course.getDayOfWeekKanji()+course.getHour()%></span><span class="course"><%=course.getName()%></span><span
+				class="textbook">「<%=tb.getName()%>」
+			</span><span class="price">¥<%=tb.getPrice()%></span>
 			</label>
+
 			<%
 				i++;
 				}
 			%>
 		</section>
 		<%
-			if (dataArray.length == 0) {
+			if (suggestedTextbooks.size() == 0) {
 		%>
 		<p>このサービスの存在価値がなくなっちまう！頼むから一個はえらんでくれ！</p>
 		<%
 			}
 		%>
-		<input type="submit" class="Button__next" value="確定"/>
+		<div class="K">
+				<input type="submit" class="Button__next next" value="次へ"/>
+		</div>
+
 	</form>
 </body>
 </html>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import models.Course;
+import models.CourseDAO;
 import models.Student;
 
 @WebServlet("/CourseTable")
@@ -36,19 +37,47 @@ public class CourseTable extends HttpServlet {
 		 * (DT) ビューの描画
 		 */
 		Student student = (Student) session.getAttribute("student");
+		System.out.println("やあ、時間割表だよ");
+
 		// ビューに渡すデータ
 		String[][] selectedCourses = new String[5][5];
+		boolean[][] selectalbeTiles = new boolean[5][5];
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				selectalbeTiles[i][j] = false;
+			}
+		}
+
+
 		if (student.getCourses() != null) {
 			// セッションに格納されている学生が選んだ全ての科目を取得
 			List<Course> courses = student.getCourses();
 			for (Course c : courses) {
-				int i = c.getDayOfWeek() - 1;
-				int j = c.getHour() - 1;
-				selectedCourses[i][j] = c.getName();
+				int dow = c.getDayOfWeek() - 1;
+				int hour = c.getHour() - 1;
+				selectedCourses[dow][hour] = c.getName();
 			}
+
+
+
+		}
+		// 科目がない時限は選択しても無駄だから選択できないようにする
+		CourseDAO cdao = new CourseDAO();
+		List<Course> selectableCourses = cdao.getSelectableCourses(student.getDepartment(), student.getGrade(), 1); // TODO
+		for (Course sc : selectableCourses) {
+			selectalbeTiles[sc.getDayOfWeek()-1][sc.getHour()-1] = true;
+		}
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				System.out.print(selectalbeTiles[i][j]);
+				System.out.print(" - ");
+			}
+			System.out.println();
 		}
 		// ビューにデータを渡す
 		request.setAttribute("selectedCourses", selectedCourses);
+		request.setAttribute("selectalbeTiles", selectalbeTiles);
+
 		getServletContext().getRequestDispatcher("/courseTable.jsp").forward(request, response);
 	}
 
@@ -57,20 +86,17 @@ public class CourseTable extends HttpServlet {
 		/*
 		 * 選択解除された科目をセッションから除外する
 		 */
-		log("POSTよばれけり");
 		if (request.getParameter("act") != null && request.getParameter("act").equals("remove")) {
-			log("POSTよし");
 			int dayOfWeek = Integer.parseInt(request.getParameter("dayOfWeek"));
 			int hour = Integer.parseInt(request.getParameter("hour"));
 			HttpSession session = request.getSession();
 			Student student = (Student) session.getAttribute("student");
 			List<Course> courses = student.getCourses();
-			log("POST セッション無罪 dow:" + dayOfWeek + "hour:" + hour);
 			int wow = 0;
 			for (Course c : courses) {
 				log("loop:" + wow);
 				if (c.getDayOfWeek() == dayOfWeek && c.getHour() == hour) {
-					log(c.getName() + "をremoveしました。");
+					log(c.getName() + "を注文セッションから削除しました。");
 					courses.remove(c);
 				}
 				wow++;

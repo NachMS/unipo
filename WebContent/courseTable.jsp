@@ -13,6 +13,7 @@
 <body>
 	<%
 		String[][] selectedCourses = (String[][]) request.getAttribute("selectedCourses");
+		boolean[][] selectalbeTiles = (boolean[][]) request.getAttribute("selectalbeTiles");
 	%>
 	<div class="Button__container">
 		<a class="Button--element btn" href="SelectGrade">戻る</a> <a
@@ -42,7 +43,10 @@
 					} else {
 						storedOrNothing = "";
 						link = "SelectCourse?dayOfWeek=" + dayOfWeek + "&hour=" + hour;
-						plusOrCourseName = "+";
+						plusOrCourseName = "";
+						if (selectalbeTiles[dayOfWeek - 1][hour - 1]) {
+							plusOrCourseName = "+";
+						}
 					}
 		%>
 		<div class="Button--element HOVER<%=storedOrNothing%>"

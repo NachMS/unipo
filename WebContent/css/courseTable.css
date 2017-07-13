@@ -1,7 +1,15 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
 * {
-  font-size: 20px;
+  font-size: 30px;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  font-family: 'Roboto', sans-serif; }
+body {
+	background:#0d47a1;
+}
+div {
+	transition: 0.2s;
+}
 
 .next,
 a.btn {
@@ -28,9 +36,9 @@ a.btn:hover {
   display: grid;
   -ms-grid-columns: 150px 150px 150px 150px 150px 150px 150px;
       grid-template-columns: 150px 150px 150px 150px 150px 150px 150px;
-  -ms-grid-rows: 100px 100px 100px 100px 100px 100px;
-      grid-template-rows: 100px 100px 100px 100px 100px 100px;
-  margin: 30px 30px 10px;
+  -ms-grid-rows: 80px 100px 100px 100px 100px 100px;
+      grid-template-rows: 80px 100px 100px 100px 100px 100px;
+  margin: 2vw 0 1vw;
   grid-gap: 10px;
   font-size: 3vh;
   text-align: center;

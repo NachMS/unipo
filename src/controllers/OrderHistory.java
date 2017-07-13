@@ -31,18 +31,33 @@ public class OrderHistory extends HttpServlet {
 			response.sendRedirect("Login");
 			return;
 		}
+
+		/**
+		 * メッセージがあれば抜いてjspに繋ぎ渡し @author jun
+		 */
+		if (session.getAttribute("message") != null) {
+			String[] message = (String[]) session.getAttribute("message");
+			session.removeAttribute("message");
+			log("message:" + message[0] + ", " + message[1]);
+			request.setAttribute("message", message);
+		} else {
+			log("message:空");
+		}
+
 		// 注文情報の取得
 		String studentID = (String) session.getAttribute("studentID");
 		OrderDAO dao = new OrderDAO();
 		ArrayList<Order> list = dao.getOrdersByStudentID(studentID);// ログインIDが入るようにする
 		SimpleDateFormat sdf = new SimpleDateFormat("y年M月d日 HH:mm");
-		String[][] orderList = new String[list.size()][4];
+		String[][] orderList = new String[list.size()][5];
 		int i = 0;
 		for (Order order : list) {
 			orderList[i][0] = sdf.format(order.getOrderDate());
 			orderList[i][1] = String.valueOf(order.getTotalAmount());
 			orderList[i][2] = sdf.format(order.getReceiveDate());
 			orderList[i][3] = String.valueOf(order.getOrderID());
+			orderList[i][4] = String.valueOf(order.isCancelFlag());
+			System.out.println(order.isCancelFlag());
 			i++;
 		}
 		request.setAttribute("orders", orderList);

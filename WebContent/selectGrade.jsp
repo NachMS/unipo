@@ -7,17 +7,30 @@
 <!-- Normalize.css -->
 <link rel="stylesheet" href="css/normalize.css">
 <link rel="stylesheet" type="text/css" href="css/selectGrade.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 </head>
 <body>
-	<a class="btn" href="SelectDepartment">戻る</a>
-	<div class="message">学年を選んでください</div>
-	<div class="cards-container">
-		<a class="card animated zoomIn" href="/unipo/SelectGrade?grade=1">1</a>
-		<a class="card animated zoomIn" href="/unipo/SelectGrade?grade=2">2</a>
-		<a class="card animated zoomIn" href="/unipo/SelectGrade?grade=3">3</a>
-		<a class="card animated zoomIn" href="/unipo/SelectGrade?grade=4">4</a>
-	</div>
+
+		    <div class="flex dark">
+        <div class="message">学年を選択してください</div>
+        <div class="main">
+            <span class="block">
+                <a href="/unipo/SelectGrade?grade=1" class="bttn-dark F">1</a>
+
+            </span>
+
+            <span class="block">
+                <a href="/unipo/SelectGrade?grade=2" class="bttn-dark F">2</a>
+
+            </span>
+
+            <span class="block">
+                <a href="/unipo/SelectGrade?grade=3" class="bttn-dark F">3</a>
+            </span>
+                        <span class="block">
+                <a href="/unipo/SelectGrade?grade=4" class="bttn-dark F">4</a>
+            </span>
+        </div>
+    </div>
+    <a class="back" href="SelectDepartment">戻る</a>
 </body>
 </html>

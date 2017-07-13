@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import models.Order;
 import models.OrderDAO;
@@ -24,19 +25,84 @@ public class SelectDatetime extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+
+		/*
+		 * (例外) 未ログインの場合ログイン画面ヘ転送
+		 */
+		if (session.getAttribute("login") == null || !(Boolean) session.getAttribute("login")) {
+			response.sendRedirect("Login");
+			return;
+		}
+
+		/*
+		 * (例外) 学生セッションが空の場合、学部選択画面画面へ転送
+		 */
+		if (session.getAttribute("student") == null) {
+			log("session.studentが空なのでSelectFacultyにリダイレクトします");
+			response.sendRedirect("SelectFaculty");
+			return;
+		}
+
+		/*
+		 * (例外) 注文セッションが空の場合教科書選択画面へ転送
+		 */
+		if (session.getAttribute("order") == null) {
+			log("session.orderが空なのでSelectTextbooksにリダイレクトします");
+			response.sendRedirect("SelectTextbooks");
+			return;
+		}
+
+		/**
+		 * (非DT) 受取日時が選択されたとき
+		 *
+		 * 受取日時を注文セッションに保存
+		 */
+		if (request.getParameter("month") != null && request.getParameter("date") != null
+				&& request.getParameter("hour") != null) {
+			int selectedMonth = Integer.parseInt(request.getParameter("month"));
+			int selectedDate = Integer.parseInt(request.getParameter("date"));
+			int selectedHour = Integer.parseInt(request.getParameter("hour"));
+			log("受取日時(月:" + selectedMonth + "日付:" + selectedDate + "時間:" + selectedHour + ")");
+			// (例外処理) 無効な受取日時か確認
+			if (!validDate(selectedMonth, selectedDate, selectedHour)) {
+				log("無効な受取日時(月:" + selectedMonth + "日付:" + selectedDate + "時間:" + selectedHour + ")");
+				response.sendRedirect("SelectDatetime");
+				return;
+			}
+			// (例外処理) 混雑している（満員の）時間でないか確認
+			if (true) {
+				// TODO
+			}
+			Calendar cal = Calendar.getInstance();
+			int thisYear = cal.get(Calendar.YEAR);
+			int minute = 0;
+			cal.set(thisYear, selectedMonth - 1, selectedDate, selectedHour, minute); // Calendar.MONTHは6月なら=5
+			Date receiveDate = cal.getTime();
+			Order order = (Order) session.getAttribute("order");
+			log("[格納前] session.order:" + order);
+			order.setReceiveDate(receiveDate);
+			log("[格納後] session.order:" + order);
+			response.sendRedirect("ConfirmOrder");
+			return;
+		}
+
 		/**
 		 * 今日から一週間先の日付を配列に格納 ex:{28, 29, 30, 1, 2, 3, 4}
 		 */
 		Calendar cal = Calendar.getInstance();
 		int today = cal.get(Calendar.DATE);
 		int dow = cal.get(Calendar.DAY_OF_WEEK); // 日曜 = 1, 月曜 = 2
+		int month = cal.get(Calendar.MONTH) + 1; // 今月6月ならCalendar.MONTH=5なので+1する
 		int monthDays = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 		int[] datesTowards7DaysAhead = new int[7];
 		String[] daysOfWeekTowards7DaysAhead = new String[7];
-		String[] dowStr = { "日", "月", "火", "水", "木", "金", "土" };
+		int[] monthOfEachDateTowards7DaysAhead = new int[7]; // SelectDatetimeコントローラで必要
+		String[] dowKanjis = { "日", "月", "火", "水", "木", "金", "土" };
 		for (int i = 0, day = today; i < 7; i++, day++, dow++) {
 			datesTowards7DaysAhead[i] = (day <= monthDays) ? day : day % monthDays;
-			daysOfWeekTowards7DaysAhead[i] = (dow <= 7) ? dowStr[dow - 1] : dowStr[dow % 7 - 1];
+			daysOfWeekTowards7DaysAhead[i] = (dow <= 7) ? dowKanjis[dow - 1] : dowKanjis[dow % 7 - 1];
+			monthOfEachDateTowards7DaysAhead[i] = (day <= monthDays) ? month : month + 1;
 		}
 
 		/**
@@ -71,13 +137,30 @@ public class SelectDatetime extends HttpServlet {
 		 */
 		request.setAttribute("datesTowards7DaysAhead", datesTowards7DaysAhead);
 		request.setAttribute("daysOfWeekTowards7DaysAhead", daysOfWeekTowards7DaysAhead);
+		request.setAttribute("monthOfEachDateTowards7DaysAhead", monthOfEachDateTowards7DaysAhead);
 		request.setAttribute("congestionDataArray", congestionDataArray);
+
 		getServletContext().getRequestDispatcher("/selectDatetime.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
+	}
+
+	/**
+	 * 受取日時の有効性を検証する
+	 *
+	 * @param m
+	 *            選択された月
+	 * @param d
+	 *            選択された日付（曜日ではない）
+	 * @param h
+	 *            選択された時間(12～13に受け取りなら12)
+	 * @return 有効な受取日時ならtrue
+	 */
+	private boolean validDate(int m, int d, int h) {
+		return (1 <= m && m <= 12) && (1 <= d && d <= 32) && (10 <= h && h <= 18);
 	}
 
 }

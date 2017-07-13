@@ -6,15 +6,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class StudentDao {
+public class StudentDAO {
 	final private static String dbname = "tutorial"; // データベース名
 	final private static String user = "wspuser"; // tutorialにアクセスできるユーザ
 	final private static String password = "hogehoge"; // wspuserのパスワード
 	final private static String driverClassName = "org.postgresql.Driver";
 	final private static String url = "jdbc:postgresql://localhost/" + dbname;
 
-	public boolean check(Student student) throws SQLException {
-		// memberがDBにあるかどうかを調べる
+	/**
+	 * studentがDBにあるかどうかを調べる
+	 *
+	 * @param StudentインスタンスのstudentIDとpasswordだけ使用
+	 * @return ログイン成功ならtrue
+	 * @throws SQLException
+	 */
+	public boolean login(Student student) throws SQLException {
 		boolean result = false;
 		Connection connection;
 		String sql = "SELECT * FROM students WHERE student_id=? AND password=?";

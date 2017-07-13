@@ -25,9 +25,34 @@ public class TextbookDAO {
 	public boolean deleteTextbookByID(Textbook textbook) {
 		return false;
 	}
-
+/**
+ *
+ * @param textbookID
+ * @param likeORDislike 0がlike 1がdislike
+ */
 	public void registerEvaluation(int textbookID, int likeORDislike) {
-
+		String sql = "UPDATE textbooks SET likes=likes+1 WHERE textbook_id=?";
+		String sql2 = "UPDATE textbooks SET dislikes=dislikes+1 WHERE textbook_id=?";
+		Connection connection;
+		try {
+			Class.forName(driverClassName);
+			connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			PreparedStatement pstmt2 = connection.prepareStatement(sql2);
+			if (likeORDislike == 0) {
+				pstmt.setInt(1, textbookID);
+				pstmt.executeUpdate();
+			} else {
+				pstmt2.setInt(1, textbookID);
+				pstmt2.executeUpdate();
+			}
+			pstmt2.close();
+			pstmt.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return;
 	}
 
 	public Textbook getTextbookByID(int textbookID) {

@@ -73,22 +73,8 @@ public class SelectTextbooks extends HttpServlet {
 
 		/**
 		 * ビューの描画。
-		 *
-		 * dataArray[i][0]:textbookID, dataArray[i][1]:曜日と時限(例："金1"),
-		 * dataArray[i][2]:科目名, dataArray[i][3]:教科書名
 		 */
-		String[][] dataArray = new String[suggestedTextbooks.size()][4];
-		String[] dow = { "月", "火", "水", "木", "金" };
-		int i = 0;
-		for (Textbook t : suggestedTextbooks) {
-			Course c = t.getCourse();
-			dataArray[i][0] = String.valueOf(t.getTextbookID()); // textbookID
-			dataArray[i][1] = dow[c.getDayOfWeek() - 1] + c.getHour(); // 曜日と時限(例："金1")
-			dataArray[i][2] = c.getName(); // 科目名
-			dataArray[i][3] = t.getName(); // 教科書名
-			i++;
-		}
-		request.setAttribute("dataArray", dataArray);
+		request.setAttribute("suggestedTextbooks", suggestedTextbooks);
 		getServletContext().getRequestDispatcher("/selectTextbooks.jsp").forward(request, response);
 	}
 
@@ -137,10 +123,12 @@ public class SelectTextbooks extends HttpServlet {
 		 * 教科書リスト(のみ)を注文セッションに格納する。
 		 */
 		List<Textbook> textbooks = new ArrayList<Textbook>();
+		int totalAmount = 0;
 		TextbookDAO tdao = new TextbookDAO();
 		for (String textbookIDstr : textbookIDs) {
 			int textbookID = Integer.parseInt(textbookIDstr);
 			Textbook textbook = tdao.getTextbookByID(textbookID);
+			totalAmount += textbook.getPrice();
 			textbooks.add(textbook);
 		}
 		log("[格納前] session.order:" + session.getAttribute("order"));
@@ -150,6 +138,7 @@ public class SelectTextbooks extends HttpServlet {
 		}
 		Order order = (Order) session.getAttribute("order");
 		order.setTextbooks(textbooks);
+		order.setTotalAmount(totalAmount);
 		log("[格納後] session.order:" + session.getAttribute("order"));
 
 		/**

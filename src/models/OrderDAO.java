@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,8 +25,69 @@ public class OrderDAO {
 		return null;
 	}
 
-	public boolean registerOrder(Order order) {
-		return false;
+	public boolean registerOrder(Order order) throws SQLException {
+		System.out.println("registerOrder(" + order + ")");
+		System.out.println("HERE WE GO!");
+		try {
+			Class.forName(driverClassName);
+			Connection connection;
+			String sql = "INSERT INTO orders (student_id, order_timestamp, receipt_timestamp, total_price) VALUES (?, ?, ?, ?) RETURNING order_id";
+			connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, order.getStudentID());
+			Timestamp orderTimestamp = new Timestamp(order.getOrderDate().getTime());
+			pstmt.setTimestamp(2, orderTimestamp);
+			Timestamp receiptTimestamp = new Timestamp(order.getReceiveDate().getTime());
+			pstmt.setTimestamp(3, receiptTimestamp);
+			pstmt.setInt(4, order.getTotalAmount());
+			ResultSet resultSet = pstmt.executeQuery();
+			if (resultSet.next()) {
+				int orderID = resultSet.getInt("order_id");
+				System.out.println("【ODAO】  order_id:" + orderID + "でDB(orders)に保存しました。");
+				for (Textbook textbook : order.getTextbooks()) {
+					int textbookID = textbook.getTextbookID();
+					sql = "INSERT INTO order_details (order_id, textbook_id) VALUES (?, ?)";
+					pstmt = connection.prepareStatement(sql);
+					pstmt.setInt(1, orderID);
+					pstmt.setInt(2, textbookID);
+					pstmt.executeUpdate();
+					System.out.println("◆ODAO◆ textbook_id:" + textbookID + "→ DB(order_details)");
+				}
+			}
+			pstmt.close();
+			connection.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean login(Student student) throws SQLException {
+		boolean result = false;
+		Connection connection;
+		String sql = "SELECT * FROM students WHERE student_id=? AND password=?";
+
+		try {
+			Class.forName(driverClassName);
+			connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+
+			pstmt.setString(1, student.getStudentID());
+			pstmt.setString(2, student.getPassword());
+			System.out.println(student.getStudentID());
+			System.out.println(student.getPassword());
+
+			ResultSet resultSet = pstmt.executeQuery();
+			if (resultSet.next())
+				result = true;
+
+			resultSet.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	public boolean cancelOrderByID(int orderID) {
@@ -40,7 +103,7 @@ public class OrderDAO {
 			resultSet = pstmt.executeQuery();
 			resultSet.updateRow();
 			// キャンセルフラグをtrueに
-			 order.setCancelFlag(true);
+			order.setCancelFlag(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -70,11 +133,16 @@ public class OrderDAO {
 				Date timestamp = resultSet.getTimestamp("order_timestamp");
 				int total_price = resultSet.getInt("total_price");
 				Date retimestamp = resultSet.getTimestamp("receipt_timestamp");
+				boolean completeFlag = resultSet.getBoolean("complete_flag");
+				boolean cancelFlag = resultSet.getBoolean("cancel_flag");
+
 				order.setOrderID(orderID);
 				order.setStudentID(studentID);
 				order.setTotalAmount(total_price);
 				order.setOrderDate(timestamp);
 				order.setReceiveDate(retimestamp);
+				order.setCompleteFlag(completeFlag);
+				order.setCancelFlag(cancelFlag);
 				// 注文に含まれる教科書リストを得る
 				List<Textbook> textbooks = new ArrayList<Textbook>();
 				while (resultSet2.next()) {
@@ -96,7 +164,7 @@ public class OrderDAO {
 	}
 
 	public ArrayList<Order> getOrdersByStudentID(String studentID) {
-		String sql = "SELECT order_id FROM orders WHERE student_id=?";
+		String sql = "SELECT order_id FROM orders WHERE student_id=? ORDER BY order_id DESC";
 		Connection connection;
 		ResultSet resultSet;
 		ArrayList<Order> list = new ArrayList<Order>();

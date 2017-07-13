@@ -19,7 +19,7 @@
 <body>
 	<div class="message__top">以下の内容で注文を確定します。よろしいですか？</div>
 	<div class="message__bottom">
-		<span class="message__textbook">購入教科書</span> <span
+		<span class="message__textbook">購入教科書&emsp;支払い価格￥<%=order.getTotalAmount() %></span> <span
 			class="message__datetime">受け取り日時</span>
 	</div>
 	<div class="order">

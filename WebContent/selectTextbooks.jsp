@@ -22,15 +22,17 @@
 
 			<%
 				int i = 1;
+				//float eval = 0;
 				for (Textbook tb : suggestedTextbooks) {
 					Course course = tb.getCourse();
+					int eval = 100*tb.getLikes() / (tb.getLikes() + tb.getDislikes()) ;
 			%>
-			<input type="checkbox" name="textbookID" value="<%=tb.getTextbookID()%>" checked
-				id="checkbox<%=i%>" /> <label
-				for="checkbox<%=i%>" class="checkbox"> <span
-				class="period"><%=course.getDayOfWeekKanji()+course.getHour()%></span><span class="course"><%=course.getName()%></span><span
-				class="textbook">「<%=tb.getName()%>」
-			</span><span class="price">¥<%=tb.getPrice()%></span>
+			<input type="checkbox" name="textbookID"
+				value="<%=tb.getTextbookID()%>" checked id="checkbox<%=i%>" /> <label
+				for="checkbox<%=i%>" class="checkbox"> <span class="period"><%=course.getDayOfWeekKanji() + course.getHour()%></span><span
+				class="course"><%=course.getName()%></span><span class="textbook">「<%=tb.getName()%>」
+			</span><span class="price">¥<%=tb.getPrice()%>&emsp;<%=eval%>%
+			</span>
 			</label>
 
 			<%
@@ -46,7 +48,7 @@
 			}
 		%>
 		<div class="K">
-				<input type="submit" class="Button__next next" value="次へ"/>
+			<input type="submit" class="Button__next next" value="次へ" />
 		</div>
 
 	</form>

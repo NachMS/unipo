@@ -59,8 +59,11 @@ public class OrderDetail extends HttpServlet {
 		}
 		request.setAttribute("textbooks", array);
 
-		// 注文キャンセル用
+		// 注文キャンセルボタン用
 		request.setAttribute("num", orderSelection);
+
+		//キャンセルされた注文では「変更」「キャンセル」ボタンを表示しないためのboolean変数
+		request.setAttribute("canceled", order.isCancelFlag());
 
 		// 注文情報から日時を取得
 		SimpleDateFormat sdf = new SimpleDateFormat("y年M月d日 HH:mm");

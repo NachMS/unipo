@@ -31,6 +31,7 @@
 			<div class="textbook">
 				<span class="DOW DOW-<%=textbook.getCourse().getDayOfWeek()%>"><%=textbook.getCourse().getDayOfWeekKanji()%><%=textbook.getCourse().getHour()%></span> <span class="course__name"><%=textbook.getCourse().getName()%></span>
 				<span class="textbook__name"><%=textbook.getName()%></span>
+				<span class="textbook__price">¥<%=textbook.getPrice()%></span>
 			</div>
 			<%
 				}

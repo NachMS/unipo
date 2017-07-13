@@ -12,6 +12,8 @@ body {
 }
 
 .course__name {
+	margin-right:1vw;
+	font-size:1.3vw;
 	width: 15vw;
 }
 
@@ -48,7 +50,7 @@ body {
 
 .order__textbook {
 	width: 55vw;
-	height: 18vw;
+	height: 19vw;
 	overflow-y: scroll;
 }
 
@@ -104,6 +106,7 @@ body {
 }
 
 .textbook__name {
+	font-size:1.3vw;
 	width: 20vw;
 	padding-right: 1vw;
 }
@@ -127,7 +130,7 @@ body {
 	font-size: 4vw;
 	float: left;
 	width: 8vw;
-	height: 5vw;
+	height: 6vw;
 	background-color: #FFF;
 	display: -ms-flexbox;
 	display: flex;
@@ -135,7 +138,7 @@ body {
 	align-items: center;
 	-ms-flex-pack: center;
 	justify-content: center;
-	margin-bottom: 1vw;
+	margin-bottom: 2vw;
 }
 
 .date__bottom {

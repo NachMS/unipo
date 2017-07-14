@@ -79,7 +79,8 @@
 		var i = 0;
 		var evaluation = [ "good", "bad" ];
 		function evaluation_func() {
-			//var ii = i;
+			var lcount=0; //likeのカウンター
+			var dcount=0 //dislikeのカウンター
 			var jj = j;
 			var id = "#" + evaluation[jj] + i;
 			var likesFieldId = "#likes" + i;
@@ -88,13 +89,25 @@
 				if (evaluation[jj] == ("good")) {
 					likeCount = $(likesFieldId).text();
 					likeCount++;
+					lcount++;
+					console.log(lcount);
 					console.log($(likesFieldId).text());
+					//何回以上押されたらAlert
 					$(likesFieldId).text(likeCount);
+					if(lcount>=10){
+						Alert();
+					}
 				} else {
 					dislikeCount = $(dislikesFieldId).text();
 					dislikeCount++;
+					dcount++;
+					console.log(dcount)
 					console.log($(dislikesFieldId).text());
 					$(dislikesFieldId).text(dislikeCount);
+					//何回以上押されたらAlert
+					if(dcount>=10){
+						Alert();
+					}
 				}
 				$.post("EvaluateTextbook", {
 					textbookID : $(this).parent().attr('textbookID'),
@@ -105,6 +118,12 @@
 		for (var j = 0; j <= evaluation.length; j++) {
 			for (var i = 0; i < n; i++) {
 				evaluation_func();
+			}
+		}
+
+		function Alert(){
+			if(window.confirm('まだ評価しますか')){
+			location.href="Home";
 			}
 		}
 	</script>

@@ -33,8 +33,9 @@ public class Login extends HttpServlet {
 			throws ServletException, IOException {
 		Student student = new Student();
 		StudentDAO dao = new StudentDAO();
+		String studentID=request.getParameter("studentID").toUpperCase();
 
-		student.setStudentID(request.getParameter("studentID"));
+		student.setStudentID(studentID);
 		student.setPassword(request.getParameter("password"));
 
 		boolean result = false;
@@ -48,7 +49,7 @@ public class Login extends HttpServlet {
 		session.setAttribute("login", result);
 		if (result) {
 			// ログインに成功している場合はstudentIDをセッションに格納してHomeへ
-			session.setAttribute("studentID", request.getParameter("studentID"));
+			session.setAttribute("studentID", studentID);
 			session.setAttribute("student", student);
 			response.sendRedirect("Home");
 		} else {

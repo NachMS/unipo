@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import models.Course;
 import models.CourseDAO;
 import models.Student;
+import models.StudentDAO;
 
 @WebServlet("/CourseTable")
 public class CourseTable extends HttpServlet {
@@ -39,6 +40,14 @@ public class CourseTable extends HttpServlet {
 		Student student = (Student) session.getAttribute("student");
 		System.out.println("やあ、時間割表だよ");
 
+		// DBから学生の履修科目を得る(あれば)
+		StudentDAO sdao = new StudentDAO();
+		Student studentAtDB = sdao.selectStudentByID(student.getStudentID());
+		List<Course> coursesAtDB = studentAtDB.getCourses();
+		if (student.getCourses() == null && !coursesAtDB.isEmpty()) {
+			student.setCourses(coursesAtDB);
+		}
+
 		// ビューに渡すデータ
 		String[][] selectedCourses = new String[5][5];
 		boolean[][] selectalbeTiles = new boolean[5][5];
@@ -47,7 +56,6 @@ public class CourseTable extends HttpServlet {
 				selectalbeTiles[i][j] = false;
 			}
 		}
-
 
 		if (student.getCourses() != null) {
 			// セッションに格納されている学生が選んだ全ての科目を取得
@@ -58,14 +66,12 @@ public class CourseTable extends HttpServlet {
 				selectedCourses[dow][hour] = c.getName();
 			}
 
-
-
 		}
 		// 科目がない時限は選択しても無駄だから選択できないようにする
 		CourseDAO cdao = new CourseDAO();
 		List<Course> selectableCourses = cdao.getSelectableCourses(student.getDepartment(), student.getGrade(), 1); // TODO
 		for (Course sc : selectableCourses) {
-			selectalbeTiles[sc.getDayOfWeek()-1][sc.getHour()-1] = true;
+			selectalbeTiles[sc.getDayOfWeek() - 1][sc.getHour() - 1] = true;
 		}
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
@@ -77,7 +83,7 @@ public class CourseTable extends HttpServlet {
 		// ビューにデータを渡す
 		request.setAttribute("selectedCourses", selectedCourses);
 		request.setAttribute("selectalbeTiles", selectalbeTiles);
-		request.setAttribute("student", student); //選択された学科学年を表示するため
+		request.setAttribute("student", student); // 選択された学科学年を表示するため
 		getServletContext().getRequestDispatcher("/courseTable.jsp").forward(request, response);
 	}
 

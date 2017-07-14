@@ -2,7 +2,7 @@ package models;
 
 import java.util.Date;
 
-public class Textbook {
+public class Textbook implements Comparable<Textbook> {
 
 	private int textbookID;
 	private String name;
@@ -107,4 +107,22 @@ public class Textbook {
 				+ regDate + "]";
 	}
 
+	public int compareTo(Textbook another) {
+		int anotherDate = another.getCourse().getDayOfWeek();
+		int anotherHour = another.getCourse().getHour();
+		if (course.getDayOfWeek() < anotherDate) {
+			return -1;
+		} else if (course.getDayOfWeek() > anotherDate) {
+			return 1;
+
+		} else {
+			if (course.getHour() < anotherHour) {
+
+				return -1;
+			} else if (course.getHour() > anotherHour) {
+				return 1;
+			} else
+				return 0;
+		}
+	}
 }

@@ -3,6 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -70,7 +71,7 @@ public class SelectTextbooks extends HttpServlet {
 				suggestedTextbooks.add(textbook);
 			}
 		}
-
+		Collections.sort(suggestedTextbooks);
 		/**
 		 * ビューの描画。
 		 */

@@ -1,173 +1,208 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto");
-* {
-  font-size: 30px;
-  margin: 0;
-  padding: 0;
-  font-family: 'Roboto', sans-serif; }
-html {
-	height:100vh;
 
+* {
+	font-size: 30px;
+	margin: 0;
+	padding: 0;
+	font-family: 'Roboto', sans-serif;
+}
+
+html {
+	height: 100vh;
 }
 
 body {
-	background:#0d47a1;
-	overflow-x:hidden;
+	background: #0d47a1;
+	overflow-x: hidden;
 }
 
 input[type=checkbox] {
-  display: none; }
+	display: none;
+}
 
 .error-message {
-	color:#FFF;
-	height:100vh;
-	width:100vw;
-	display:flex;
-	justify-content:center;
+	color: #FFF;
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	justify-content: center;
 	align-items: center;
 	font-size: 2vw;
 	z-index: 100;
 }
 
-section {
-	display:block;
-margin-right: auto;
-margin-left : auto;
-width:100vw;
+p {
+	color: #FFF;
+	display: flex;
+	font-size: 3vw;
+	margin-left: 3vw;
+	margin-top: 4vw;
+	margin-bottom: 4vw;
+	justify-content: center;
 }
-.course {
-	font-size:1.5vw;
-	width:25vw;
-	margin-right:1vw;
-}
-.period {
-	width:5vw;
-	font-size:2vw;
-}
-.textbook {
-  float: right;
-  font-size:1.5vw;
-  width:30vw;
-  overflow:hidden;
 
-  }
-.price {
-	margin-left:1vw;
-	font-size:2.5vw;
+section {
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+	width: 100vw;
 }
+
+.course {
+	font-size: 1.5vw;
+	width: 25vw;
+	margin-right: 1vw;
+}
+
+.period {
+	width: 5vw;
+	font-size: 2vw;
+}
+
+.textbook {
+	float: right;
+	font-size: 1.5vw;
+	width: 30vw;
+	overflow: hidden;
+}
+
+.price {
+	margin-left: 1vw;
+	font-size: 2.5vw;
+}
+
 label {
-  text-align: left;
-  display:block;
-  vertical-align: middle; }
+	text-align: left;
+	display: block;
+	vertical-align: middle;
+}
 
 .checkbox {
-  box-sizing: border-box;
-  transition: background-color 0.2s linear;
-  position: relative;
-  display: inline-flex;
-  align-items:center;
-  margin: 0 10vw 10px 10vw;
-  padding-left: 70px;
-  border-radius: 2px;
-  background-color: #f6f7f8;
-  vertical-align: middle;
-  cursor: pointer;
-  height: 100px;
-  width: 80vw;
-  font-size: 30px; }
-  .checkbox:hover {
-    background-color: #67daff; }
-    .checkbox:hover:after {
-      border-color: #FFF; }
-  .checkbox:before {
-    transition: opacity 0.2s linear;
-    position: absolute;
-    top: 52%;
-    left: 23px;
-    display: block;
-    margin-top: -12px;
-    width: 20px;
-    height: 20px;
-    border-radius: 20%;
-    background-color: #FFF;
-    content: '';
-    opacity: 0; }
-    input[type=checkbox]:checked + .checkbox:before {
-      opacity: 1; }
-  .checkbox:after {
-    transition: border-color 0.2s linear;
-    position: absolute;
-    top: 50%;
-    left: 15px;
-    display: block;
-    margin-top: -18px;
-    width: 32px;
-    height: 32px;
-    border: 2px solid #bbb;
-    border-radius: 6px;
-    content: ''; }
+	box-sizing: border-box;
+	transition: background-color 0.2s linear;
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	margin: 0 10vw 10px 10vw;
+	padding-left: 70px;
+	border-radius: 2px;
+	background-color: #f6f7f8;
+	vertical-align: middle;
+	cursor: pointer;
+	height: 100px;
+	width: 80vw;
+	font-size: 30px;
+}
 
-input[type="checkbox"]:checked + label {
-  background-color: #03a9f4;
-  color: #fff; }
+.checkbox:hover {
+	background-color: #67daff;
+}
 
-input[type="checkbox"]:checked + .checkbox::after {
-  border-color: #FFF; }
+.checkbox:hover:after {
+	border-color: #FFF;
+}
+
+.checkbox:before {
+	transition: opacity 0.2s linear;
+	position: absolute;
+	top: 52%;
+	left: 23px;
+	display: block;
+	margin-top: -12px;
+	width: 20px;
+	height: 20px;
+	border-radius: 20%;
+	background-color: #FFF;
+	content: '';
+	opacity: 0;
+}
+
+input[type=checkbox]:checked+.checkbox:before {
+	opacity: 1;
+}
+
+.checkbox:after {
+	transition: border-color 0.2s linear;
+	position: absolute;
+	top: 50%;
+	left: 15px;
+	display: block;
+	margin-top: -18px;
+	width: 32px;
+	height: 32px;
+	border: 2px solid #bbb;
+	border-radius: 6px;
+	content: '';
+}
+
+input[type="checkbox"]:checked+label {
+	background-color: #03a9f4;
+	color: #fff;
+}
+
+input[type="checkbox"]:checked+.checkbox::after {
+	border-color: #FFF;
+}
 
 .Button__next {
-  display: -ms-flexbox;
-  display: flex;
-  jusify-content:center;
- }
+	display: -ms-flexbox;
+	display: flex;
+	jusify-content: center;
+}
 
 input.next {
-  background: #4CAF50;
-  border: none;
-  border-radius: 3px;
-  color: white;
-  font-size: 30px;
-  padding: 10px 20px;
-  text-decoration: none;
-  transition: 0.2s;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: center;
-  align-items: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  margin-top:1vh;
-  height: 8vw;
-  width: 15vw;
-  font-size:2.5vw;
-  margin-bottom: 1vw;
-   }
+	background: #4CAF50;
+	border: none;
+	border-radius: 3px;
+	color: white;
+	font-size: 30px;
+	padding: 10px 20px;
+	text-decoration: none;
+	transition: 0.2s;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: center;
+	align-items: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	margin-top: 1vh;
+	height: 8vw;
+	width: 15vw;
+	font-size: 2.5vw;
+	margin-bottom: 1vw;
+}
 
 .next:hover {
-  background: forestgreen; }
+	background: forestgreen;
+}
 
 .back {
-  position: absolute;
-  left: 3vw;
-  top: 3vw;
-  height: 5vw;
-  width: 9vw;
-  font-size: 1.5vw;
-  border-radius: 2px;
-  background-color: #0d47a1;
-  text-decoration: none;
-  color: #FFF;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: center;
-      justify-content: center;
-  -ms-flex-align: center;
-      align-items: center;
-  transition: 0.5s all ease; }
-  .back:hover {
-    background-color: #FFF;
-    color: #0d47a1; }
+	position: absolute;
+	left: 3vw;
+	top: 3vw;
+	height: 5vw;
+	width: 9vw;
+	font-size: 1.5vw;
+	border-radius: 2px;
+	background-color: #0d47a1;
+	text-decoration: none;
+	color: #FFF;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-ms-flex-align: center;
+	align-items: center;
+	transition: 0.5s all ease;
+}
+
+.back:hover {
+	background-color: #FFF;
+	color: #0d47a1;
+}
 
 .K {
-	width:100vw;
-	display:flex;
+	width: 100vw;
+	display: flex;
 	justify-content: center;
 }

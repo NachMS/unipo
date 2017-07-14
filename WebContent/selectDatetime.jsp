@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"
+	import="java.util.Date,java.util.Calendar,java.text.SimpleDateFormat"%>
 <%
 	//未ログインの場合ログイン画面ヘ転送
 	if (session.getAttribute("login") == null || !(Boolean) session.getAttribute("login")) {
@@ -24,6 +25,11 @@
 		<tr>
 			<th class="ninja"></th>
 			<%
+				Calendar cal = Calendar.getInstance();
+				int currentHour = cal.get(Calendar.HOUR_OF_DAY);
+				currentHour = 12; //TODO
+				//SimpleDateFormat sdf = new SimpleDateFormat("H");
+				//int h = Integer.parseInt(sdf.format(nowHour));
 				int[] datesTowards7DaysAhead = (int[]) request.getAttribute("datesTowards7DaysAhead");
 
 				for (int date : datesTowards7DaysAhead) {
@@ -49,23 +55,29 @@
 			int hour = 10;
 			int[][] congestionDataArray = (int[][]) request.getAttribute("congestionDataArray");
 			for (int[] hourRow : congestionDataArray) {
+				//int i=0;
 				out.print("<tr>");
-
-				%><th class="Time"><%=hour%>-<%=(hour + 1)%></th><%
+		%>
+		<th class="Time"><%=hour%>-<%=(hour + 1)%></th>
+		<%
+			String selectablity;
 				for (int j = 0; j < hourRow.length; j++) {
+					selectablity = "";
 					int month = monthOfEachDateTowards7DaysAhead[j];
 					int date = datesTowards7DaysAhead[j];
+					String link = "SelectDatetime" + "?month=" + month + "&date=" + date + "&hour=" + hour;
+					if (j == 0 && hour <= currentHour ) {
+						link = "#";
+						selectablity = "unselectable";
+					}
 		%>
-		<td class="L"><a href="SelectDatetime?month=<%=month%>&date=<%=date%>&hour=<%=hour%>">
-				<%=hourRow[j]%></a></td>
+		<td class="L <%=selectablity%>"><a href="<%=link%>"> <%=hourRow[j]%></a></td>
 		<%
 			}
 				out.println("</tr>");
 				hour++;
 			}
 		%>
-	</table>
-
 
 </body>
 </html>

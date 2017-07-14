@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDAO {
@@ -119,6 +120,7 @@ public class StudentDAO {
 	 * @param studentID
 	 *            学籍番号
 	 * @return 成功ならtrue
+	 * @author Jun
 	 */
 	public boolean deleteStudentCourses(String studentID) {
 		boolean result = false;
@@ -136,5 +138,52 @@ public class StudentDAO {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	/**
+	 * 学生テーブルから該当学籍番号の学生を選択
+	 *
+	 * @param studentID
+	 *            学籍番号
+	 * @return Student
+	 * @author Jun
+	 */
+	public Student selectStudentByID(String studentID) {
+		Connection connection;
+		String sql = "SELECT * FROM students WHERE student_id = ?";
+		try {
+			Class.forName(driverClassName);
+			connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, studentID);
+			ResultSet resultSet = pstmt.executeQuery();
+			Student student = new Student();
+			if (resultSet.next()) {
+				student.setStudentID(studentID);
+				student.setName(resultSet.getString("name"));
+				student.setFaculty(resultSet.getString("faculty"));
+				student.setDepartment(resultSet.getString("department"));
+				student.setGrade(resultSet.getInt("grade"));
+				student.setPassword(resultSet.getString("password"));
+				List<Course> courses = new ArrayList<Course>();
+				sql = "SELECT * FROM student_courses WHERE student_id = ?";
+				pstmt = connection.prepareStatement(sql);
+				pstmt.setString(1, studentID);
+				resultSet = pstmt.executeQuery();
+				CourseDAO cdao = new CourseDAO();
+				while (resultSet.next()) {
+					int courseID = resultSet.getInt("course_id");
+					Course course = cdao.getCourseByID(courseID);
+					courses.add(course);
+				}
+				student.setCourses(courses);
+			}
+			connection.close();
+			System.out.println(student);
+			return student;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

@@ -27,9 +27,6 @@
 			<%
 				Calendar cal = Calendar.getInstance();
 				int currentHour = cal.get(Calendar.HOUR_OF_DAY);
-				currentHour = 12; //TODO
-				//SimpleDateFormat sdf = new SimpleDateFormat("H");
-				//int h = Integer.parseInt(sdf.format(nowHour));
 				int[] datesTowards7DaysAhead = (int[]) request.getAttribute("datesTowards7DaysAhead");
 
 				for (int date : datesTowards7DaysAhead) {

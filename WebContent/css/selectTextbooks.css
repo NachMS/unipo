@@ -206,3 +206,18 @@ input.next {
 	display: flex;
 	justify-content: center;
 }
+.opacity100 {
+	opacity:1;
+}
+.opacity80 {
+	opacity:0.7;
+}
+.opacity60 {
+	opacity:0.5;
+}
+.opacity40 {
+	opacity:0.3;
+}
+.opacity20 {
+	opacity:0.1;
+}

@@ -65,6 +65,9 @@ table:hover tr:hover .ninja {
 .L {
   background-color: #4caf50; }
 
+.unselectable {
+	background: #444;}
+
 .back {
   position: absolute;
   left: 3vw;

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
@@ -48,6 +49,7 @@ public class OrderDetail extends HttpServlet {
 		String[] dow = { "月", "火", "水", "木", "金" };
 		String[][] array = new String[textbooks.size()][5];
 		int i = 0;
+		Collections.sort(textbooks);
 		for (Textbook textbook : textbooks) {
 			Course course = textbook.getCourse();
 			array[i][0] = String.valueOf(course.getDayOfWeek());
@@ -62,7 +64,7 @@ public class OrderDetail extends HttpServlet {
 		// 注文キャンセルボタン用
 		request.setAttribute("orderID", orderSelection);
 
-		//キャンセルされた注文では「変更」「キャンセル」ボタンを表示しないためのboolean変数 @author Jun
+		// キャンセルされた注文では「変更」「キャンセル」ボタンを表示しないためのboolean変数 @author Jun
 		request.setAttribute("canceled", order.isCancelFlag());
 
 		// 注文情報から日時を取得

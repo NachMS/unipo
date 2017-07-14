@@ -88,6 +88,16 @@ a.btn:hover {
 	color: #fff;
 }
 
+.btn {
+	-ms-grid-row: 1;
+	grid-row-start: 1;
+	grid-row-end: 2;
+	-ms-grid-column: 2;
+	grid-column-start: 7;
+	grid-column-end: 8;
+	-ms-grid-row: 1;
+}
+
 .next {
 	-ms-grid-row: 6;
 	grid-row-start: 6;
@@ -124,6 +134,7 @@ a.btn:hover {
 }
 
 .MON {
+	cursor: default;
 	-ms-grid-row: 1;
 	grid-row-start: 1;
 	grid-row-end: 2;
@@ -133,6 +144,7 @@ a.btn:hover {
 }
 
 .TUE {
+	cursor: default;
 	-ms-grid-row: 1;
 	grid-row-start: 1;
 	grid-row-end: 2;
@@ -142,6 +154,7 @@ a.btn:hover {
 }
 
 .WED {
+	cursor: default;
 	-ms-grid-row: 1;
 	grid-row-start: 1;
 	grid-row-end: 2;
@@ -151,6 +164,7 @@ a.btn:hover {
 }
 
 .THU {
+	cursor: default;
 	-ms-grid-row: 1;
 	grid-row-start: 1;
 	grid-row-end: 2;
@@ -160,6 +174,7 @@ a.btn:hover {
 }
 
 .FRI {
+	cursor: default;
 	-ms-grid-row: 1;
 	grid-row-start: 1;
 	grid-row-end: 2;
@@ -168,7 +183,18 @@ a.btn:hover {
 	grid-column-end: 7;
 }
 
+.state {
+	cursor: default;
+	-ms-grid-row: 1;
+	grid-row-start: 1;
+	grid-row-end: 2;
+	-ms-grid-column: 1;
+	grid-column-start: 1;
+	grid-column-end: 2;
+}
+
 .NUM1 {
+	cursor: default;
 	-ms-grid-row: 2;
 	grid-row-start: 2;
 	grid-row-end: 3;
@@ -178,6 +204,7 @@ a.btn:hover {
 }
 
 .NUM2 {
+	cursor: default;
 	-ms-grid-row: 3;
 	grid-row-start: 3;
 	grid-row-end: 4;
@@ -187,6 +214,7 @@ a.btn:hover {
 }
 
 .NUM3 {
+	cursor: default;
 	-ms-grid-row: 4;
 	grid-row-start: 4;
 	grid-row-end: 5;
@@ -196,6 +224,7 @@ a.btn:hover {
 }
 
 .NUM4 {
+	cursor: default;
 	-ms-grid-row: 5;
 	grid-row-start: 5;
 	grid-row-end: 6;
@@ -205,6 +234,7 @@ a.btn:hover {
 }
 
 .NUM5 {
+	cursor: default;
 	-ms-grid-row: 6;
 	grid-row-start: 6;
 	grid-row-end: 7;

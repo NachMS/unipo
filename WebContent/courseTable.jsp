@@ -19,19 +19,21 @@
 		int grade = student.getGrade();
 	%>
 	<div class="Button__container">
-		<a class="Button--element btn" href="SelectFaculty?reselect"><%=department%> <%=grade%>年</a>
+		<p class="Button--element state"><%=department%> <%=grade%>年</p>
 		<a class="Button--element next" href="SelectTextbooks">次へ</a>
 		<p class="Button--element MON">月</p>
 		<p class="Button--element TUE">火</p>
 		<p class="Button--element WED">水</p>
 		<p class="Button--element THU">木</p>
 		<p class="Button--element FRI">金</p>
+		<a class="Button--element btn" href="SelectFaculty?reselect">再選択</a>
 
 		<p class="Button--element NUM1">1</p>
 		<p class="Button--element NUM2">2</p>
 		<p class="Button--element NUM3">3</p>
 		<p class="Button--element NUM4">4</p>
 		<p class="Button--element NUM5">5</p>
+
 		<%
 			String[] dayOfWeekStr = {"MON", "TUE", "WED", "THU", "FRI"};
 			for (int dayOfWeek = 1; dayOfWeek <= 5; dayOfWeek++) {

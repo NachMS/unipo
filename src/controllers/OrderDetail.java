@@ -60,9 +60,9 @@ public class OrderDetail extends HttpServlet {
 		request.setAttribute("textbooks", array);
 
 		// 注文キャンセルボタン用
-		request.setAttribute("num", orderSelection);
+		request.setAttribute("orderID", orderSelection);
 
-		//キャンセルされた注文では「変更」「キャンセル」ボタンを表示しないためのboolean変数
+		//キャンセルされた注文では「変更」「キャンセル」ボタンを表示しないためのboolean変数 @author Jun
 		request.setAttribute("canceled", order.isCancelFlag());
 
 		// 注文情報から日時を取得

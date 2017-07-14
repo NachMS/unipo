@@ -10,27 +10,22 @@
 </head>
 <body>
 
-		    <div class="flex dark">
-        <div class="message">学年を選択してください</div>
-        <div class="main">
-            <span class="block">
-                <a href="/unipo/SelectGrade?grade=1" class="bttn-dark F">1</a>
+	<div class="flex dark">
+		<div class="message">学年を選択してください</div>
+		<div class="main">
+			<span class="block"> <a href="/unipo/SelectGrade?grade=1"
+				class="bttn-dark ${student.faculty}">1</a>
 
-            </span>
+			</span> <span class="block "> <a href="/unipo/SelectGrade?grade=2"
+				class="bttn-dark ${student.faculty}">2</a>
 
-            <span class="block">
-                <a href="/unipo/SelectGrade?grade=2" class="bttn-dark F">2</a>
-
-            </span>
-
-            <span class="block">
-                <a href="/unipo/SelectGrade?grade=3" class="bttn-dark F">3</a>
-            </span>
-                        <span class="block">
-                <a href="/unipo/SelectGrade?grade=4" class="bttn-dark F">4</a>
-            </span>
-        </div>
-    </div>
-    <a class="back" href="SelectDepartment">戻る</a>
+			</span> <span class="block"> <a href="/unipo/SelectGrade?grade=3"
+				class="bttn-dark ${student.faculty}">3</a>
+			</span> <span class="block"> <a href="/unipo/SelectGrade?grade=4"
+				class="bttn-dark ${student.faculty}">4</a>
+			</span>
+		</div>
+	</div>
+	<a class="back" href="SelectDepartment">戻る</a>
 </body>
 </html>

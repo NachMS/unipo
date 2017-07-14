@@ -37,7 +37,7 @@
 			log(orders[i][4]);
 			if (orders[i][4] == "true") {
 				//continue;
-				str = "キャンセル";
+				str = "キャンセル済み";
 				canceled = " canceled";
 			}
 	%>

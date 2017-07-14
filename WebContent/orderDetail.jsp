@@ -12,7 +12,7 @@
 </head>
 <body>
 	<%
-		int num = (int) request.getAttribute("num");
+		int orderID = (int) request.getAttribute("orderID");
 		boolean canceled = (boolean) request.getAttribute("canceled");
 		String[][] textbooks = (String[][]) request.getAttribute("textbooks");
 		String[] dateArray = (String[]) request.getAttribute("date");
@@ -64,8 +64,8 @@
 		if (!canceled) {
 	%>
 	<div class="Button">
-		<a class="btn order__edit" href="#">注文変更</a> <a class="btn cancel"
-			href="CancelOrder?selection=<%=num%>">注文キャンセル</a><a
+		<a class="btn order__edit" href="ChangeOrder?id=<%=orderID%>">注文変更</a> <a class="btn cancel"
+			href="CancelOrder?selection=<%=orderID%>">注文キャンセル</a><a
 			class="btn datetime__edit" href="#">受取日時変更</a>
 	</div>
 	<%

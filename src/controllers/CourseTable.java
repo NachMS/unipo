@@ -77,7 +77,7 @@ public class CourseTable extends HttpServlet {
 		// ビューにデータを渡す
 		request.setAttribute("selectedCourses", selectedCourses);
 		request.setAttribute("selectalbeTiles", selectalbeTiles);
-
+		request.setAttribute("student", student); //選択された学科学年を表示するため
 		getServletContext().getRequestDispatcher("/courseTable.jsp").forward(request, response);
 	}
 

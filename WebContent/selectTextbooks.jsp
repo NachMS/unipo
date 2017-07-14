@@ -16,7 +16,13 @@
 	<div class="Button__back">
 		<a class="back" href="CourseTable">戻る</a>
 	</div>
+			<%
+			if (suggestedTextbooks.size() != 0) {
+		%>
 	<p>購入する教科書にチェックを入れてください</p>
+			<%
+			}
+		%>
 	<form action="SelectTextbooks" method="post">
 		<section>
 
@@ -45,14 +51,17 @@
 		<%
 			if (suggestedTextbooks.size() == 0) {
 		%>
-		<p>このサービスの存在価値がなくなっちまう！頼むから一個はえらんでくれ！</p>
+		<div class="error-message">このサービスの存在価値がなくなっちまう！頼むから一個はえらんでくれ！</div>
 		<%
-			}
+			}else {
 		%>
+
 		<div class="K">
 			<input type="submit" class="Button__next next" value="次へ" />
 		</div>
-
+			<%
+			}
+		%>
 	</form>
 </body>
 </html>

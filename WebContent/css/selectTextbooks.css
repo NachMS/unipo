@@ -17,15 +17,17 @@ body {
 input[type=checkbox] {
   display: none; }
 
-p {
-color:#FFF;
-  display: flex;
-  font-size: 3vw;
-  margin-left: 3vw;
-  margin-top: 4vw;
-  margin-bottom: 4vw;
-  justify-content:center;
-  }
+.error-message {
+	color:#FFF;
+	height:100vh;
+	width:100vw;
+	display:flex;
+	justify-content:center;
+	align-items: center;
+	font-size: 2vw;
+	z-index: 100;
+}
+
 section {
 	display:block;
 margin-right: auto;

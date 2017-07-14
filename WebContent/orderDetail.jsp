@@ -77,7 +77,7 @@
 <script type="text/javascript">
 	function cancelAlert(){
 		if(window.confirm('本当に注文をキャンセルしますか')){
-		location.href="CancelOrder?selection=<%=num%>";
+		location.href="CancelOrder?selection=<%=orderID%>";
 		}
 	}
 	</script>

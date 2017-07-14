@@ -14,10 +14,13 @@
 	<%
 		String[][] selectedCourses = (String[][]) request.getAttribute("selectedCourses");
 		boolean[][] selectalbeTiles = (boolean[][]) request.getAttribute("selectalbeTiles");
+		Student student = (Student) request.getAttribute("student");
+		String department = student.getDepartment();
+		int grade = student.getGrade();
 	%>
 	<div class="Button__container">
-		<a class="Button--element btn" href="SelectGrade">戻る</a> <a
-			class="Button--element next" href="SelectTextbooks">次へ</a>
+		<a class="Button--element btn" href="SelectFaculty?reselect"><%=department%> <%=grade%>年</a>
+		<a class="Button--element next" href="SelectTextbooks">次へ</a>
 		<p class="Button--element MON">月</p>
 		<p class="Button--element TUE">火</p>
 		<p class="Button--element WED">水</p>

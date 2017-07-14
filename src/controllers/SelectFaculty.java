@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import models.Student;
+import models.StudentDAO;
 
 @WebServlet("/SelectFaculty")
 public class SelectFaculty extends HttpServlet {
@@ -49,6 +50,25 @@ public class SelectFaculty extends HttpServlet {
 			log("session.student:" + student);
 			response.sendRedirect("SelectDepartment");
 			return;
+		}
+
+		/*
+		 * (非DT) 2回目の注文以降は選択しなくていいように 録があれば、履修科目選択へスキップ
+		 */
+		if (!request.getParameterMap().containsKey("reselect")) {
+			// URLのパラメータに?reselectが指定されている場合はスキップ
+			StudentDAO sdao = new StudentDAO();
+			Student studentAtDB = sdao.selectStudentByID(student.getStudentID());
+			String fc = studentAtDB.getFaculty();
+			String dp = studentAtDB.getDepartment();
+			int gr = studentAtDB.getGrade();
+			if (fc != null && dp != null && gr != 0) {
+				student.setFaculty(fc);
+				student.setDepartment(dp);
+				student.setGrade(gr);
+				response.sendRedirect("CourseTable");
+				return;
+			}
 		}
 
 		/*

@@ -34,6 +34,6 @@
 
     </div>
 
-    <a class="back" href="SelectFaculty">戻る</a>
+    <a class="back" href="SelectFaculty?reselect">戻る</a>
 </body>
 </html>

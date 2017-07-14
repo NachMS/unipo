@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import models.Course;
 import models.Order;
 import models.Student;
+import models.StudentDAO;
 import models.Textbook;
 import models.TextbookDAO;
 
@@ -57,6 +58,14 @@ public class SelectTextbooks extends HttpServlet {
 			response.sendRedirect("CourseTable");
 			return;
 		}
+
+
+		/**
+		 * 学生の履修科目をDBに保存
+		 */
+		StudentDAO sdao = new StudentDAO();
+		sdao.deleteStudentCourses(student.getStudentID());
+		sdao.insertStudentCourses(student.getStudentID(), student.getCourses());
 
 		/**
 		 * 学生の時間割に対応する教科書をDBより引っ張る。 session.studentより科目リストを得る。

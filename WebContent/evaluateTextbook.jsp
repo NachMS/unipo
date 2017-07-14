@@ -35,7 +35,7 @@
 				}
 	%>
 	<div class="Subject">
-		<span class="Subject__detail"> <span class="period period-tue"><%=textbook.getCourse().getDayOfWeekKanji()%><%=textbook.getCourse().getHour()%></span>&emsp;
+		<span class="Subject__detail"> <span class="period period-<%=textbook.getCourse().getDayOfWeek()%>"><%=textbook.getCourse().getDayOfWeekKanji()%><%=textbook.getCourse().getHour()%></span>&emsp;
 			<span class="name"><%=textbook.getCourse().getName()%></span> <span
 			class="textbook">「<%=textbook.getName()%>」 </span>
 		</span>

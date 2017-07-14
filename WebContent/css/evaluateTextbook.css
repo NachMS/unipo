@@ -47,15 +47,16 @@ a {
   border-radius: 2px; }
 
 .textbook {
-	width:35vw;
+	width:30vw;
 
    }
 
 .textbook, .period, .name {
-  font-size: 2vw; }
+  font-size: 1.5vw; }
 
 .name {
 	width:20vw;
+	margin-right: 2vw;
 }
 .period {
   display: -ms-inline-flexbox;
@@ -67,19 +68,19 @@ a {
       align-items: center;
   width: 7vw;
   border-radius: 2px; }
-  .period-mon {
+  .period-1 {
     background-color: #ffd54f; }
-  .period-tue {
+  .period-2 {
     background-color: #ff8a65; }
-  .period-wen {
+  .period-3 {
     background-color: #64b5f6; }
-  .period-thu {
+  .period-4 {
     background-color: #81c784; }
-  .period-fri {
+  .period-5 {
     background-color: #ffa726; }
 
 .smile {
-  margin-left: 10px;
+  margin-left: 14px;
   background-color: #ff5252;
   display: -ms-inline-flexbox;
   display: inline-flex;

@@ -43,7 +43,7 @@ public class ChangeOrder extends HttpServlet {
 		/*
 		 * (例外) URLにパラメータ ?id=(注文ID) がないとホームへ
 		 */
-		if (request.getAttribute("id") == null) {
+		if (request.getParameter("id") == null) {
 			response.sendRedirect("Home");
 			return;
 		}
@@ -88,6 +88,7 @@ public class ChangeOrder extends HttpServlet {
 		student.setDepartment(department);
 		student.setGrade(grade);
 
+		session.setAttribute("changing", "order"); // これで注文内容変更時だという状態を認識する
 		response.sendRedirect("SelectFaculty");
 	}
 

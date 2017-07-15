@@ -64,6 +64,10 @@ public class ConfirmOrder extends HttpServlet {
 		// return;
 		// }
 
+		boolean isChangingOrder = (session.getAttribute("changing") != null
+				&& session.getAttribute("changing").equals("order"));
+		log("今注文内容変更中?" + isChangingOrder);
+
 		/**
 		 * (非DT) 「確定」が押されたとき。
 		 *
@@ -78,8 +82,8 @@ public class ConfirmOrder extends HttpServlet {
 			try {
 				odao.registerOrder(order);
 				String[] message = { "success", "注文を受け取りました。（っていうサビースがあればね・・・）" };
-				// 注文内容変更なら
-				if (session.getAttribute("oldOrder") != null) {
+				// 注文内容変更中なら
+				if (isChangingOrder) {
 					Order oldOrder = (Order) session.getAttribute("oldOrder");
 					odao.cancelOrderByID(oldOrder.getOrderID());
 					session.removeAttribute("oldOrder");
@@ -91,14 +95,6 @@ public class ConfirmOrder extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}
-
-		/**
-		 * (DT) 注文変更時
-		 */
-		boolean isChangingOrder = false; // ビューで注文変更時かどうかを識別するため
-		if (session.getAttribute("oldOrder") != null) {
-			isChangingOrder = true;
 		}
 
 		/**

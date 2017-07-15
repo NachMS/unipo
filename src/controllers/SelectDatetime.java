@@ -39,9 +39,13 @@ public class SelectDatetime extends HttpServlet {
 			return;
 		}
 
+		boolean isChangingOrder = (session.getAttribute("changing") != null
+				&& session.getAttribute("changing").equals("order"));
+		log("今注文内容変更中?" + isChangingOrder);
+
 		boolean isChangingReceiveDatetime = (session.getAttribute("changing") != null
 				&& session.getAttribute("changing").equals("receiveDatetime"));
-		log("今受取日時変更中だ?" + isChangingReceiveDatetime);
+		log("今受取日時変更中?" + isChangingReceiveDatetime);
 
 		/*
 		 * (例外) 注文セッションが空の場合教科書選択画面へ転送
@@ -61,7 +65,7 @@ public class SelectDatetime extends HttpServlet {
 		 *
 		 * ただし、受取日時変更時はスキップしない。
 		 */
-		if (session.getAttribute("oldOrder") != null && !isChangingReceiveDatetime) {
+		if (isChangingOrder && !isChangingReceiveDatetime) {
 			Order oldOrder = (Order) session.getAttribute("oldOrder");
 			if (!oldOrder.getTextbooks().isEmpty()) {
 				order.setReceiveDate(oldOrder.getReceiveDate());

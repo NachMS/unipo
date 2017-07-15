@@ -259,7 +259,6 @@ a.back:hover {
 
 a.datetime__edit {
 	background: #03a9f4;
-	margin-right: 0;
 }
 
 a.datetime__edit:hover {
@@ -267,15 +266,16 @@ a.datetime__edit:hover {
 }
 
 a.order__edit {
-	background-color: #ffa000;
+	background: #03a9f4;
 }
 
 a.order__edit:hover {
-	background: #c67100;
+	background: #007ac1;
 }
 
 a.cancel {
 	background: #f4511e;
+	margin-right: 0;
 }
 
 a.cancel:hover {

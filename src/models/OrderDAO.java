@@ -83,6 +83,36 @@ public class OrderDAO {
 		return true;
 	}
 
+	/**
+	 * 受取日時の更新
+	 *
+	 * @param orderID
+	 *            注文ID
+	 * @param receiveDate
+	 *            新しい受取日時(Date型)
+	 * @return 成功ならtrue
+	 */
+	public boolean updateReceiveDate(int orderID, Date receiveDate) {
+		System.out.println("updateReceiveDate(" + orderID + ", " + receiveDate + ")");
+		boolean result = false;
+		String sql = "UPDATE orders SET receipt_timestamp = ? WHERE order_id=?";
+		Connection connection;
+		ResultSet resultSet;
+		try {
+			Class.forName(driverClassName);
+			connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			Timestamp receiveTimestamp = new Timestamp(receiveDate.getTime());
+			pstmt.setTimestamp(1, receiveTimestamp);
+			pstmt.setInt(2, orderID);
+			int count = pstmt.executeUpdate();
+			result = (count > 0); // 成功ならtrue
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 	public Order getOrderByID(int orderID) {
 		System.out.println("getOrderByID(" + orderID + ")");
 		String sql = "SELECT * FROM orders WHERE order_id=?";

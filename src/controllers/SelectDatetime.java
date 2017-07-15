@@ -53,6 +53,20 @@ public class SelectDatetime extends HttpServlet {
 			return;
 		}
 
+		Order order = (Order) session.getAttribute("order");
+
+		/**
+		 * 注文内容変更時この画面をスキップする
+		 */
+		if (session.getAttribute("oldOrder") != null) {
+			Order oldOrder = (Order) session.getAttribute("oldOrder");
+			if (!oldOrder.getTextbooks().isEmpty()) {
+				order.setReceiveDate(oldOrder.getReceiveDate());
+				response.sendRedirect("ConfirmOrder");
+				return;
+			}
+		}
+
 		/**
 		 * (非DT) 受取日時が選択されたとき
 		 *
@@ -79,7 +93,6 @@ public class SelectDatetime extends HttpServlet {
 			int minute = 0;
 			cal.set(thisYear, selectedMonth - 1, selectedDate, selectedHour, minute); // Calendar.MONTHは6月なら=5
 			Date receiveDate = cal.getTime();
-			Order order = (Order) session.getAttribute("order");
 			log("[格納前] session.order:" + order);
 			order.setReceiveDate(receiveDate);
 			log("[格納後] session.order:" + order);
@@ -111,10 +124,10 @@ public class SelectDatetime extends HttpServlet {
 		int[][] congestionDataArray = new int[8][7];
 		OrderDAO odao = new OrderDAO();
 		List<Order> allOrders = odao.getAllOrders();
-		for (Order order : allOrders) {
-			if (!order.isCompleteFlag() && !order.isCancelFlag()) {
-				log("今週のorder:" + order);
-				Date receiveDate = order.getReceiveDate();
+		for (Order ord : allOrders) {
+			if (!order.isCompleteFlag() && !ord.isCancelFlag()) {
+				log("今週のorder:" + ord);
+				Date receiveDate = ord.getReceiveDate();
 				Calendar receiveCal = Calendar.getInstance();
 				receiveCal.setTime(receiveDate);
 				int receiptDate = receiveCal.get(Calendar.DATE);

@@ -2,8 +2,19 @@
 	pageEncoding="UTF-8"
 	import="java.util.*,models.Order,models.Textbook,java.text.SimpleDateFormat"%>
 <%
+	/**
+	* コントローラからのデータの取得
+	*/
 	Order order = (Order) request.getAttribute("order");
+	boolean isChangingOrder = (boolean) request.getAttribute("isChangingOrder");
+
 	List<Textbook> textbooks = order.getTextbooks();
+	String message = "以下の内容で注文を確定します。よろしいですか？";
+	String backLink = "SelectDatetime";
+	if (isChangingOrder) {
+		message = "以下の内容で注文を変更します。よろしいですか？";
+		backLink = "SelectTextbooks";
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -17,10 +28,10 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
-	<div class="message__top">以下の内容で注文を確定します。よろしいですか？</div>
+	<div class="message__top"><%=message%></div>
 	<div class="message__bottom">
-		<span class="message__textbook">購入教科書&emsp;支払い価格￥<%=order.getTotalAmount() %></span> <span
-			class="message__datetime">受け取り日時</span>
+		<span class="message__textbook">購入教科書&emsp;支払い価格￥<%=order.getTotalAmount()%></span>
+		<span class="message__datetime">受け取り日時</span>
 	</div>
 	<div class="order">
 
@@ -29,9 +40,10 @@
 				for (Textbook textbook : textbooks) {
 			%>
 			<div class="textbook">
-				<span class="DOW DOW-<%=textbook.getCourse().getDayOfWeek()%>"><%=textbook.getCourse().getDayOfWeekKanji()%><%=textbook.getCourse().getHour()%></span> <span class="course__name"><%=textbook.getCourse().getName()%></span>
-				<span class="textbook__name"><%=textbook.getName()%></span>
-				<span class="textbook__price">¥<%=textbook.getPrice()%></span>
+				<span class="DOW DOW-<%=textbook.getCourse().getDayOfWeek()%>"><%=textbook.getCourse().getDayOfWeekKanji()%><%=textbook.getCourse().getHour()%></span>
+				<span class="course__name"><%=textbook.getCourse().getName()%></span>
+				<span class="textbook__name"><%=textbook.getName()%></span> <span
+					class="textbook__price">¥<%=textbook.getPrice()%></span>
 			</div>
 			<%
 				}
@@ -41,11 +53,12 @@
 		<div class="order__datetime">
 			<div class="date__top L"><%=order.getReceiveDateInt()%></div>
 			<div class="date__middle"><%=order.getReceiveDayOfWeekKanji()%></div>
-			<div class="date__bottom"><%=order.getReceiveHour() %>~<%=order.getReceiveHour() + 1%></div>
+			<div class="date__bottom"><%=order.getReceiveHour()%>~<%=order.getReceiveHour() + 1%></div>
 		</div>
 	</div>
 	<div class="Button">
-		<a class="btn" href="SelectDatetime">戻る</a> <a class="btn confirm" href="ConfirmOrder?act=confirm">確定</a>
+		<a class="btn" href="<%=backLink%>">戻る</a> <a class="btn confirm"
+			href="ConfirmOrder?act=confirm">確定</a>
 	</div>
 
 </body>

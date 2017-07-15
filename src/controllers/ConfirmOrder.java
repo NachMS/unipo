@@ -70,14 +70,21 @@ public class ConfirmOrder extends HttpServlet {
 		 * 注文内容をDBに記録する。
 		 */
 		if (request.getParameter("act") != null && request.getParameter("act").equals("confirm")) {
+			OrderDAO odao = new OrderDAO();
 			order.setOrderDate(new Date()); // 現在時刻を格納
 			Student student = (Student) session.getAttribute("student");
 			String studentID = student.getStudentID();
 			order.setStudentID(studentID);
-			OrderDAO odao = new OrderDAO();
 			try {
 				odao.registerOrder(order);
 				String[] message = { "success", "注文を受け取りました。（っていうサビースがあればね・・・）" };
+				// 注文内容変更なら
+				if (session.getAttribute("oldOrder") != null) {
+					Order oldOrder = (Order) session.getAttribute("oldOrder");
+					odao.cancelOrderByID(oldOrder.getOrderID());
+					session.removeAttribute("oldOrder");
+					message[1] = "注文内容を変更しました。";
+				}
 				session.setAttribute("message", message);
 				response.sendRedirect("OrderHistory");
 				return;
@@ -87,9 +94,18 @@ public class ConfirmOrder extends HttpServlet {
 		}
 
 		/**
+		 * (DT) 注文変更時
+		 */
+		boolean isChangingOrder = false; // ビューで注文変更時かどうかを識別するため
+		if (session.getAttribute("oldOrder") != null) {
+			isChangingOrder = true;
+		}
+
+		/**
 		 * (DT) ビューの描画
 		 */
 		request.setAttribute("order", order);
+		request.setAttribute("isChangingOrder", isChangingOrder); // ビューで注文変更時かどうかを識別するため
 		getServletContext().getRequestDispatcher("/confirmOrder.jsp").forward(request, response);
 	}
 

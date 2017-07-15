@@ -45,7 +45,7 @@
 		<div class="order__card<%=canceled%>"><%=str%>
 			<span class="order__datetime">注文日時
 				<div class="order__datetime__value"><%=orders[i][0]%></div>
-			</span> <span class="order__sum">お支払い金額
+			</span> <span class="order__sum">合計
 				<div class="order__sum__value">
 					¥&nbsp;<%=String.format("%,3d", Integer.parseInt(orders[i][1]))%></div>
 			</span> <span class="order__receive">受取日時

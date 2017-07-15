@@ -32,7 +32,7 @@
 			%>
 			<span class="order__date">注文日時&nbsp;&nbsp;<span
 				class="order__datetime__value"><%=dateArray[0]%></span>
-			</span> <span class="order__sum">お支払い金額&nbsp;&nbsp;<span class="order__sum__value">¥&nbsp;<%=String.format("%,3d", Integer.parseInt(dateArray[1]))%></span>
+			</span> <span class="order__sum">合計&nbsp;&nbsp;<span class="order__sum__value">¥&nbsp;<%=String.format("%,3d", Integer.parseInt(dateArray[1]))%></span>
 			</span>
 		</div>
 	</div>

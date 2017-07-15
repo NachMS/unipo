@@ -63,33 +63,6 @@ public class OrderDAO {
 		}
 	}
 
-	public boolean login(Student student) throws SQLException {
-		boolean result = false;
-		Connection connection;
-		String sql = "SELECT * FROM students WHERE student_id=? AND password=?";
-
-		try {
-			Class.forName(driverClassName);
-			connection = DriverManager.getConnection(url, user, password);
-			PreparedStatement pstmt = connection.prepareStatement(sql);
-
-			pstmt.setString(1, student.getStudentID());
-			pstmt.setString(2, student.getPassword());
-			System.out.println(student.getStudentID());
-			System.out.println(student.getPassword());
-
-			ResultSet resultSet = pstmt.executeQuery();
-			if (resultSet.next())
-				result = true;
-
-			resultSet.close();
-			connection.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-
 	public boolean cancelOrderByID(int orderID) {
 		String sql = "UPDATE orders SET cancel_flag = 'true' WHERE order_id=?";
 		Connection connection;
@@ -108,6 +81,36 @@ public class OrderDAO {
 			e.printStackTrace();
 		}
 		return true;
+	}
+
+	/**
+	 * 受取日時の更新
+	 *
+	 * @param orderID
+	 *            注文ID
+	 * @param receiveDate
+	 *            新しい受取日時(Date型)
+	 * @return 成功ならtrue
+	 */
+	public boolean updateReceiveDate(int orderID, Date receiveDate) {
+		System.out.println("updateReceiveDate(" + orderID + ", " + receiveDate + ")");
+		boolean result = false;
+		String sql = "UPDATE orders SET receipt_timestamp = ? WHERE order_id=?";
+		Connection connection;
+		ResultSet resultSet;
+		try {
+			Class.forName(driverClassName);
+			connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			Timestamp receiveTimestamp = new Timestamp(receiveDate.getTime());
+			pstmt.setTimestamp(1, receiveTimestamp);
+			pstmt.setInt(2, orderID);
+			int count = pstmt.executeUpdate();
+			result = (count > 0); // 成功ならtrue
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	public Order getOrderByID(int orderID) {

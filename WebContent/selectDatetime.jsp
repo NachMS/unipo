@@ -2,10 +2,7 @@
 	pageEncoding="UTF-8"
 	import="java.util.Date,java.util.Calendar,java.text.SimpleDateFormat"%>
 <%
-	//未ログインの場合ログイン画面ヘ転送
-	if (session.getAttribute("login") == null || !(Boolean) session.getAttribute("login")) {
-		response.sendRedirect("login.jsp");
-	}
+	boolean isChangingReceiveDatetime = (boolean) request.getAttribute("isChangingReceiveDatetime");
 %>
 <!DOCTYPE html>
 <head>
@@ -19,7 +16,14 @@
 
 </head>
 <body>
+	<%
+		//受取日時変更時は戻るボタンを非表示に
+		if (!isChangingReceiveDatetime) {
+	%>
 	<a class="back" href="SelectFaculty">戻る</a>
+	<%
+		}
+	%>
 	<div class="message">受け取り日時を選択してください</div>
 	<table>
 		<tr>
@@ -63,7 +67,7 @@
 					int month = monthOfEachDateTowards7DaysAhead[j];
 					int date = datesTowards7DaysAhead[j];
 					String link = "SelectDatetime" + "?month=" + month + "&date=" + date + "&hour=" + hour;
-					if (j == 0 && hour <= currentHour ) {
+					if (j == 0 && hour <= currentHour) {
 						link = "#";
 						selectablity = "unselectable";
 					}

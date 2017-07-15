@@ -14,36 +14,42 @@ import models.Order;
 import models.OrderDAO;
 import models.Student;
 
-@WebServlet("/ChangeOrder")
-public class ChangeOrder extends HttpServlet {
+@WebServlet("/ChangeDatetime")
+public class ChangeDatetime extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public ChangeOrder() {
+	public ChangeDatetime() {
 		super();
 	}
 
+	/**
+	 * 受取日時変更ボタンの遷移先
+	 *
+	 * URLにパラメータ ?id=(注文ID) が必要
+	 *
+	 * @author Jun
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		HttpSession session = request.getSession();
 
-		/*
+		/**
 		 * (例外) 未ログインの場合ログイン画面ヘ転送
 		 */
 		if (session.getAttribute("login") == null || !(Boolean) session.getAttribute("login")) {
 			response.sendRedirect("Login");
 			return;
 		}
-
 		if (session.getAttribute("student") == null) {
 			response.sendRedirect("Logout");
 			return;
 		}
 
-		/*
+		/**
 		 * (例外) URLにパラメータ ?id=(注文ID) がないとホームへ
 		 */
 		if (request.getParameter("id") == null) {
+			log("URLにパラメータ ?id=(注文ID) がないのでホームへ");
 			response.sendRedirect("Home");
 			return;
 		}
@@ -68,28 +74,14 @@ public class ChangeOrder extends HttpServlet {
 		}
 
 		/*
-		 * 新しい注文セッションを作成して、古い注文のデータをコピー
+		 * 注文の古い受取日時を oldReceiveDatetime としてセッションに格納
 		 */
 		Order oldOrder = odao.getOrderByID(oldOrderID);
-		Order newOrder = new Order();
-		newOrder.setStudentID(student.getStudentID());
-		newOrder.setReceiveDate(oldOrder.getReceiveDate());
-		newOrder.setTextbooks(oldOrder.getTextbooks());
+		Order order = odao.getOrderByID(oldOrderID); // clone面倒なのでとりあえず
+		session.setAttribute("changing", "receiveDatetime");
 		session.setAttribute("oldOrder", oldOrder);
-		session.setAttribute("order", newOrder);
-
-		// 注文の教科書の学部学科学年を取得
-		String department = oldOrder.getTextbooks().get(0).getCourse().getDepartment();
-		int grade = oldOrder.getTextbooks().get(0).getCourse().getGrade();
-		String faculty = department.substring(0, 1); // "FI"→"F"
-
-		// それを学生セッションに格納
-		student.setFaculty(faculty);
-		student.setDepartment(department);
-		student.setGrade(grade);
-
-		session.setAttribute("changing", "order"); // これで注文内容変更時だという状態を認識する
-		response.sendRedirect("SelectFaculty");
+		session.setAttribute("order", order);
+		response.sendRedirect("SelectDatetime");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

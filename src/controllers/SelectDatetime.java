@@ -34,20 +34,25 @@ public class SelectDatetime extends HttpServlet {
 			response.sendRedirect("Login");
 			return;
 		}
-
-		/*
-		 * (例外) 学生セッションが空の場合、学部選択画面画面へ転送
-		 */
 		if (session.getAttribute("student") == null) {
-			log("session.studentが空なのでSelectFacultyにリダイレクトします");
-			response.sendRedirect("SelectFaculty");
+			response.sendRedirect("Logout");
 			return;
 		}
 
+		boolean isChangingOrder = (session.getAttribute("changing") != null
+				&& session.getAttribute("changing").equals("order"));
+		log("今注文内容変更中?" + isChangingOrder);
+
+		boolean isChangingReceiveDatetime = (session.getAttribute("changing") != null
+				&& session.getAttribute("changing").equals("receiveDatetime"));
+		log("今受取日時変更中?" + isChangingReceiveDatetime);
+
 		/*
 		 * (例外) 注文セッションが空の場合教科書選択画面へ転送
+		 *
+		 * なお、受取日時変更時なら転送しない。 --Jun
 		 */
-		if (session.getAttribute("order") == null) {
+		if (session.getAttribute("order") == null && !isChangingReceiveDatetime) {
 			log("session.orderが空なのでSelectTextbooksにリダイレクトします");
 			response.sendRedirect("SelectTextbooks");
 			return;
@@ -57,11 +62,14 @@ public class SelectDatetime extends HttpServlet {
 
 		/**
 		 * 注文内容変更時この画面をスキップする
+		 *
+		 * ただし、受取日時変更時はスキップしない。
 		 */
-		if (session.getAttribute("oldOrder") != null) {
+		if (isChangingOrder && !isChangingReceiveDatetime) {
 			Order oldOrder = (Order) session.getAttribute("oldOrder");
 			if (!oldOrder.getTextbooks().isEmpty()) {
 				order.setReceiveDate(oldOrder.getReceiveDate());
+				log("注文内容変更時なのでこの画面をスキップします");
 				response.sendRedirect("ConfirmOrder");
 				return;
 			}
@@ -69,8 +77,6 @@ public class SelectDatetime extends HttpServlet {
 
 		/**
 		 * (非DT) 受取日時が選択されたとき
-		 *
-		 * 受取日時を注文セッションに保存
 		 */
 		if (request.getParameter("month") != null && request.getParameter("date") != null
 				&& request.getParameter("hour") != null) {
@@ -93,12 +99,33 @@ public class SelectDatetime extends HttpServlet {
 			int minute = 0;
 			cal.set(thisYear, selectedMonth - 1, selectedDate, selectedHour, minute); // Calendar.MONTHは6月なら=5
 			Date receiveDate = cal.getTime();
+			/*
+			 * 受取日時変更中なら、受取日時を注文セッションに格納
+			 *
+			 * 受取日時確認画面へ
+			 */
+			if (isChangingReceiveDatetime) {
+				Date newReceiveDatetime = receiveDate;
+				order.setReceiveDate(newReceiveDatetime);
+				log("新しい受取日時を注文セッションに格納しました。");
+				response.sendRedirect("ConfirmNewDatetime");
+				return;
+			}
+			/*
+			 * 通常時(受取日時変更中でない)なら、受取日時を注文セッションに保存
+			 *
+			 * 注文内容確認画面へ
+			 */
 			log("[格納前] session.order:" + order);
 			order.setReceiveDate(receiveDate);
 			log("[格納後] session.order:" + order);
 			response.sendRedirect("ConfirmOrder");
 			return;
 		}
+
+		/**
+		 * (DT) 以下、ビューのデータの用意
+		 */
 
 		/**
 		 * 今日から一週間先の日付を配列に格納 ex:{28, 29, 30, 1, 2, 3, 4}
@@ -125,7 +152,7 @@ public class SelectDatetime extends HttpServlet {
 		OrderDAO odao = new OrderDAO();
 		List<Order> allOrders = odao.getAllOrders();
 		for (Order ord : allOrders) {
-			if (!order.isCompleteFlag() && !ord.isCancelFlag()) {
+			if (!ord.isCompleteFlag() && !ord.isCancelFlag()) {
 				log("今週のorder:" + ord);
 				Date receiveDate = ord.getReceiveDate();
 				Calendar receiveCal = Calendar.getInstance();
@@ -152,6 +179,7 @@ public class SelectDatetime extends HttpServlet {
 		request.setAttribute("daysOfWeekTowards7DaysAhead", daysOfWeekTowards7DaysAhead);
 		request.setAttribute("monthOfEachDateTowards7DaysAhead", monthOfEachDateTowards7DaysAhead);
 		request.setAttribute("congestionDataArray", congestionDataArray);
+		request.setAttribute("isChangingReceiveDatetime", isChangingReceiveDatetime); // 戻るボタンを非表示にするため
 
 		getServletContext().getRequestDispatcher("/selectDatetime.jsp").forward(request, response);
 	}

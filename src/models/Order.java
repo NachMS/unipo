@@ -103,6 +103,16 @@ public class Order {
 	}
 
 	/**
+	 * @return 受取日時の月をint型で得る (ex. 7月:7)
+	 */
+	public int getReceiveMonth() {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(receiveDate);
+		// Calendar.MONTHはJANUARY=0～DECEMBER=11
+		return cal.get(Calendar.MONTH) + 1;
+	}
+
+	/**
 	 * @return 受取日時の日付をint型で得る (ex. 1日:1)
 	 */
 	public int getReceiveDateInt() {

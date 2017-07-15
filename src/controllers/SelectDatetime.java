@@ -175,6 +175,7 @@ public class SelectDatetime extends HttpServlet {
 		request.setAttribute("daysOfWeekTowards7DaysAhead", daysOfWeekTowards7DaysAhead);
 		request.setAttribute("monthOfEachDateTowards7DaysAhead", monthOfEachDateTowards7DaysAhead);
 		request.setAttribute("congestionDataArray", congestionDataArray);
+		request.setAttribute("isChangingReceiveDatetime", isChangingReceiveDatetime); // 戻るボタンを非表示にするため
 
 		getServletContext().getRequestDispatcher("/selectDatetime.jsp").forward(request, response);
 	}

@@ -30,7 +30,7 @@
 <body>
 	<div class="message__top"><%=message%></div>
 	<div class="message__bottom">
-		<span class="message__textbook">購入教科書&emsp;支払い価格￥<%=order.getTotalAmount()%></span>
+		<span class="message__textbook">購入教科書&emsp;お支払い金額￥<%=String.format("%,3d", order.getTotalAmount())%></span>
 		<span class="message__datetime">受け取り日時</span>
 	</div>
 	<div class="order">
@@ -43,7 +43,7 @@
 				<span class="DOW DOW-<%=textbook.getCourse().getDayOfWeek()%>"><%=textbook.getCourse().getDayOfWeekKanji()%><%=textbook.getCourse().getHour()%></span>
 				<span class="course__name"><%=textbook.getCourse().getName()%></span>
 				<span class="textbook__name"><%=textbook.getName()%></span> <span
-					class="textbook__price">¥<%=textbook.getPrice()%></span>
+					class="textbook__price">¥<%=String.format("%,3d", textbook.getPrice())%></span>
 			</div>
 			<%
 				}

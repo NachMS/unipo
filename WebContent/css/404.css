@@ -7,6 +7,11 @@
 	font-family: 'Roboto', sans-serif;
 }
 
+body {
+	overflow: hidden;
+	position:relative;
+}
+
 .gray {
 	position: absolute;
 	width: 100vw;
@@ -17,7 +22,7 @@
 
 .title {
 	position: absolute;
-	top: 50%;
+	top: 38%;
 	left: 50%;
 	-webkit-transform: translate(-50%, -50%);
 	-moz-transform: translate(-50%, -50%);

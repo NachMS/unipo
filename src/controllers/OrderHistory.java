@@ -3,6 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,13 +49,16 @@ public class OrderHistory extends HttpServlet {
 		String studentID = (String) session.getAttribute("studentID");
 		OrderDAO dao = new OrderDAO();
 		ArrayList<Order> list = dao.getOrdersByStudentID(studentID);// ログインIDが入るようにする
-		SimpleDateFormat sdf = new SimpleDateFormat("y年M月d日 HH:mm");
+		SimpleDateFormat sdf1 = new SimpleDateFormat("y年M月d日 (E) HH:mm", Locale.JAPAN);
+		SimpleDateFormat sdf2 = new SimpleDateFormat("d日 (E)", Locale.JAPAN);
+		SimpleDateFormat sdf3 = new SimpleDateFormat("HH");
 		String[][] orderList = new String[list.size()][5];
 		int i = 0;
 		for (Order order : list) {
-			orderList[i][0] = sdf.format(order.getOrderDate());
+			orderList[i][0] = sdf1.format(order.getOrderDate());
 			orderList[i][1] = String.valueOf(order.getTotalAmount());
-			orderList[i][2] = sdf.format(order.getReceiveDate());
+			int receiveHour = Integer.parseInt(sdf3.format(order.getReceiveDate()));
+			orderList[i][2] = sdf2.format(order.getReceiveDate()) + " " + receiveHour + " - " + (receiveHour + 1) + "時";
 			orderList[i][3] = String.valueOf(order.getOrderID());
 			orderList[i][4] = String.valueOf(order.isCancelFlag());
 			System.out.println(order.isCancelFlag());

@@ -40,12 +40,17 @@ public class CourseTable extends HttpServlet {
 		Student student = (Student) session.getAttribute("student");
 		System.out.println("やあ、時間割表だよ");
 
-		// DBから学生の履修科目を得る(あれば)
+		// DBから学生の履修科目を得て、(あれば)学生セッションに格納
 		StudentDAO sdao = new StudentDAO();
 		Student studentAtDB = sdao.selectStudentByID(student.getStudentID());
 		List<Course> coursesAtDB = studentAtDB.getCourses();
 		if (student.getCourses() == null && !coursesAtDB.isEmpty()) {
-			student.setCourses(coursesAtDB);
+			// 学部学科学年を再選択した場合、履修科目の学科年と異なるときはやめる。
+			boolean sameDepartment = (coursesAtDB.get(0).getDepartment().equals(student.getDepartment()));
+			boolean sameGrade = (coursesAtDB.get(0).getGrade() == student.getGrade());
+			if (sameDepartment && sameGrade) {
+				student.setCourses(coursesAtDB);
+			}
 		}
 
 		// ビューに渡すデータ

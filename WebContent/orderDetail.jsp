@@ -30,9 +30,9 @@
 			<%
 				}
 			%>
-			<span class="order__date">注文日時&nbsp; <span
+			<span class="order__date">注文日時&nbsp;&nbsp;<span
 				class="order__datetime__value"><%=dateArray[0]%></span>
-			</span> <span class="order__sum">合計 <span class="order__sum__value">¥&nbsp;<%=dateArray[1]%></span>
+			</span> <span class="order__sum">合計&nbsp;&nbsp;<span class="order__sum__value">¥&nbsp;<%=String.format("%,3d", Integer.parseInt(dateArray[1]))%></span>
 			</span>
 		</div>
 	</div>
@@ -49,7 +49,7 @@
 			<div class="textbook">
 				<span class="DOW DOW-<%=textbooks[i][0]%>"><%=textbooks[i][1]%></span>
 				<span class="course__name"><%=textbooks[i][2]%></span> <span
-					class="textbook__name"><%=textbooks[i][3]%></span>¥<%=textbooks[i][4]%>
+					class="textbook__name"><%=textbooks[i][3]%></span>¥<%=String.format("%,3d", Integer.parseInt(textbooks[i][4]))%>
 			</div>
 			<%
 				}

@@ -17,5 +17,7 @@
 	<p class="description">
 		お探しのページはありません。<br>回転する立体をお楽しみください。
 	</p>
+	  <script src="js/three.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

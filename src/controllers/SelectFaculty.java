@@ -53,16 +53,18 @@ public class SelectFaculty extends HttpServlet {
 		}
 
 		/*
-		 * (非DT) 2回目の注文以降は選択しなくていいように 録があれば、履修科目選択へスキップ
+		 * (DT) 2回目以降の注文は再選択しなくていいように、学生テーブルに学部、学科、学年の記録があれば、履修科目選択へスキップ
+		 *
+		 * なお、URLのパラメータに?reselectが指定されている場合はスキップしない。
 		 */
 		if (!request.getParameterMap().containsKey("reselect")) {
-			// URLのパラメータに?reselectが指定されている場合はスキップ
 			StudentDAO sdao = new StudentDAO();
 			Student studentAtDB = sdao.selectStudentByID(student.getStudentID());
 			String fc = studentAtDB.getFaculty();
 			String dp = studentAtDB.getDepartment();
 			int gr = studentAtDB.getGrade();
 			if (fc != null && dp != null && gr != 0) {
+				//学生セッションに学生テーブルに学部、学科、学年を格納
 				student.setFaculty(fc);
 				student.setDepartment(dp);
 				student.setGrade(gr);

@@ -53,7 +53,7 @@
 				for="checkbox<%=i%>" class="checkbox opacity<%=op %>"> <span class="period"><%=course.getDayOfWeekKanji() + course.getHour()%></span>
 				<span class="course"><%=course.getName()%></span> <span
 				class="textbook">「<%=tb.getName()%>」
-			</span> <span class="price">¥<%=tb.getPrice()%><br> <svg
+			</span> <span class="price">¥<%=String.format("%,3d", tb.getPrice())%><br> <svg
 						fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24"
 						xmlns="http://www.w3.org/2000/svg">
 						<path d="M0 0h24v24H0z" fill="none" />

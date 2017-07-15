@@ -68,7 +68,7 @@ public class OrderDetail extends HttpServlet {
 		request.setAttribute("canceled", order.isCancelFlag());
 
 		// 注文情報から日時を取得
-		SimpleDateFormat sdf = new SimpleDateFormat("y年M月d日 HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("y年M月d日 (E) HH:mm", Locale.JAPAN);
 		String formatedOrderDate = sdf.format(order.getOrderDate());
 		String formatedReceiveDate = sdf.format(order.getReceiveDate());
 		try {

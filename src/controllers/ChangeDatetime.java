@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -78,10 +77,9 @@ public class ChangeDatetime extends HttpServlet {
 		 * 注文の古い受取日時を oldReceiveDatetime としてセッションに格納
 		 */
 		Order oldOrder = odao.getOrderByID(oldOrderID);
-		Date oldReceiveDatetime = oldOrder.getReceiveDate();
-
-		session.setAttribute("oldReceiveDatetime", oldReceiveDatetime);
-		session.setAttribute("orderID", oldOrder.getOrderID());
+		session.setAttribute("changing", "receiveDatetime");
+		session.setAttribute("oldOrder", oldOrder);
+		session.setAttribute("order", oldOrder);
 		response.sendRedirect("SelectDatetime");
 	}
 

@@ -34,22 +34,21 @@ public class SelectDatetime extends HttpServlet {
 			response.sendRedirect("Login");
 			return;
 		}
-
-		/*
-		 * (例外) 学生セッションが空の場合、学部選択画面画面へ転送
-		 */
 		if (session.getAttribute("student") == null) {
-			log("session.studentが空なのでSelectFacultyにリダイレクトします");
-			response.sendRedirect("SelectFaculty");
+			response.sendRedirect("Logout");
 			return;
 		}
+
+		boolean isChangingReceiveDatetime = (session.getAttribute("changing") != null
+				&& session.getAttribute("changing").equals("receiveDatetime"));
+		log("今受取日時変更中だ?" + isChangingReceiveDatetime);
 
 		/*
 		 * (例外) 注文セッションが空の場合教科書選択画面へ転送
 		 *
 		 * なお、受取日時変更時なら転送しない。 --Jun
 		 */
-		if (session.getAttribute("order") == null && session.getAttribute("oldReceiveDatetime") == null) {
+		if (session.getAttribute("order") == null && !isChangingReceiveDatetime) {
 			log("session.orderが空なのでSelectTextbooksにリダイレクトします");
 			response.sendRedirect("SelectTextbooks");
 			return;
@@ -59,23 +58,14 @@ public class SelectDatetime extends HttpServlet {
 
 		/**
 		 * 注文内容変更時この画面をスキップする
+		 *
+		 * ただし、受取日時変更時はスキップしない。
 		 */
-		if (session.getAttribute("oldOrder") != null) {
+		if (session.getAttribute("oldOrder") != null && !isChangingReceiveDatetime) {
 			Order oldOrder = (Order) session.getAttribute("oldOrder");
 			if (!oldOrder.getTextbooks().isEmpty()) {
 				order.setReceiveDate(oldOrder.getReceiveDate());
-				response.sendRedirect("ConfirmOrder");
-				return;
-			}
-		}
-
-		/**
-		 * 受取日時変更時、戻るボタンを消す、遷移先を変える
-		 */
-		if (session.getAttribute("oldOrder") != null) {
-			Order oldOrder = (Order) session.getAttribute("oldOrder");
-			if (!oldOrder.getTextbooks().isEmpty()) {
-				order.setReceiveDate(oldOrder.getReceiveDate());
+				log("注文内容変更時なのでこの画面をスキップします");
 				response.sendRedirect("ConfirmOrder");
 				return;
 			}
@@ -106,14 +96,14 @@ public class SelectDatetime extends HttpServlet {
 			cal.set(thisYear, selectedMonth - 1, selectedDate, selectedHour, minute); // Calendar.MONTHは6月なら=5
 			Date receiveDate = cal.getTime();
 			/*
-			 * 受取日時変更中なら、受取日時を newReceiveDatetime としてセッションに保存
+			 * 受取日時変更中なら、受取日時を注文セッションに格納
 			 *
 			 * 受取日時確認画面へ
 			 */
-			if (session.getAttribute("oldReceiveDatetime") != null) {
+			if (isChangingReceiveDatetime) {
 				Date newReceiveDatetime = receiveDate;
-				session.setAttribute("newReceiveDatetime", newReceiveDatetime);
-				log("newReceiveDatetimeをセッションに格納しました。");
+				order.setReceiveDate(newReceiveDatetime);
+				log("新しい受取日時を注文セッションに格納しました。");
 				response.sendRedirect("ConfirmNewDatetime");
 				return;
 			}
@@ -128,6 +118,10 @@ public class SelectDatetime extends HttpServlet {
 			response.sendRedirect("ConfirmOrder");
 			return;
 		}
+
+		/**
+		 * (DT) 以下、ビューのデータの用意
+		 */
 
 		/**
 		 * 今日から一週間先の日付を配列に格納 ex:{28, 29, 30, 1, 2, 3, 4}

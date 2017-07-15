@@ -44,11 +44,14 @@ public class Home extends HttpServlet {
 		 *
 		 * @author Jun
 		 */
+		if (session.getAttribute("changing") != null) {
+			session.removeAttribute("changing");
+		}
 		if (session.getAttribute("oldOrder") != null) {
 			session.removeAttribute("oldOrder");
 		}
-		if (session.getAttribute("oldReceiveDatetime") != null) {
-			session.removeAttribute("oldReceiveDatetime");
+		if (session.getAttribute("order") != null) {
+			session.removeAttribute("order");
 		}
 	}
 

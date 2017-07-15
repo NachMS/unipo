@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,22 +37,25 @@ public class ConfirmNewDatetime extends HttpServlet {
 		}
 
 		/**
-		 * (例外) セッションに oldReceiveDatetime と newReceiveDatetime 両方ないとホームへ転送
+		 * (例外) 受取日時変更時でなければホームへ転送
 		 */
-		if (session.getAttribute("oldReceiveDatetime") == null || session.getAttribute("newReceiveDatetime") == null) {
-			log("セッションに oldReceiveDatetime と newReceiveDatetimeがないのでホームへ転送");
+		if (session.getAttribute("changing") == null || !session.getAttribute("changing").equals("receiveDatetime")) {
+			log("受取日時変更時でないのでホームへ転送");
 			response.sendRedirect("Home");
 			return;
 		}
 
-		Date oldReceiveDatetime = (Date) session.getAttribute("oldReceiveDatetime");
-		Date newReceiveDatetime = (Date) session.getAttribute("newReceiveDatetime");
+		/**
+		 * (例外) セッションに oldOrder と order 両方ないとホームへ転送
+		 */
+		if (session.getAttribute("oldOrder") == null || session.getAttribute("order") == null) {
+			log("セッションに oldOrder と order がないのでホームへ転送");
+			response.sendRedirect("Home");
+			return;
+		}
 
-		// 邪道。Orderの特殊ゲッターを使いたい。
-		Order before = new Order();
-		Order after = new Order();
-		before.setReceiveDate(oldReceiveDatetime);
-		after.setReceiveDate(newReceiveDatetime);
+		Order before = (Order) session.getAttribute("oldOrder");
+		Order after = (Order) session.getAttribute("order");
 
 		/**
 		 * (例外)newReceiveDatetime がおかしいとホームへ転送
@@ -74,7 +76,7 @@ public class ConfirmNewDatetime extends HttpServlet {
 		 */
 		if (request.getParameterMap().containsKey("confirm")) {
 			OrderDAO odao = new OrderDAO();
-			if (odao.updateReceiveDate((int) session.getAttribute("orderID"), newReceiveDatetime)) {
+			if (odao.updateReceiveDate(after.getOrderID(), after.getReceiveDate())) {
 				log("受取日時を変更しました。");
 				String[] message = { "success", "受取日時を変更しました。" };
 				session.setAttribute("message", message);
@@ -83,9 +85,9 @@ public class ConfirmNewDatetime extends HttpServlet {
 				String[] message = { "error", "エラーが発生したため、受取日時を変更できませんでした。" };
 				session.setAttribute("message", message);
 			}
-			session.removeAttribute("oldReceiveDatetime");
-			session.removeAttribute("newReceiveDatetime");
-			session.removeAttribute("orderID");
+			session.removeAttribute("changing");
+			session.removeAttribute("oldOrder");
+			session.removeAttribute("order");
 			response.sendRedirect("OrderHistory");
 			return;
 		}

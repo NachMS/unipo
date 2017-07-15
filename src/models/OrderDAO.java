@@ -63,33 +63,6 @@ public class OrderDAO {
 		}
 	}
 
-	public boolean login(Student student) throws SQLException {
-		boolean result = false;
-		Connection connection;
-		String sql = "SELECT * FROM students WHERE student_id=? AND password=?";
-
-		try {
-			Class.forName(driverClassName);
-			connection = DriverManager.getConnection(url, user, password);
-			PreparedStatement pstmt = connection.prepareStatement(sql);
-
-			pstmt.setString(1, student.getStudentID());
-			pstmt.setString(2, student.getPassword());
-			System.out.println(student.getStudentID());
-			System.out.println(student.getPassword());
-
-			ResultSet resultSet = pstmt.executeQuery();
-			if (resultSet.next())
-				result = true;
-
-			resultSet.close();
-			connection.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-
 	public boolean cancelOrderByID(int orderID) {
 		String sql = "UPDATE orders SET cancel_flag = 'true' WHERE order_id=?";
 		Connection connection;

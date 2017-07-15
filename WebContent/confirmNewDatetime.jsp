@@ -4,14 +4,39 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>受け取り日時変更</title>
+<!-- Normalize.css -->
+<link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="css/confirmNewDatetime.css">
 </head>
 <body>
-	<p>${before.receiveDateInt}${before.receiveDayOfWeekKanji}
-		${before.receiveHour} - ${before.receiveHour+1} を</p>
-	<p>${after.receiveDateInt}${after.receiveDayOfWeekKanji}
-		${after.receiveHour} - ${after.receiveHour+1} に変更します。よろしいですか?</p>
-	<a href="SelectDatetime">戻る</a>
-	<a href="ConfirmNewDatetime?confirm">確定</a>
+	<div class="message__top">
+        以下の内容で受取日時を変更します。よろしいですか？
+    </div>
+    <div class="message__bottom">
+        <span class="message__datetime">受け取り日時</span>
+    </div>
+    <div class="order">
+        <span class="order__datetime">
+            <div class="date__top L">${before.receiveDateInt}</div>
+            <div class="date__middle">${before.receiveDayOfWeekKanji}</div>
+            <div class="date__bottom">${before.receiveHour}-${before.receiveHour+1}</div>
+        </span>
+        <span class="arrow">
+            <svg fill="#FFFFFF" height="48" viewBox="0 0 24 24" width="48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+            </svg>
+        </span>
+        <span class="order__datetime">
+            <div class="date__top L">${after.receiveDateInt}</div>
+            <div class="date__middle">${after.receiveDayOfWeekKanji}</div>
+            <div class="date__bottom">${after.receiveHour}-${after.receiveHour+1}</div>
+        </span>
+    </div>
+    <div class="Button">
+        <a class="btn " href="SelectDatetime">戻る</a>
+        <a class="btn confirm" href="ConfirmNewDatetime?confirm">確定</a>
+    </div>
 </body>
 </html>

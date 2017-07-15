@@ -39,8 +39,8 @@ public class ChangeOrder extends HttpServlet {
 			response.sendRedirect("SelectFaculty");
 			return;
 		}
-		Student student = (Student) session.getAttribute("student");
 
+		Student student = (Student) session.getAttribute("student");
 		int oldOrderID = Integer.parseInt(request.getParameter("id"));
 
 		/*
@@ -69,6 +69,17 @@ public class ChangeOrder extends HttpServlet {
 		newOrder.setTextbooks(oldOrder.getTextbooks());
 		session.setAttribute("oldOrder", oldOrder);
 		session.setAttribute("order", newOrder);
+
+		 //注文の教科書の学部学科学年を取得
+		String department = oldOrder.getTextbooks().get(0).getCourse().getDepartment();
+		int grade = oldOrder.getTextbooks().get(0).getCourse().getGrade();
+		String faculty = department.substring(0, 1); // "FI"→"F"
+
+		//それを学生セッションに格納
+		student.setFaculty(faculty);
+		student.setDepartment(department);
+		student.setGrade(grade);
+
 		response.sendRedirect("SelectFaculty");
 	}
 

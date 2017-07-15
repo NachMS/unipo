@@ -32,6 +32,14 @@ public class Home extends HttpServlet {
 		response.setHeader("Cache-Control", "no-store");
 		response.setDateHeader("Expires", 0);
 		getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
+
+		/**
+		 * 注文変更→やっぱやーめた→新しい注文 注文変更状態を破棄
+		 * @author Jun
+		 */
+		if (session.getAttribute("oldOrder") != null) {
+			session.removeAttribute("oldOrder");
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

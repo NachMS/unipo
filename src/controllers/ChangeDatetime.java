@@ -77,9 +77,10 @@ public class ChangeDatetime extends HttpServlet {
 		 * 注文の古い受取日時を oldReceiveDatetime としてセッションに格納
 		 */
 		Order oldOrder = odao.getOrderByID(oldOrderID);
+		Order order = odao.getOrderByID(oldOrderID); // clone面倒なのでとりあえず
 		session.setAttribute("changing", "receiveDatetime");
 		session.setAttribute("oldOrder", oldOrder);
-		session.setAttribute("order", oldOrder);
+		session.setAttribute("order", order);
 		response.sendRedirect("SelectDatetime");
 	}
 

@@ -39,9 +39,12 @@ public class SelectGrade extends HttpServlet {
 			Student student = (Student) session.getAttribute("student");
 			int gradeInt = Integer.parseInt(request.getParameter("grade"));
 			log("session.student:" + student);
+			// 履修科目選択画面から戻ってきて別の学科と学年を選んだ場合、学生セッションから履修科目を破棄
 			if (student.getCourses() != null && student.getGrade() != 0) {
-				if (student.getGrade() != gradeInt) {
-					log("履修科目選択画面から戻ってきて別の学年を選んだ場合、学生セッションから履修科目を破棄");
+				boolean sameDeparment = (student.getCourses().get(0).getDepartment().equals(student.getDepartment()));
+				boolean sameGrade = (student.getCourses().get(0).getGrade() == student.getGrade());
+				if (!sameDeparment || !sameGrade) {
+					log("履修科目選択画面から戻ってきて別の学科と学年を選んだので、学生セッションから履修科目を破棄します。");
 					student.setCourses(null);
 				}
 			}

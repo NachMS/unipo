@@ -46,8 +46,10 @@ public class SelectDatetime extends HttpServlet {
 
 		/*
 		 * (例外) 注文セッションが空の場合教科書選択画面へ転送
+		 *
+		 * なお、受取日時変更時なら転送しない。 --Jun
 		 */
-		if (session.getAttribute("order") == null) {
+		if (session.getAttribute("order") == null && session.getAttribute("oldReceiveDatetime") == null) {
 			log("session.orderが空なのでSelectTextbooksにリダイレクトします");
 			response.sendRedirect("SelectTextbooks");
 			return;
@@ -68,9 +70,19 @@ public class SelectDatetime extends HttpServlet {
 		}
 
 		/**
+		 * 受取日時変更時、戻るボタンを消す、遷移先を変える
+		 */
+		if (session.getAttribute("oldOrder") != null) {
+			Order oldOrder = (Order) session.getAttribute("oldOrder");
+			if (!oldOrder.getTextbooks().isEmpty()) {
+				order.setReceiveDate(oldOrder.getReceiveDate());
+				response.sendRedirect("ConfirmOrder");
+				return;
+			}
+		}
+
+		/**
 		 * (非DT) 受取日時が選択されたとき
-		 *
-		 * 受取日時を注文セッションに保存
 		 */
 		if (request.getParameter("month") != null && request.getParameter("date") != null
 				&& request.getParameter("hour") != null) {
@@ -93,6 +105,23 @@ public class SelectDatetime extends HttpServlet {
 			int minute = 0;
 			cal.set(thisYear, selectedMonth - 1, selectedDate, selectedHour, minute); // Calendar.MONTHは6月なら=5
 			Date receiveDate = cal.getTime();
+			/*
+			 * 受取日時変更中なら、受取日時を newReceiveDatetime としてセッションに保存
+			 *
+			 * 受取日時確認画面へ
+			 */
+			if (session.getAttribute("oldReceiveDatetime") != null) {
+				Date newReceiveDatetime = receiveDate;
+				session.setAttribute("newReceiveDatetime", newReceiveDatetime);
+				log("newReceiveDatetimeをセッションに格納しました。");
+				response.sendRedirect("ConfirmNewDatetime");
+				return;
+			}
+			/*
+			 * 通常時(受取日時変更中でない)なら、受取日時を注文セッションに保存
+			 *
+			 * 注文内容確認画面へ
+			 */
 			log("[格納前] session.order:" + order);
 			order.setReceiveDate(receiveDate);
 			log("[格納後] session.order:" + order);
@@ -125,7 +154,7 @@ public class SelectDatetime extends HttpServlet {
 		OrderDAO odao = new OrderDAO();
 		List<Order> allOrders = odao.getAllOrders();
 		for (Order ord : allOrders) {
-			if (!order.isCompleteFlag() && !ord.isCancelFlag()) {
+			if (!ord.isCompleteFlag() && !ord.isCancelFlag()) {
 				log("今週のorder:" + ord);
 				Date receiveDate = ord.getReceiveDate();
 				Calendar receiveCal = Calendar.getInstance();

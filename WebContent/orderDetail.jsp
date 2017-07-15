@@ -67,7 +67,7 @@
 	%>
 	<div class="Button">
 		<a class="btn order__edit" href="ChangeOrder?id=<%=orderID%>">注文内容変更</a>
-		<a class="btn datetime__edit" href="#">受取日時変更</a>
+		<a class="btn datetime__edit" href="ChangeDatetime?id=<%=orderID%>">受取日時変更</a>
 		<a class="btn cancel" value="注文キャンセル確認ダイアログ"
 			onClick="cancelAlert()">注文キャンセル</a>
 	</div>

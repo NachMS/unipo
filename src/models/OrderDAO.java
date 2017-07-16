@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -97,7 +98,6 @@ public class OrderDAO {
 		boolean result = false;
 		String sql = "UPDATE orders SET receipt_timestamp = ? WHERE order_id=?";
 		Connection connection;
-		ResultSet resultSet;
 		try {
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
@@ -189,6 +189,69 @@ public class OrderDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	/**
+	 * 受取会場の混雑度を取得 (今週中の各時間帯の受取人数)
+	 *
+	 * @return int[8][7] 配列
+	 *
+	 *         引数1: 時間帯 ([0]10~11時...[7]17~18時)
+	 *
+	 *         引数2: 今日から何日目 ([0]今日~[6]6日後)
+	 * @author Jun
+	 */
+	public int[][] getCongestionArray() {
+		int[][] ordersNumArray = new int[8][7]; // 戻り値
+		System.out.println("selectWeekOrders()");
+		String sql = "SELECT receipt_timestamp FROM orders WHERE receipt_timestamp >= ? AND receipt_timestamp <= ? AND cancel_flag = false";
+		Connection connection;
+		ResultSet resultSet;
+		/*
+		 * 日付比較のため、今日の午前0時と7日後の午前0時を取得
+		 */
+		Calendar cal = Calendar.getInstance();
+		int today = cal.get(Calendar.DATE); // 本日の日付(後で結果を配列に格納するときに使う)
+		cal.clear(Calendar.HOUR);
+		cal.clear(Calendar.HOUR_OF_DAY);
+		cal.clear(Calendar.MINUTE);
+		cal.clear(Calendar.SECOND);
+		cal.clear(Calendar.MILLISECOND);
+		Date todayMidnight = cal.getTime(); // 今日の午前0時
+		cal.add(Calendar.DAY_OF_MONTH, 7);
+		Date todayPlus7Midnight = cal.getTime(); // 7日後の午前0時
+		System.out.println(todayMidnight + " から " + todayPlus7Midnight + " までのキャンセルされていない注文を湯得します。");
+		/*
+		 * DBにお問い合わせ
+		 */
+		try {
+			Class.forName(driverClassName);
+			connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			Timestamp todayTimestamp = new Timestamp(todayMidnight.getTime());
+			pstmt.setTimestamp(1, todayTimestamp);
+			Timestamp todayPlus7Timestamp = new Timestamp(todayPlus7Midnight.getTime());
+			pstmt.setTimestamp(2, todayPlus7Timestamp);
+			resultSet = pstmt.executeQuery();
+			/*
+			 * 結果を二次配列に格納
+			 */
+			while (resultSet.next()) {
+				Calendar receiveCal = Calendar.getInstance();
+				receiveCal.setTime(resultSet.getTimestamp("receipt_timestamp"));
+				int receiveDate = receiveCal.get(Calendar.DATE);
+				int receiveHour = receiveCal.get(Calendar.HOUR_OF_DAY);
+				// ArrayOutOfBounds から守ってくれる if
+				if ((today <= receiveDate && receiveDate <= today + 6) && (10 <= receiveHour && receiveHour <= 18)) {
+					ordersNumArray[receiveHour - 10][receiveDate - today]++;
+				}
+			}
+			resultSet.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ordersNumArray;
 	}
 
 	public ArrayList<Order> getAllOrders() {

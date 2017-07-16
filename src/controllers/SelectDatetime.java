@@ -3,7 +3,6 @@ package controllers;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -148,37 +147,24 @@ public class SelectDatetime extends HttpServlet {
 		/**
 		 * 注文テーブルから混雑度を算出して二次配列に格納
 		 */
-		int[][] congestionDataArray = new int[8][7];
 		OrderDAO odao = new OrderDAO();
-		List<Order> allOrders = odao.getAllOrders();
-		for (Order ord : allOrders) {
-			if (!ord.isCompleteFlag() && !ord.isCancelFlag()) {
-				log("今週のorder:" + ord);
-				Date receiveDate = ord.getReceiveDate();
-				Calendar receiveCal = Calendar.getInstance();
-				receiveCal.setTime(receiveDate);
-				int receiptDate = receiveCal.get(Calendar.DATE);
-				int receiptHour = receiveCal.get(Calendar.HOUR_OF_DAY);
-				log("date:" + receiptDate + ", hour:" + receiptHour);
-				if ((today <= receiptDate && receiptDate <= today + 6) && (10 <= receiptHour && receiptHour <= 18)) {
-					congestionDataArray[receiptHour - 10][receiptDate - today]++;
-				}
-			}
-		}
+		int[][] congestionArray = odao.getCongestionArray();
 
 		/**
 		 * ビューの描画
 		 *
 		 * datesDataArray[何日目] = 日付 ex:{28, 29, 30, 1, 2, 3, 4}
 		 *
-		 * congestionDataArray[何日目][時間帯] = 混雑度(0:すいている, 1:中, 2:混んでいる); 時間帯:
-		 * [0]10~11 [1]11~12 [2]12~13 [3]13~14 [4]14~15 [5]15~16 [6]16~17
-		 * [7]17~18
+		 * congestionArray[時間帯][何日目] = 受取人数 (int)
+		 *
+		 * 引数1: 時間帯 ([0]10~11時...[7]17~18時)
+		 *
+		 * 引数2: 今日から何日目 ([0]今日~[6]6日後)
 		 */
 		request.setAttribute("datesTowards7DaysAhead", datesTowards7DaysAhead);
 		request.setAttribute("daysOfWeekTowards7DaysAhead", daysOfWeekTowards7DaysAhead);
 		request.setAttribute("monthOfEachDateTowards7DaysAhead", monthOfEachDateTowards7DaysAhead);
-		request.setAttribute("congestionDataArray", congestionDataArray);
+		request.setAttribute("congestionArray", congestionArray);
 		request.setAttribute("isChangingReceiveDatetime", isChangingReceiveDatetime); // 戻るボタンを非表示にするため
 
 		getServletContext().getRequestDispatcher("/selectDatetime.jsp").forward(request, response);

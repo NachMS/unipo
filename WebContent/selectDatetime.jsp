@@ -54,8 +54,8 @@
 		<%
 			int[] monthOfEachDateTowards7DaysAhead = (int[]) request.getAttribute("monthOfEachDateTowards7DaysAhead");
 			int hour = 10;
-			int[][] congestionDataArray = (int[][]) request.getAttribute("congestionDataArray");
-			for (int[] hourRow : congestionDataArray) {
+			int[][] congestionArray = (int[][]) request.getAttribute("congestionArray");
+			for (int[] hourRow : congestionArray) {
 				//int i=0;
 				out.print("<tr>");
 		%>

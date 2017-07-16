@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,27 +49,21 @@ public class ChangeOrder extends HttpServlet {
 
 		Student student = (Student) session.getAttribute("student");
 		int oldOrderID = Integer.parseInt(request.getParameter("id"));
+		OrderDAO odao = new OrderDAO();
+		Order oldOrder = odao.getOrderByID(oldOrderID);
 
 		/*
 		 * (例外) 注文はログイン中の学生の注文か確認
 		 */
-		OrderDAO odao = new OrderDAO();
-		List<Order> studentOrders = odao.getOrdersByStudentID(student.getStudentID());
-		boolean studentOwnsOrder = false;
-		for (Order order : studentOrders) {
-			if (oldOrderID == order.getOrderID()) {
-				studentOwnsOrder = true;
-			}
-		}
-		if (!studentOwnsOrder) {
+		if (!oldOrder.getStudentID().equals(student.getStudentID())) {
 			log("学生の注文ではありません。");
 			response.sendRedirect("Home");
+			return;
 		}
 
 		/*
 		 * 新しい注文セッションを作成して、古い注文のデータをコピー
 		 */
-		Order oldOrder = odao.getOrderByID(oldOrderID);
 		Order newOrder = new Order();
 		newOrder.setStudentID(student.getStudentID());
 		newOrder.setReceiveDate(oldOrder.getReceiveDate());

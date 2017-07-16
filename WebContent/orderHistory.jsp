@@ -15,12 +15,15 @@
 <!-- Normalize.css -->
 <link rel="stylesheet" href="css/normalize.css">
 <link rel="stylesheet" type="text/css" href="css/orderHistory.css">
+<!--  Animate.css -->
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
 	<div class="TITLE">注文履歴</div>
-	<div class="message <%=message[0]%>">
+	<div class="message animated bounce <%=message[0]%>">
 		<svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24"
 			xmlns="http://www.w3.org/2000/svg">
     <path
@@ -50,8 +53,7 @@
 					¥&nbsp;<%=String.format("%,3d", Integer.parseInt(orders[i][1]))%></div>
 			</span> <span class="order__receive">受取日時
 				<div class="order__receive__value"><%=orders[i][2]%></div>
-			</span> <a class="order__detail"
-				href="OrderDetail?id=<%=orders[i][3]%>">注文詳細</a>
+			</span> <a class="order__detail" href="OrderDetail?id=<%=orders[i][3]%>">注文詳細</a>
 		</div>
 	</div>
 	<%

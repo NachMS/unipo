@@ -27,22 +27,16 @@ public class OrderHistory extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		// 未ログインの場合ログイン画面ヘ転送
+		/**
+		 * (例外) 未ログインの場合ログイン画面ヘ転送
+		 */
 		if (session.getAttribute("login") == null || !(Boolean) session.getAttribute("login")) {
 			response.sendRedirect("Login");
 			return;
 		}
-
-		/**
-		 * メッセージがあれば抜いてjspに繋ぎ渡し @author jun
-		 */
-		if (session.getAttribute("message") != null) {
-			String[] message = (String[]) session.getAttribute("message");
-			session.removeAttribute("message");
-			log("message:" + message[0] + ", " + message[1]);
-			request.setAttribute("message", message);
-		} else {
-			log("message:空");
+		if (session.getAttribute("student") == null) {
+			response.sendRedirect("Logout");
+			return;
 		}
 
 		// 注文情報の取得
@@ -64,6 +58,25 @@ public class OrderHistory extends HttpServlet {
 			System.out.println(order.isCancelFlag());
 			i++;
 		}
+
+		/**
+		 * 注文がなかったらメッセージを表示 -- Jun
+		 */
+		if (list.size() == 0) {
+			String[] message = {"info", "まだ注文がありません。"};
+			request.setAttribute("message", message);
+		}
+
+		/**
+		 * セッションにメッセージがあれば抜いてjspに繋ぎ渡し -- Jun
+		 */
+		if (session.getAttribute("message") != null) {
+			String[] sessonMessage = (String[]) session.getAttribute("message");
+			session.removeAttribute("message");
+			log("message:" + sessonMessage[0] + ", " + sessonMessage[1]);
+			request.setAttribute("message", sessonMessage);
+		}
+
 		request.setAttribute("orders", orderList);
 		getServletContext().getRequestDispatcher("/orderHistory.jsp").forward(request, response);
 	}

@@ -49,21 +49,6 @@ public class ConfirmOrder extends HttpServlet {
 			return;
 		}
 
-		/**
-		 * (例外) 注文セッションのデータに抜けがある場合教科書選択画面へ転送
-		 */
-		Order order = (Order) session.getAttribute("order");
-		// TODO
-		// int dow = order.getReceiveDayOfWeek();
-		// int date = order.getReceiveDateInt();
-		// int hour = order.getReceiveHour();
-		// List<Textbook> books = order.getTextbooks();
-		// if () {
-		// log("session.orderが空なのでSelectTextbooksにリダイレクトします");
-		// response.sendRedirect("SelectTextbooks");
-		// return;
-		// }
-
 		boolean isChangingOrder = (session.getAttribute("changing") != null
 				&& session.getAttribute("changing").equals("order"));
 		log("今注文内容変更中?" + isChangingOrder);
@@ -73,6 +58,7 @@ public class ConfirmOrder extends HttpServlet {
 		 *
 		 * 注文内容をDBに記録する。
 		 */
+		Order order = (Order) session.getAttribute("order");
 		if (request.getParameter("act") != null && request.getParameter("act").equals("confirm")) {
 			OrderDAO odao = new OrderDAO();
 			order.setOrderDate(new Date()); // 現在時刻を格納

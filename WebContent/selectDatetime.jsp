@@ -2,6 +2,19 @@
 	pageEncoding="UTF-8"
 	import="java.util.Date,java.util.Calendar,java.text.SimpleDateFormat"%>
 <%
+	/*
+	* 混雑度の設定部分 --Jun
+	*/
+	final int CROWDED = 1; //黄色 混雑警戒値 （まだ選択可能）
+	final int TOO_CROWDED = 2; //赤 混雑上限値 (もう選択不可)
+
+	/*
+	* コントローラからのデータ
+	*/
+	int[] datesTowards7DaysAhead = (int[]) request.getAttribute("datesTowards7DaysAhead");
+	String[] daysOfWeekTowards7DaysAhead = (String[]) request.getAttribute("daysOfWeekTowards7DaysAhead");
+	int[] monthOfEachDateTowards7DaysAhead = (int[]) request.getAttribute("monthOfEachDateTowards7DaysAhead");
+	int[][] congestionArray = (int[][]) request.getAttribute("congestionArray");
 	boolean isChangingReceiveDatetime = (boolean) request.getAttribute("isChangingReceiveDatetime");
 %>
 <!DOCTYPE html>
@@ -11,6 +24,7 @@
 <!-- Normalize.css -->
 <link rel="stylesheet" href="css/normalize.css">
 <link rel="stylesheet" type="text/css" href="css/selectDatetime.css">
+<!-- jQuery -->
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
@@ -31,48 +45,39 @@
 			<%
 				Calendar cal = Calendar.getInstance();
 				int currentHour = cal.get(Calendar.HOUR_OF_DAY);
-				int[] datesTowards7DaysAhead = (int[]) request.getAttribute("datesTowards7DaysAhead");
-
-				for (int date : datesTowards7DaysAhead) {
+				for (int i = 0; i < 7; i++) {
 			%>
-			<th class="sq"><%=date%></th>
+			<th class="sq"><%=datesTowards7DaysAhead[i]%><br/><%=daysOfWeekTowards7DaysAhead[i]%></th>
 			<%
 				}
 			%>
 		</tr>
-		<tr>
-			<th class="ninja"></th>
-			<%
-				String[] daysOfWeekTowards7DaysAhead = (String[]) request.getAttribute("daysOfWeekTowards7DaysAhead");
-
-				for (String dow : daysOfWeekTowards7DaysAhead) {
-					out.print("<th>" + dow + "</th>");
-				}
-			%>
-		</tr>
-
 		<%
-			int[] monthOfEachDateTowards7DaysAhead = (int[]) request.getAttribute("monthOfEachDateTowards7DaysAhead");
 			int hour = 10;
-			int[][] congestionArray = (int[][]) request.getAttribute("congestionArray");
 			for (int[] hourRow : congestionArray) {
-				//int i=0;
 				out.print("<tr>");
 		%>
 		<th class="Time"><%=hour%>-<%=(hour + 1)%></th>
 		<%
-			String selectablity;
-				for (int j = 0; j < hourRow.length; j++) {
-					selectablity = "";
+			for (int j = 0; j < hourRow.length; j++) {
 					int month = monthOfEachDateTowards7DaysAhead[j];
 					int date = datesTowards7DaysAhead[j];
 					String link = "SelectDatetime" + "?month=" + month + "&date=" + date + "&hour=" + hour;
+
+					String cellStyleClass; //セルの色
 					if (j == 0 && hour <= currentHour) {
-						link = "#";
-						selectablity = "unselectable";
+						cellStyleClass = "unselectable"; //灰色 (過ぎた時間)
+						link = "#"; //選択不可
+					} else if (hourRow[j] >= TOO_CROWDED) {
+						cellStyleClass = "H"; //赤 (混みすぎ)
+						link = "#"; //選択不可
+					} else if (hourRow[j] >= CROWDED) {
+						cellStyleClass = "M"; //黄 (混んでいる)
+					} else {
+						cellStyleClass = "L"; //緑 (空いている)
 					}
 		%>
-		<td class="L <%=selectablity%>"><a href="<%=link%>"> <%=hourRow[j]%></a></td>
+		<td class="<%=cellStyleClass%>"><a href="<%=link%>"> <%=hourRow[j]%></a></td>
 		<%
 			}
 				out.println("</tr>");

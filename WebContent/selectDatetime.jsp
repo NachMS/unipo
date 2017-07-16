@@ -47,7 +47,7 @@
 				int currentHour = cal.get(Calendar.HOUR_OF_DAY);
 				for (int i = 0; i < 7; i++) {
 			%>
-			<th class="sq"><%=datesTowards7DaysAhead[i]%><br/><%=daysOfWeekTowards7DaysAhead[i]%></th>
+			<th class="sq"><%=datesTowards7DaysAhead[i]%><br /><%=daysOfWeekTowards7DaysAhead[i]%></th>
 			<%
 				}
 			%>
@@ -63,22 +63,29 @@
 					int month = monthOfEachDateTowards7DaysAhead[j];
 					int date = datesTowards7DaysAhead[j];
 					String link = "SelectDatetime" + "?month=" + month + "&date=" + date + "&hour=" + hour;
-
+					boolean isSelectable = true; //クリックできるかどうか
 					String cellStyleClass; //セルの色
 					if (j == 0 && hour <= currentHour) {
 						cellStyleClass = "unselectable"; //灰色 (過ぎた時間)
-						link = "#"; //選択不可
+						isSelectable = false;
 					} else if (hourRow[j] >= TOO_CROWDED) {
 						cellStyleClass = "H"; //赤 (混みすぎ)
-						link = "#"; //選択不可
+						isSelectable = false;
 					} else if (hourRow[j] >= CROWDED) {
 						cellStyleClass = "M"; //黄 (混んでいる)
 					} else {
 						cellStyleClass = "L"; //緑 (空いている)
 					}
+					if (isSelectable) {
 		%>
-		<td class="<%=cellStyleClass%>"><a href="<%=link%>"> <%=hourRow[j]%></a></td>
+		<td class="selection-cell <%=cellStyleClass%>"><a
+			href="<%=link%>"> <%=hourRow[j]%></a></td>
 		<%
+			} else {
+		%>
+		<td class="selection-cell <%=cellStyleClass%>" title="選択できません。"><%=hourRow[j]%></td>
+		<%
+			}
 			}
 				out.println("</tr>");
 				hour++;

@@ -51,7 +51,7 @@
 			</span> <span class="order__receive">受取日時
 				<div class="order__receive__value"><%=orders[i][2]%></div>
 			</span> <a class="order__detail"
-				href="OrderDetail?selection=<%=orders[i][3]%>">注文詳細</a>
+				href="OrderDetail?id=<%=orders[i][3]%>">注文詳細</a>
 		</div>
 	</div>
 	<%

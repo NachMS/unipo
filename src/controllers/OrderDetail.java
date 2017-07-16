@@ -41,9 +41,9 @@ public class OrderDetail extends HttpServlet {
 			return;
 		}
 		// 教科書を注文情報から入手
-		int orderSelection = Integer.parseInt(request.getParameter("selection"));
+		int orderID = Integer.parseInt(request.getParameter("id"));
 		OrderDAO dao = new OrderDAO();
-		Order order = dao.getOrderByID(orderSelection);
+		Order order = dao.getOrderByID(orderID);
 		ArrayList<Textbook> textbooks = (ArrayList<Textbook>) order.getTextbooks();
 		// request.setAttribute("textbooks", textbooks);
 		String[] dow = { "月", "火", "水", "木", "金" };
@@ -61,13 +61,8 @@ public class OrderDetail extends HttpServlet {
 		}
 		request.setAttribute("textbooks", array);
 
-		// 注文キャンセルボタン用
-		request.setAttribute("orderID", orderSelection);
-
-		// キャンセルされた注文では「変更」「キャンセル」ボタンを表示しないためのboolean変数 @author Jun
-		request.setAttribute("canceled", order.isCancelFlag());
-
 		// 注文情報から日時を取得
+		String[] dateArray = new String[5];
 		SimpleDateFormat sdf = new SimpleDateFormat("y年M月d日 (E) HH:mm", Locale.JAPAN);
 		String formatedOrderDate = sdf.format(order.getOrderDate());
 		String formatedReceiveDate = sdf.format(order.getReceiveDate());
@@ -76,18 +71,27 @@ public class OrderDetail extends HttpServlet {
 			DateFormat dowFormat = new SimpleDateFormat("EEE", Locale.JAPANESE);
 			DateFormat dateFormat = new SimpleDateFormat("d", Locale.JAPANESE);
 			DateFormat timeFormat = new SimpleDateFormat("HH", Locale.JAPANESE);
-			String[] dateArray = new String[5];
 			dateArray[0] = formatedOrderDate;
 			dateArray[1] = String.valueOf(order.getTotalAmount());
 			dateArray[2] = dowFormat.format(date);
 			dateArray[3] = dateFormat.format(date);
 			int h = Integer.parseInt(timeFormat.format(date));
 			dateArray[4] = h + "-" + (h + 1);
-			request.setAttribute("date", dateArray);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		/**
+		 * (DT) ビューに渡すデータ
+		 */
+		// 表示データ-- Masa
+		request.setAttribute("date", dateArray);
+		// 注文キャンセル/注文内容変更/受取日時変更ボタン用
+		request.setAttribute("orderID", orderID);
+		// 受取日時が過ぎた注文では「変更」「キャンセル」ボタンを表示しないためのboolean変数 -- Jun
+		request.setAttribute("changeDeadlineOver", order.isChangeDeadlineOver());
+		// キャンセルされた注文では「変更」「キャンセル」ボタンを表示しないためのboolean変数 -- Jun
+		request.setAttribute("canceled", order.isCancelFlag());
 
 		getServletContext().getRequestDispatcher("/orderDetail.jsp").forward(request, response);
 	}

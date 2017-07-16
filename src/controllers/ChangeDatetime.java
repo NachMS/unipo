@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -56,27 +55,32 @@ public class ChangeDatetime extends HttpServlet {
 
 		Student student = (Student) session.getAttribute("student");
 		int oldOrderID = Integer.parseInt(request.getParameter("id"));
+		OrderDAO odao = new OrderDAO();
+		Order oldOrder = odao.getOrderByID(oldOrderID);
 
 		/*
 		 * (例外) 注文はログイン中の学生の注文か確認
 		 */
-		OrderDAO odao = new OrderDAO();
-		List<Order> studentOrders = odao.getOrdersByStudentID(student.getStudentID());
-		boolean studentOwnsOrder = false;
-		for (Order order : studentOrders) {
-			if (oldOrderID == order.getOrderID()) {
-				studentOwnsOrder = true;
-			}
-		}
-		if (!studentOwnsOrder) {
+		if (!oldOrder.getStudentID().equals(student.getStudentID())) {
 			log("学生の注文ではありません。");
-			response.sendRedirect("Home");
+			String[] message = { "error", "他の学生の注文を変更しようとしないでください。" };
+			session.setAttribute("message", message);
+			response.sendRedirect("OrderHistory");
+			return;
+		}
+
+		/*
+		 * 変更期限を過ぎていないか確認
+		 */
+		if (oldOrder.isChangeDeadlineOver()) {
+			log("変更期限が過ぎています。");
+			response.sendRedirect("OrderDetail?id=" + oldOrderID);
+			return;
 		}
 
 		/*
 		 * 注文の古い受取日時を oldReceiveDatetime としてセッションに格納
 		 */
-		Order oldOrder = odao.getOrderByID(oldOrderID);
 		Order order = odao.getOrderByID(oldOrderID); // clone面倒なのでとりあえず
 		session.setAttribute("changing", "receiveDatetime");
 		session.setAttribute("oldOrder", oldOrder);

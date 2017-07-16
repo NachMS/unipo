@@ -57,7 +57,18 @@ public class ChangeOrder extends HttpServlet {
 		 */
 		if (!oldOrder.getStudentID().equals(student.getStudentID())) {
 			log("学生の注文ではありません。");
-			response.sendRedirect("Home");
+			String[] message = { "error", "他の学生の注文を変更しようとしないでください。" };
+			session.setAttribute("message", message);
+			response.sendRedirect("OrderHistory");
+			return;
+		}
+
+		/*
+		 * 変更期限を過ぎていないか確認
+		 */
+		if (oldOrder.isChangeDeadlineOver()) {
+			log("変更期限が過ぎています。");
+			response.sendRedirect("OrderDetail?id=" + oldOrderID);
 			return;
 		}
 

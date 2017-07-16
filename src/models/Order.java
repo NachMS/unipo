@@ -149,4 +149,15 @@ public class Order {
 		cal.setTime(receiveDate);
 		return cal.get(Calendar.HOUR_OF_DAY);
 	}
+
+	/**
+	 * @return 受取日時の時間（開始時間）をint型で得る (10~11:10～17~18:17)
+	 */
+	public boolean isChangeDeadlineOver() {
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.HOUR, 1); // 変更期限は 1 時間前とする。
+		cal.add(Calendar.HOUR_OF_DAY, 1);
+		Date changeDeadline = cal.getTime();
+		return changeDeadline.after(getReceiveDate());
+	}
 }

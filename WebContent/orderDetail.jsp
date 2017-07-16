@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="models.Order,models.Textbook,models.CourseDAO,models.Course,java.text.SimpleDateFormat,java.util.Date,java.text.DateFormat,java.util.Locale,java.util.List"%>
+<%
+boolean changeDeadlineOver = (boolean) request.getAttribute("changeDeadlineOver"); //変更可能ならtrue
+%>
 <!DOCTYPE html >
 <html>
 <head>
@@ -63,7 +66,7 @@
 		</div>
 	</div>
 	<%
-		if (!canceled) {
+		if (!canceled && !changeDeadlineOver) {
 	%>
 	<div class="Button">
 		<a class="btn order__edit" href="ChangeOrder?id=<%=orderID%>">注文内容変更</a>
@@ -77,7 +80,7 @@
 <script type="text/javascript">
 	function cancelAlert(){
 		if(window.confirm('本当に注文をキャンセルしますか')){
-		location.href="CancelOrder?selection=<%=orderID%>";
+		location.href="CancelOrder?id=<%=orderID%>";
 		}
 	}
 	</script>

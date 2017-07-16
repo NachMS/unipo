@@ -111,8 +111,8 @@
 		}
 
 		function Alert() {
-			if (window.confirm('まだ評価しますか')) {
-				location.href = "Home";
+			if (window.confirm('あなた評価しすぎでは?')) {
+				location.href = "404.jsp";
 			}
 		}
 	</script>

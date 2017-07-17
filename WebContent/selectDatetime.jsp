@@ -3,12 +3,6 @@
 	import="java.util.Date,java.util.Calendar,java.text.SimpleDateFormat"%>
 <%
 	/*
-	* 混雑度の設定部分 --Jun
-	*/
-	final int CROWDED = 1; //黄色 混雑警戒値 （まだ選択可能）
-	final int TOO_CROWDED = 2; //赤 混雑上限値 (もう選択不可)
-
-	/*
 	* コントローラからのデータ
 	*/
 	int[] datesTowards7DaysAhead = (int[]) request.getAttribute("datesTowards7DaysAhead");
@@ -16,6 +10,8 @@
 	int[] monthOfEachDateTowards7DaysAhead = (int[]) request.getAttribute("monthOfEachDateTowards7DaysAhead");
 	int[][] congestionArray = (int[][]) request.getAttribute("congestionArray");
 	boolean isChangingReceiveDatetime = (boolean) request.getAttribute("isChangingReceiveDatetime");
+	final int CROWDED = (int) request.getAttribute("CROWDED"); //黄色 混雑警戒値 （まだ選択可能）
+	final int TOO_CROWDED = (int) request.getAttribute("TOO_CROWDED"); //赤 混雑上限値 (もう選択不可)
 %>
 <!DOCTYPE html>
 <head>
@@ -87,7 +83,7 @@
 		<td class="selection-cell <%=cellStyleClass%>" title="選択できません。"><%=hourRow[j]%></td>
 		<%
 			}
-			}
+				}
 				out.println("</tr>");
 				hour++;
 			}

@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class TextbookDAO {
 	private String driverClassName = "org.postgresql.Driver";
-	private String url = "jdbc:postgresql://localhost/tutorial";
+	private String url = "jdbc:postgresql://localhost/unipodb";
 	private String user = "wspuser";
 	private String password = "hogehoge";
 

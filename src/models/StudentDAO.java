@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDAO {
-	final private static String dbname = "tutorial"; // データベース名
+	final private static String dbname = "unipodb"; // データベース名
 	final private static String user = "wspuser"; // tutorialにアクセスできるユーザ
 	final private static String password = "hogehoge"; // wspuserのパスワード
 	final private static String driverClassName = "org.postgresql.Driver";

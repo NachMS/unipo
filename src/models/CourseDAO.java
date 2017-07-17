@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 public class CourseDAO {
-	private String url = "jdbc:postgresql://localhost/tutorial";
+	private String url = "jdbc:postgresql://localhost/unipodb";
 	private String user = "wspuser";
 	private String password = "hogehoge";
 

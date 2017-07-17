@@ -50,7 +50,6 @@ a.btn:hover {
 	justify-content: center;
 }
 
-
 .Button--element {
 	background-color: #03A9F4;
 	border-radius: 2px;
@@ -67,6 +66,13 @@ a.btn:hover {
 	cursor: pointer;
 }
 
+.Button--element.stored {
+	background: #67daff;
+	font-size: 15px;
+	padding: 1vw;
+	cursor: default
+}
+
 .HOVER {
 	background-color: #EEE;
 	color: #555;
@@ -74,13 +80,6 @@ a.btn:hover {
 .HOVER:hover {
 	background-color: #333;
 	color: #fff;
-}
-
-.Button--element.stored {
-	background: #67daff;
-	font-size: 15px;
-	padding: 1vw;
-	cursor: default;
 }
 
 .Button--element.empty {
@@ -91,6 +90,7 @@ a.btn:hover {
 	cursor: default;
 	opacity: .2;
 }
+
 .Button--element.empty:hover {
 	color: white;
 }

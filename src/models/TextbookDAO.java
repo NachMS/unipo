@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class TextbookDAO {
 	private String driverClassName = "org.postgresql.Driver";
@@ -13,24 +12,13 @@ public class TextbookDAO {
 	private String user = "wspuser";
 	private String password = "hogehoge";
 
-	public boolean registerTextbook(Textbook textbook) {
-		return false;
-
-	}
-
-	public boolean updateTextbook(Textbook textbook) {
-		return false;
-	}
-
-	public boolean deleteTextbookByID(Textbook textbook) {
-		return false;
-	}
-/**
- *
- * @param textbookID
- * @param likeORDislike 0がlike 1がdislike
- */
-	public void registerEvaluation(int textbookID, int likeORDislike) {
+	/**
+	 *
+	 * @param textbookID
+	 * @param likeORDislike
+	 *            0がlike 1がdislike
+	 */
+	public void addEvaluation(int textbookID, int likeORDislike) {
 		String sql = "UPDATE textbooks SET likes=likes+1 WHERE textbook_id=?";
 		String sql2 = "UPDATE textbooks SET dislikes=dislikes+1 WHERE textbook_id=?";
 		Connection connection;
@@ -55,9 +43,8 @@ public class TextbookDAO {
 		return;
 	}
 
-	public Textbook getTextbookByID(int textbookID) {
+	public Textbook selectTextbookByID(int textbookID) {
 		try {
-			System.out.println("getTextbookByID(" + textbookID + ")");
 			Class.forName(driverClassName);
 			Connection connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement preparedStatement;
@@ -71,14 +58,12 @@ public class TextbookDAO {
 				String reading = resultSet.getString("reading");
 				int courseID = resultSet.getInt("course_id");
 				CourseDAO cdao = new CourseDAO();
-				Course course = cdao.getCourseByID(courseID);
+				Course course = cdao.selectCourseByID(courseID);
 				int price = resultSet.getInt("price");
 				int stock = resultSet.getInt("stock");
 				int likes = resultSet.getInt("likes");
 				int dislikes = resultSet.getInt("dislikes");
-				Date regDate = resultSet.getTimestamp("reg_date");
-				textbook = new Textbook(textbookID, name, reading, course, price, stock, likes, dislikes, regDate);
-				System.out.println(textbook);
+				textbook = new Textbook(textbookID, name, reading, course, price, stock, likes, dislikes);
 				resultSet.close();
 				preparedStatement.close();
 				connection.close();
@@ -91,7 +76,7 @@ public class TextbookDAO {
 		return null;
 	}
 
-	public ArrayList<Textbook> getTextbooksByCourseID(String courseID) {
+	public ArrayList<Textbook> selectTextbookByCourseID(String courseID) {
 		String sql = "SELECT textbook_id FROM textbooks WHERE course_id=?";
 		Connection connection;
 		ResultSet resultSet;
@@ -105,7 +90,7 @@ public class TextbookDAO {
 			TextbookDAO tdao = new TextbookDAO();
 			while (resultSet.next()) {
 				int textbookID = resultSet.getInt("textbook_id");
-				Textbook textbook = tdao.getTextbookByID(textbookID);
+				Textbook textbook = tdao.selectTextbookByID(textbookID);
 				list.add(textbook);
 			}
 			resultSet.close();

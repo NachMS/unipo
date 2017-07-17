@@ -56,7 +56,7 @@ public class ChangeDatetime extends HttpServlet {
 		Student student = (Student) session.getAttribute("student");
 		int oldOrderID = Integer.parseInt(request.getParameter("id"));
 		OrderDAO odao = new OrderDAO();
-		Order oldOrder = odao.getOrderByID(oldOrderID);
+		Order oldOrder = odao.selectOrderByID(oldOrderID);
 
 		/*
 		 * (例外) 注文はログイン中の学生の注文か確認
@@ -81,7 +81,7 @@ public class ChangeDatetime extends HttpServlet {
 		/*
 		 * 注文の古い受取日時を oldReceiveDatetime としてセッションに格納
 		 */
-		Order order = odao.getOrderByID(oldOrderID); // clone面倒なのでとりあえず
+		Order order = odao.selectOrderByID(oldOrderID); // clone面倒なのでとりあえず
 		session.setAttribute("changing", "receiveDatetime");
 		session.setAttribute("oldOrder", oldOrder);
 		session.setAttribute("order", order);

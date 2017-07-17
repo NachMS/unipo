@@ -36,7 +36,7 @@ public class EvaluateTextbook extends HttpServlet {
 
 		Student student = (Student) session.getAttribute("student");
 		OrderDAO odao = new OrderDAO();
-		ArrayList<Order> orders = odao.getOrdersByStudentID(student.getStudentID());
+		ArrayList<Order> orders = odao.selectOrdersByStudentID(student.getStudentID());
 
 		ArrayList<Textbook> textbooks = new ArrayList<Textbook>();
 		ArrayList<Integer> textbookIDs = new ArrayList<Integer>();
@@ -73,10 +73,10 @@ public class EvaluateTextbook extends HttpServlet {
 		System.out.println(val);
 		if (val.equals("like")) {
 			log("いいね");
-			tdao.registerEvaluation(textbookID, 0);
+			tdao.addEvaluation(textbookID, 0);
 		} else if (val.equals("dislike")) {
 			log("死ね");
-			tdao.registerEvaluation(textbookID, 1);
+			tdao.addEvaluation(textbookID, 1);
 		}
 	}
 

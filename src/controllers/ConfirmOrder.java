@@ -66,7 +66,7 @@ public class ConfirmOrder extends HttpServlet {
 			String studentID = student.getStudentID();
 			order.setStudentID(studentID);
 			try {
-				odao.registerOrder(order);
+				odao.insertOrder(order);
 				String[] message = { "success", "注文を受け取りました。（っていうサビースがあればね・・・）" };
 				// 注文内容変更中なら
 				if (isChangingOrder) {

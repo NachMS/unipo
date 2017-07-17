@@ -42,7 +42,7 @@ public class OrderHistory extends HttpServlet {
 		// 注文情報の取得
 		String studentID = (String) session.getAttribute("studentID");
 		OrderDAO dao = new OrderDAO();
-		ArrayList<Order> list = dao.getOrdersByStudentID(studentID);// ログインIDが入るようにする
+		ArrayList<Order> list = dao.selectOrdersByStudentID(studentID);// ログインIDが入るようにする
 		SimpleDateFormat sdf1 = new SimpleDateFormat("y年M月d日 (E) HH:mm", Locale.JAPAN);
 		SimpleDateFormat sdf2 = new SimpleDateFormat("d日 (E)", Locale.JAPAN);
 		SimpleDateFormat sdf3 = new SimpleDateFormat("HH");

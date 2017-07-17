@@ -74,7 +74,7 @@ public class CourseTable extends HttpServlet {
 		}
 		// 科目がない時限は選択しても無駄だから選択できないようにする
 		CourseDAO cdao = new CourseDAO();
-		List<Course> selectableCourses = cdao.getSelectableCourses(student.getDepartment(), student.getGrade(), 1); // TODO
+		List<Course> selectableCourses = cdao.selectSelectableCourses(student.getDepartment(), student.getGrade(), 1); // TODO
 		for (Course sc : selectableCourses) {
 			selectalbeTiles[sc.getDayOfWeek() - 1][sc.getHour() - 1] = true;
 		}

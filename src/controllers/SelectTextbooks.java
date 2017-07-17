@@ -75,7 +75,7 @@ public class SelectTextbooks extends HttpServlet {
 		List<Textbook> suggestedTextbooks = new ArrayList<Textbook>();
 
 		for (Course course : courses) {
-			Textbook textbook = dao.getTextbookByID(course.getCourseID());
+			Textbook textbook = dao.selectTextbookByID(course.getCourseID());
 			if (textbook != null) {
 				suggestedTextbooks.add(textbook);
 			}
@@ -137,7 +137,7 @@ public class SelectTextbooks extends HttpServlet {
 		TextbookDAO tdao = new TextbookDAO();
 		for (String textbookIDstr : textbookIDs) {
 			int textbookID = Integer.parseInt(textbookIDstr);
-			Textbook textbook = tdao.getTextbookByID(textbookID);
+			Textbook textbook = tdao.selectTextbookByID(textbookID);
 			totalAmount += textbook.getPrice();
 			textbooks.add(textbook);
 		}

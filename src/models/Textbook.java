@@ -1,7 +1,5 @@
 package models;
 
-import java.util.Date;
-
 public class Textbook implements Comparable<Textbook> {
 
 	private int textbookID;
@@ -12,10 +10,9 @@ public class Textbook implements Comparable<Textbook> {
 	private int stock;
 	private int likes;
 	private int dislikes;
-	private Date regDate;
 
 	public Textbook(int textbookID, String name, String reading, Course course, int price, int stock, int likes,
-			int dislikes, Date regDate) {
+			int dislikes) {
 		super();
 		this.textbookID = textbookID;
 		this.name = name;
@@ -25,7 +22,6 @@ public class Textbook implements Comparable<Textbook> {
 		this.stock = stock;
 		this.likes = likes;
 		this.dislikes = dislikes;
-		this.regDate = regDate;
 	}
 
 	public int getTextbookID() {
@@ -92,19 +88,10 @@ public class Textbook implements Comparable<Textbook> {
 		this.dislikes = dislikes;
 	}
 
-	public Date getRegDate() {
-		return regDate;
-	}
-
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
-
 	@Override
 	public String toString() {
 		return "Textbook [textbookID=" + textbookID + ", name=" + name + ", reading=" + reading + ", course=" + course
-				+ ", price=" + price + ", stock=" + stock + ", likes=" + likes + ", dislikes=" + dislikes + ", regDate="
-				+ regDate + "]";
+				+ ", price=" + price + ", stock=" + stock + ", likes=" + likes + ", dislikes=" + dislikes + "]";
 	}
 
 	public int compareTo(Textbook another) {

@@ -13,19 +13,7 @@ public class CourseDAO {
 	private String user = "wspuser";
 	private String password = "hogehoge";
 
-	public boolean registerCourse(Course course) {
-		return false;
-	}
-
-	public boolean updateCourse(Course course) {
-		return false;
-	}
-
-	public boolean deleteCourse(Course course) {
-		return false;
-	}
-
-	public Course getCourseByID(int courseID) {
+	public Course selectCourseByID(int courseID) {
 		try {
 			Class.forName("org.postgresql.Driver");
 			Connection connection = DriverManager.getConnection(url, user, password);
@@ -60,7 +48,7 @@ public class CourseDAO {
 		return null;
 	}
 
-	public List<Course> getCoursesByProperties(String department, int grade, int semester, int dayOfWeek, int hour) {
+	public List<Course> selectCoursesByProperties(String department, int grade, int semester, int dayOfWeek, int hour) {
 		try {
 			Class.forName("org.postgresql.Driver");
 			Connection connection = DriverManager.getConnection(url, user, password);
@@ -92,8 +80,8 @@ public class CourseDAO {
 		return null;
 	}
 
-	public List<Course> getSelectableCourses(String department, int grade, int semester) {
-		System.out.println("getSelectableCourses(" + department + ", " + grade + ", " + semester + ")");
+	public List<Course> selectSelectableCourses(String department, int grade, int semester) {
+		System.out.println("selectableSelectableCourses(" + department + ", " + grade + ", " + semester + ")");
 
 		try {
 			Class.forName("org.postgresql.Driver");
@@ -127,10 +115,6 @@ public class CourseDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
-	}
-
-	public ArrayList<Course> getAllCourses() {
 		return null;
 	}
 

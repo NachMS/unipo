@@ -43,7 +43,7 @@ public class OrderDetail extends HttpServlet {
 		// 教科書を注文情報から入手
 		int orderID = Integer.parseInt(request.getParameter("id"));
 		OrderDAO dao = new OrderDAO();
-		Order order = dao.getOrderByID(orderID);
+		Order order = dao.selectOrderByID(orderID);
 		ArrayList<Textbook> textbooks = (ArrayList<Textbook>) order.getTextbooks();
 		// request.setAttribute("textbooks", textbooks);
 		String[] dow = { "月", "火", "水", "木", "金" };

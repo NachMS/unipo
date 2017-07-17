@@ -26,20 +26,16 @@ public class StudentDAO {
 		boolean result = false;
 		Connection connection;
 		String sql = "SELECT * FROM students WHERE student_id=? AND password=?";
-
 		try {
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
-
 			pstmt.setString(1, student.getStudentID());
 			pstmt.setString(2, student.getPassword());
 			System.out.println("studentID:" + student.getStudentID() + "password:" + student.getPassword());
-
 			ResultSet resultSet = pstmt.executeQuery();
 			if (resultSet.next())
 				result = true;
-
 			resultSet.close();
 			connection.close();
 		} catch (Exception e) {
@@ -54,13 +50,12 @@ public class StudentDAO {
 	 * @param student
 	 *            学生オブジェクト(学部、学科、学年フィールドのみ使用)
 	 * @return 成功ならtrue
-	 * @author jun
+	 * @author Jun
 	 */
 	public boolean updateStudentAffiliation(Student student) {
 		boolean result = false;
 		Connection connection;
 		String sql = "UPDATE students SET faculty=?, department=?, grade=? WHERE student_id = ?";
-
 		try {
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
@@ -86,7 +81,7 @@ public class StudentDAO {
 	 * @param courses
 	 *            学生の履修科目のリスト(科目IDのみ使用)
 	 * @return 成功ならtrue
-	 * @author jun
+	 * @author Jun
 	 */
 	public boolean insertStudentCourses(String studentID, List<Course> courses) {
 		boolean result = true;
@@ -173,13 +168,12 @@ public class StudentDAO {
 				CourseDAO cdao = new CourseDAO();
 				while (resultSet.next()) {
 					int courseID = resultSet.getInt("course_id");
-					Course course = cdao.getCourseByID(courseID);
+					Course course = cdao.selectCourseByID(courseID);
 					courses.add(course);
 				}
 				student.setCourses(courses);
 			}
 			connection.close();
-			System.out.println(student);
 			return student;
 		} catch (Exception e) {
 			e.printStackTrace();

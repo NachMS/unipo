@@ -64,7 +64,7 @@ public class SelectCourse extends HttpServlet {
 		int hour = Integer.parseInt(request.getParameter("hour"));
 		CourseDAO dao = new CourseDAO();
 		int semester = 1;
-		List<Course> list = dao.getCoursesByProperties(department, grade, semester, dayOfWeek, hour);
+		List<Course> list = dao.selectCoursesByProperties(department, grade, semester, dayOfWeek, hour);
 		request.setAttribute("coursesList", list);
 		getServletContext().getRequestDispatcher("/selectCourse.jsp").forward(request, response);
 	}
@@ -81,7 +81,7 @@ public class SelectCourse extends HttpServlet {
 		// 選ばれた科目のIDを取得
 		int courseID = Integer.parseInt(request.getParameter("courseID"));
 		CourseDAO dao = new CourseDAO();
-		Course course = dao.getCourseByID(courseID);
+		Course course = dao.selectCourseByID(courseID);
 		HttpSession session = request.getSession();
 		Student student = (Student) session.getAttribute("student");
 		log("session.student:" + student);

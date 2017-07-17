@@ -50,7 +50,7 @@ public class ChangeOrder extends HttpServlet {
 		Student student = (Student) session.getAttribute("student");
 		int oldOrderID = Integer.parseInt(request.getParameter("id"));
 		OrderDAO odao = new OrderDAO();
-		Order oldOrder = odao.getOrderByID(oldOrderID);
+		Order oldOrder = odao.selectOrderByID(oldOrderID);
 
 		/*
 		 * (例外) 注文はログイン中の学生の注文か確認

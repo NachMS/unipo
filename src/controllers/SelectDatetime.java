@@ -148,7 +148,7 @@ public class SelectDatetime extends HttpServlet {
 		 * 注文テーブルから混雑度を算出して二次配列に格納
 		 */
 		OrderDAO odao = new OrderDAO();
-		int[][] congestionArray = odao.getCongestionArray();
+		int[][] congestionArray = odao.createCongestionArray();
 
 		/**
 		 * ビューの描画

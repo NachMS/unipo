@@ -48,7 +48,7 @@ public class CancelOrder extends HttpServlet {
 		Student student = (Student) session.getAttribute("student");
 		int orderID = Integer.parseInt(request.getParameter("id"));
 		OrderDAO odao = new OrderDAO();
-		Order oldOrder = odao.getOrderByID(orderID);
+		Order oldOrder = odao.selectOrderByID(orderID);
 
 		/*
 		 * (例外) 注文はログイン中の学生の注文か確認

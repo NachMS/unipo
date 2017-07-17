@@ -18,17 +18,7 @@ public class OrderDAO {
 	final private static String driverClassName = "org.postgresql.Driver";
 	final private static String url = "jdbc:postgresql://localhost/" + dbname;
 
-	public int[][] getCongestion() {
-		return null;
-	}
-
-	public String getDoW(int n) {
-		return null;
-	}
-
-	public boolean registerOrder(Order order) throws SQLException {
-		System.out.println("registerOrder(" + order + ")");
-		System.out.println("HERE WE GO!");
+	public boolean insertOrder(Order order) throws SQLException {
 		try {
 			Class.forName(driverClassName);
 			Connection connection;
@@ -52,7 +42,6 @@ public class OrderDAO {
 					pstmt.setInt(1, orderID);
 					pstmt.setInt(2, textbookID);
 					pstmt.executeUpdate();
-					System.out.println("◆ODAO◆ textbook_id:" + textbookID + "→ DB(order_details)");
 				}
 			}
 			pstmt.close();
@@ -94,7 +83,6 @@ public class OrderDAO {
 	 * @return 成功ならtrue
 	 */
 	public boolean updateReceiveDate(int orderID, Date receiveDate) {
-		System.out.println("updateReceiveDate(" + orderID + ", " + receiveDate + ")");
 		boolean result = false;
 		String sql = "UPDATE orders SET receipt_timestamp = ? WHERE order_id=?";
 		Connection connection;
@@ -113,8 +101,7 @@ public class OrderDAO {
 		return result;
 	}
 
-	public Order getOrderByID(int orderID) {
-		System.out.println("getOrderByID(" + orderID + ")");
+	public Order selectOrderByID(int orderID) {
 		String sql = "SELECT * FROM orders WHERE order_id=?";
 		String sql2 = "SELECT textbook_id FROM order_details NATURAL JOIN textbooks WHERE order_id=?;";
 		Connection connection;
@@ -138,7 +125,6 @@ public class OrderDAO {
 				Date retimestamp = resultSet.getTimestamp("receipt_timestamp");
 				boolean completeFlag = resultSet.getBoolean("complete_flag");
 				boolean cancelFlag = resultSet.getBoolean("cancel_flag");
-
 				order.setOrderID(orderID);
 				order.setStudentID(studentID);
 				order.setTotalAmount(total_price);
@@ -150,12 +136,10 @@ public class OrderDAO {
 				List<Textbook> textbooks = new ArrayList<Textbook>();
 				while (resultSet2.next()) {
 					int textbookID = resultSet2.getInt("textbook_id");
-					Textbook textbook = tdao.getTextbookByID(textbookID);
+					Textbook textbook = tdao.selectTextbookByID(textbookID);
 					textbooks.add(textbook);
-
 				}
 				order.setTextbooks(textbooks);
-
 			}
 			resultSet.close();
 			resultSet2.close();
@@ -166,7 +150,7 @@ public class OrderDAO {
 		return order;
 	}
 
-	public ArrayList<Order> getOrdersByStudentID(String studentID) {
+	public ArrayList<Order> selectOrdersByStudentID(String studentID) {
 		String sql = "SELECT order_id FROM orders WHERE student_id=? ORDER BY order_id DESC";
 		Connection connection;
 		ResultSet resultSet;
@@ -180,7 +164,31 @@ public class OrderDAO {
 			OrderDAO odao = new OrderDAO();
 			while (resultSet.next()) {
 				int orderID = resultSet.getInt("order_id");
-				Order order = odao.getOrderByID(orderID);
+				Order order = odao.selectOrderByID(orderID);
+				list.add(order);
+			}
+			resultSet.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public ArrayList<Order> getAllOrders() {
+		String sql = "SELECT order_id FROM orders";
+		Connection connection;
+		ResultSet resultSet;
+		ArrayList<Order> list = new ArrayList<Order>();
+		try {
+			Class.forName(driverClassName);
+			connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			resultSet = pstmt.executeQuery();
+			OrderDAO odao = new OrderDAO();
+			while (resultSet.next()) {
+				int orderID = resultSet.getInt("order_id");
+				Order order = odao.selectOrderByID(orderID);
 				list.add(order);
 			}
 			resultSet.close();
@@ -201,9 +209,8 @@ public class OrderDAO {
 	 *         引数2: 今日から何日目 ([0]今日~[6]6日後)
 	 * @author Jun
 	 */
-	public int[][] getCongestionArray() {
+	public int[][] createCongestionArray() {
 		int[][] ordersNumArray = new int[8][7]; // 戻り値
-		System.out.println("selectWeekOrders()");
 		String sql = "SELECT receipt_timestamp FROM orders WHERE receipt_timestamp >= ? AND receipt_timestamp <= ? AND cancel_flag = false";
 		Connection connection;
 		ResultSet resultSet;
@@ -253,29 +260,4 @@ public class OrderDAO {
 		}
 		return ordersNumArray;
 	}
-
-	public ArrayList<Order> getAllOrders() {
-		String sql = "SELECT order_id FROM orders";
-		Connection connection;
-		ResultSet resultSet;
-		ArrayList<Order> list = new ArrayList<Order>();
-		try {
-			Class.forName(driverClassName);
-			connection = DriverManager.getConnection(url, user, password);
-			PreparedStatement pstmt = connection.prepareStatement(sql);
-			resultSet = pstmt.executeQuery();
-			OrderDAO odao = new OrderDAO();
-			while (resultSet.next()) {
-				int orderID = resultSet.getInt("order_id");
-				Order order = odao.getOrderByID(orderID);
-				list.add(order);
-			}
-			resultSet.close();
-			connection.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
-
 }

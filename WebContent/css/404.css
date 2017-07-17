@@ -12,6 +12,11 @@ body {
 	position: relative;
 }
 
+.gray, .title, .description {
+	user-select: none;
+	cursor: default;
+}
+
 .gray {
 	position: absolute;
 	width: 100vw;
@@ -42,4 +47,31 @@ body {
 	font-size: 1.5vw;
 	color: #FFF;
 	z-index: 100;
+}
+
+.back {
+	user-select: none;
+	z-index: 101;
+	position: absolute;
+	left: 3vw;
+	top: 3vw;
+	height: 5vw;
+	width: 9vw;
+	font-size: 1.5vw;
+	border-radius: 2px;
+	background-color: none;
+	text-decoration: none;
+	color: #FFF;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-ms-flex-align: center;
+	align-items: center;
+	transition: 0.5s all ease;
+}
+
+.back:hover {
+	background-color: #FFF;
+	color: #0d47a1;
 }

@@ -74,7 +74,11 @@ public class SelectCourse extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		// 必要なパラメータが空ならリダイレクト
+		if (request.getParameter("courseID") == null) {
+			response.sendRedirect("CourseTable");
+			return;
+		}
 		/*
 		 * 選ばれた科目をセッションに格納
 		 */

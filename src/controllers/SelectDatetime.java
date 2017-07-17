@@ -18,6 +18,9 @@ import models.OrderDAO;
 public class SelectDatetime extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	final int CROWDED = 1; // 黄色 混雑警戒値 （まだ選択可能）
+	final int TOO_CROWDED = 2; // 赤 混雑上限値 (もう選択不可)
+
 	public SelectDatetime() {
 		super();
 	}
@@ -90,10 +93,15 @@ public class SelectDatetime extends HttpServlet {
 				return;
 			}
 			// (例外処理) 混雑している（満員の）時間でないか確認
-			if (true) {
-				// TODO
-			}
+			OrderDAO odao = new OrderDAO();
+			int[][] congestionArray = odao.createCongestionArray();
 			Calendar cal = Calendar.getInstance();
+			int today = cal.get(Calendar.DATE); // 本日の日付
+			if (congestionArray[selectedHour - 10][selectedDate - today] >= TOO_CROWDED) {
+				log("選択された時間帯は満員です。");
+				response.sendRedirect("SelectDatetime");
+				return;
+			}
 			int thisYear = cal.get(Calendar.YEAR);
 			int minute = 0;
 			cal.set(thisYear, selectedMonth - 1, selectedDate, selectedHour, minute); // Calendar.MONTHは6月なら=5

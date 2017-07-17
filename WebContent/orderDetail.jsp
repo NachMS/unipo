@@ -9,6 +9,7 @@ boolean changeDeadlineOver = (boolean) request.getAttribute("changeDeadlineOver"
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>注文詳細</title>
+<link rel="shortcut icon" href="images/favicon.ico" />
 <!-- Normalize.css -->
 <link rel="stylesheet" href="normalize.css">
 <link rel="stylesheet" type="text/css" href="css/orderDetail.css">

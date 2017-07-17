@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="shortcut icon" href="images/favicon.ico" />
 <!-- Normalize.css -->
 <link rel="stylesheet" href="css/normalize.css">
 <link rel="stylesheet" type="text/css" href="css/selectFaculty.css">

@@ -21,6 +21,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>確定画面</title>
+<link rel="shortcut icon" href="images/favicon.ico" />
 <!-- Normalize.css -->
 <link rel="stylesheet" href="css/normalize.css">
 <link rel="stylesheet" type="text/css" href="css/confirmOrder.css">

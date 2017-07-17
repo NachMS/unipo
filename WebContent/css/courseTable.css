@@ -70,14 +70,15 @@ a.btn:hover {
 	background: #67daff;
 	font-size: 15px;
 	padding: 1vw;
-	cursor: default
+	cursor: default;
+	color: #555;
 }
 
-.HOVER {
+.Button--element.selectable {
 	background-color: #EEE;
 	color: #555;
 }
-.HOVER:hover {
+.Button--element.selectable:hover, .Button--element.stored:hover {
 	background-color: #333;
 	color: #fff;
 }

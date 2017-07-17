@@ -12,7 +12,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
-<!-- 誰だこんなuncode書いたやつ -->
+	<!-- 誰だこんなuncode書いたやつ -->
 	<%
 		String[][] selectedCourses = (String[][]) request.getAttribute("selectedCourses");
 		boolean[][] selectalbeTiles = (boolean[][]) request.getAttribute("selectalbeTiles");
@@ -42,26 +42,23 @@
 			String[] dayOfWeekStr = {"MON", "TUE", "WED", "THU", "FRI"};
 			for (int dayOfWeek = 1; dayOfWeek <= 5; dayOfWeek++) {
 				for (int hour = 1; hour <= 5; hour++) {
-					String storedOrNothing;
-					String link;
-					String plusOrCourseName;
-
+					String styleClassAttribute;
+					String link = "";
+					String textShown;
 					if (selectedCourses[dayOfWeek - 1][hour - 1] != null) {
 						//選択された科目が格納済み
-						storedOrNothing = "stored";
-						link = "";
-						plusOrCourseName = selectedCourses[dayOfWeek - 1][hour - 1];
+						styleClassAttribute = "stored";
+						textShown = selectedCourses[dayOfWeek - 1][hour - 1];
 					} else if (selectalbeTiles[dayOfWeek - 1][hour - 1]) {
-						plusOrCourseName = "+";
-						storedOrNothing = "";
+						textShown = "+";
+						styleClassAttribute = "selectable";
 						link = "SelectCourse?dayOfWeek=" + dayOfWeek + "&hour=" + hour;
 					} else {
-						storedOrNothing = "empty";
-						plusOrCourseName = "選択可能な科目はありません";
-						link = "";
+						styleClassAttribute = "empty";
+						textShown = "選択可能な科目はありません";
 					}
 		%>
-		<div class="Button--element HOVER <%=storedOrNothing%>"
+		<div class="Button--element <%=styleClassAttribute%>"
 			id="<%=dayOfWeekStr[dayOfWeek - 1]%><%=hour%>" href="<%=link%>">
 			<div class="close-button"
 				id="<%=dayOfWeekStr[dayOfWeek - 1]%><%=hour%>close">
@@ -72,7 +69,7 @@
 						d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
                         <path d="M0 0h24v24H0z" fill="none" />
                     </svg>
-			</div><%=plusOrCourseName%>
+			</div><%=textShown%>
 		</div>
 		<%
 			}
@@ -80,11 +77,11 @@
 		%>
 
 	</div>
+	<!-- 動いているのでご容赦ください -->
 	<script type="text/javascript">
 		var i = 1;
 		var id = "#MON";
 		var array = [ '#MON', '#TUE', '#WED', '#THU', '#FRI' ];
-
 		function test() {
 			var id2 = array[j] + i;
 			var ii = i; //なぜかi=6,j=5になる
@@ -113,7 +110,8 @@
 			}
 			$(id2).click(
 					function() {
-						if (!$(id2).hasClass('stored') && !$(id2).hasClass('empty') && flag) {
+						if (!$(id2).hasClass('stored')
+								&& !$(id2).hasClass('empty') && flag) {
 							location.href = "SelectCourse?dayOfWeek="
 									+ (jj + 1) + "&hour=" + ii;
 						}

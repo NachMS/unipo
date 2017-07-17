@@ -7,6 +7,9 @@
 <link rel="shortcut icon" href="images/favicon.ico" />
 <!-- Normalize.css -->
 <link rel="stylesheet" href="css/normalize.css">
+<!--  Animate.css -->
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 <link rel="stylesheet" type="text/css" href="css/evaluateTextbook.css">
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -16,6 +19,15 @@
 		ArrayList<Textbook> textbooks = (ArrayList<Textbook>) request.getAttribute("textbooks");
 	%>
 	<span class="message__top">教科書評価</span>
+	<div class="message animated bounce">
+		<svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24"
+			xmlns="http://www.w3.org/2000/svg">
+    <path
+				d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+    <path d="M0 0h24v24H0z" fill="none" />
+</svg>
+		&ensp;注文をした教科書のみ評価できます。
+	</div>
 	<%
 		ArrayList<Integer> textbookIDs = new ArrayList<Integer>();
 		int textbooksNum = 0;

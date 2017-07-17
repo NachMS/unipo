@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"
-	import="models.Textbook, java.util.ArrayList"%>
+	pageEncoding="UTF-8" import="models.Textbook, java.util.ArrayList"%>
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -81,9 +80,13 @@
 					lcount++;
 					//console.log(lcount);
 					console.log($(likesFieldId).text());
+					$.post("EvaluateTextbook", {
+						textbookID : $(this).parent().attr('textbookID'),
+						val : $(this).attr('val')
+					});
 					//何回以上押されたらAlert
 					$(likesFieldId).text(likeCount);
-					if (lcount >= 10) {
+					if (lcount >= 20) {
 						Alert();
 					}
 				} else {
@@ -93,15 +96,19 @@
 					//console.log(dcount)
 					console.log($(dislikesFieldId).text());
 					$(dislikesFieldId).text(dislikeCount);
+					$.post("EvaluateTextbook", {
+						textbookID : $(this).parent().attr('textbookID'),
+						val : $(this).attr('val')
+					});
 					//何回以上押されたらAlert
-					if (dcount >= 10) {
+					if (dcount >= 20) {
 						Alert();
 					}
 				}
-				$.post("EvaluateTextbook", {
-					textbookID : $(this).parent().attr('textbookID'),
-					val : $(this).attr('val')
-				});
+				//$.post("EvaluateTextbook", {
+				//textbookID : $(this).parent().attr('textbookID'),
+				//val : $(this).attr('val')
+				//});
 			});
 		}
 		for (var j = 0; j <= evaluation.length; j++) {
@@ -111,8 +118,10 @@
 		}
 
 		function Alert() {
-			if (window.confirm('あなた評価しすぎでは?')) {
+			if (window.confirm('評価しすぎなので別の画面へ遷移します')) {
 				location.href = "404.jsp";
+			} else {
+				location.href = "Home";
 			}
 		}
 	</script>

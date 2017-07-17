@@ -12,6 +12,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
+<!-- 誰だこんなuncode書いたやつ -->
 	<%
 		String[][] selectedCourses = (String[][]) request.getAttribute("selectedCourses");
 		boolean[][] selectalbeTiles = (boolean[][]) request.getAttribute("selectalbeTiles");
@@ -20,7 +21,9 @@
 		int grade = student.getGrade();
 	%>
 	<div class="Button__container">
-		<p class="Button--element state"><%=department%> <%=grade%>年</p>
+		<p class="Button--element state"><%=department%>
+			<%=grade%>年
+		</p>
 		<a class="Button--element next" href="SelectTextbooks">次へ</a>
 		<p class="Button--element MON">月</p>
 		<p class="Button--element TUE">火</p>
@@ -42,23 +45,27 @@
 					String storedOrNothing;
 					String link;
 					String plusOrCourseName;
+
 					if (selectedCourses[dayOfWeek - 1][hour - 1] != null) {
-						storedOrNothing = " stored";
-						link = "#";
+						//選択された科目が格納済み
+						storedOrNothing = "stored";
+						link = "";
 						plusOrCourseName = selectedCourses[dayOfWeek - 1][hour - 1];
-					} else {
+					} else if (selectalbeTiles[dayOfWeek - 1][hour - 1]) {
+						plusOrCourseName = "+";
 						storedOrNothing = "";
 						link = "SelectCourse?dayOfWeek=" + dayOfWeek + "&hour=" + hour;
-						plusOrCourseName = "";
-						if (selectalbeTiles[dayOfWeek - 1][hour - 1]) {
-							plusOrCourseName = "+";
-						}
+					} else {
+						storedOrNothing = "empty";
+						plusOrCourseName = "選択可能な科目はありません";
+						link = "";
 					}
 		%>
-		<div class="Button--element HOVER<%=storedOrNothing%>"
+		<div class="Button--element HOVER <%=storedOrNothing%>"
 			id="<%=dayOfWeekStr[dayOfWeek - 1]%><%=hour%>" href="<%=link%>">
 			<div class="close-button"
 				id="<%=dayOfWeekStr[dayOfWeek - 1]%><%=hour%>close">
+				<!-- 閉じるボタンxのsvg -->
 				<svg fill="#FFFFFF" height="26" viewBox="0 0 24 24" width="26"
 					xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -106,7 +113,7 @@
 			}
 			$(id2).click(
 					function() {
-						if (!$(id2).hasClass('stored') && flag) {
+						if (!$(id2).hasClass('stored') && !$(id2).hasClass('empty') && flag) {
 							location.href = "SelectCourse?dayOfWeek="
 									+ (jj + 1) + "&hour=" + ii;
 						}

@@ -50,6 +50,7 @@ a.btn:hover {
 	justify-content: center;
 }
 
+
 .Button--element {
 	background-color: #03A9F4;
 	border-radius: 2px;
@@ -66,13 +67,32 @@ a.btn:hover {
 	cursor: pointer;
 }
 
-.Button--element.stored {
-	background: #67daff;
-}
-
 .HOVER {
 	background-color: #EEE;
 	color: #555;
+}
+.HOVER:hover {
+	background-color: #333;
+	color: #fff;
+}
+
+.Button--element.stored {
+	background: #67daff;
+	font-size: 15px;
+	padding: 1vw;
+	cursor: default;
+}
+
+.Button--element.empty {
+	background: black;
+	color: black;
+	font-size: 15px;
+	padding: 1vw;
+	cursor: default;
+	opacity: .2;
+}
+.Button--element.empty:hover {
+	color: white;
 }
 
 .next {
@@ -81,11 +101,6 @@ a.btn:hover {
 
 .next:hover {
 	background-color: forestgreen;
-}
-
-.HOVER:hover {
-	background-color: #333;
-	color: #fff;
 }
 
 .btn {
@@ -105,12 +120,6 @@ a.btn:hover {
 	-ms-grid-column: 7;
 	grid-column-start: 7;
 	grid-column-end: 8;
-}
-
-.stored {
-	font-size: 15px;
-	padding: 1vw;
-	cursor: default;
 }
 
 .close-button {

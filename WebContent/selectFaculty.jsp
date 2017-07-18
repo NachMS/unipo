@@ -17,17 +17,17 @@
         <div class="message">学部を選択してください</div>
         <div class="main">
             <span class="block">
-                <a href="/unipo/SelectFaculty?faculty=A" class="bttn-dark A">シスデザ工学部</a>
+                <a href="SelectFaculty?faculty=A" class="bttn-dark A">シスデザ工学部</a>
 
             </span>
 
             <span class="block">
-                <a href="/unipo/SelectFaculty?faculty=F" class="bttn-dark F">未来科学部</a>
+                <a href="SelectFaculty?faculty=F" class="bttn-dark F">未来科学部</a>
 
             </span>
 
             <span class="block">
-                <a href="/unipo/SelectFaculty?faculty=E" class="bttn-dark E">工学部</a>
+                <a href="SelectFaculty?faculty=E" class="bttn-dark E">工学部</a>
             </span>
         </div>
 

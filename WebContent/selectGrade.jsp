@@ -14,15 +14,15 @@
 	<div class="flex dark">
 		<div class="message">学年を選択してください</div>
 		<div class="main">
-			<span class="block"> <a href="/unipo/SelectGrade?grade=1"
+			<span class="block"> <a href="SelectGrade?grade=1"
 				class="bttn-dark ${student.faculty}">1</a>
 
-			</span> <span class="block "> <a href="/unipo/SelectGrade?grade=2"
+			</span> <span class="block "> <a href="SelectGrade?grade=2"
 				class="bttn-dark ${student.faculty}">2</a>
 
-			</span> <span class="block"> <a href="/unipo/SelectGrade?grade=3"
+			</span> <span class="block"> <a href="SelectGrade?grade=3"
 				class="bttn-dark ${student.faculty}">3</a>
-			</span> <span class="block"> <a href="/unipo/SelectGrade?grade=4"
+			</span> <span class="block"> <a href="SelectGrade?grade=4"
 				class="bttn-dark ${student.faculty}">4</a>
 			</span>
 		</div>

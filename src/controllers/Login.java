@@ -24,7 +24,7 @@ public class Login extends HttpServlet {
 	// URLでアクセスされたときはここ
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// "/unipo/Login"というURLのままunpo.jspを描画
+		// "/Login"というURLのままunpo.jspを描画
 		getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
 	}
 

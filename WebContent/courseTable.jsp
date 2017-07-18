@@ -100,6 +100,7 @@
 				$(id2 + "close").click(function() {
 					$(id2).text("+");
 					$(id2).toggleClass("stored");
+					$(id2).toggleClass("selectable");
 					$.post("CourseTable", {
 						act : "remove",
 						dayOfWeek : jj + 1,

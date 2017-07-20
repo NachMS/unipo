@@ -37,6 +37,6 @@
        </div>
        </form>
     </div>
-
+<p class="hint">学籍番号を反転するとパスワードになります。<span class="ghost">(15fi001以外)</span></p>
 </body>
 </html>

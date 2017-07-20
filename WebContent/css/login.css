@@ -1,82 +1,113 @@
-@import url("https://fonts.googleapis.com/css?family=Righteous&subset=latin-ext");
-body,
-html {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0; }
+@import
+	url("https://fonts.googleapis.com/css?family=Righteous&subset=latin-ext")
+	;
+
+body, html {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
 
 body {
-  box-sizing: border-box;
-  margin: 0; }
+	box-sizing: border-box;
+	margin: 0;
+}
 
 .dots {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100px; }
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100px;
+}
 
 .dots2 {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  height: 100px; }
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	height: 100px;
+}
 
 .container {
-  height: 100%;
-  width: 100%;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: center;
-      justify-content: center;
-  -ms-flex-align: center;
-      align-items: center;
-  background-color: #0d47a1;
-  -ms-flex-direction: column;
-      flex-direction: column; }
+	height: 100%;
+	width: 100%;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-ms-flex-align: center;
+	align-items: center;
+	background-color: #0d47a1;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	position: relative;
+}
 
 .LoginForm {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-      flex-direction: column;
-  -ms-flex-align: center;
-      align-items: center; }
-  .LoginForm input, .LoginForm__password, .LoginForm__student, .LoginForm__submit, .LoginForm__title {
-    box-sizing: border-box;
-    height: 40px;
-    width: 260px;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: center;
-        justify-content: center;
-    margin: 5px 0; }
-  .LoginForm__title {
-    font-family: "Righteous";
-    font-weight: 400;
-    color: white;
-    font-size: 50px;
-    margin-bottom: 20px;
-    letter-spacing: 2px; }
-  .LoginForm__password input, .LoginForm__student input {
-    border: none;
-    padding: 0 10px;
-    border-radius: 2px;
-    font-size: 14px; }
-  .LoginForm__submit input {
-    height: 50px;
-    text-overflow: ellipsis;
-    font-weight: bold;
-    border: none;
-    border-radius: 999px;
-    color: white;
-    background-color: #8bc33a;
-    font-size: 16px;
-    padding: 0.4em 1.2em;
-    letter-spacing: 0.05em;
-    transition: all 100ms; }
-    .LoginForm__submit input:hover {
-      color: #8bc34a;
-      cursor: pointer;
-      background: none;
-      border: 6px solid #8bc34a; }
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+.LoginForm input, .LoginForm__password, .LoginForm__student,
+	.LoginForm__submit, .LoginForm__title {
+	box-sizing: border-box;
+	height: 40px;
+	width: 260px;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-pack: center;
+	justify-content: center;
+	margin: 5px 0;
+}
+
+.LoginForm__title {
+	font-family: "Righteous";
+	font-weight: 400;
+	color: white;
+	font-size: 50px;
+	margin-bottom: 20px;
+	letter-spacing: 2px;
+}
+
+.LoginForm__password input, .LoginForm__student input {
+	border: none;
+	padding: 0 10px;
+	border-radius: 2px;
+	font-size: 14px;
+}
+
+.LoginForm__submit input {
+	height: 50px;
+	text-overflow: ellipsis;
+	font-weight: bold;
+	border: none;
+	border-radius: 999px;
+	color: white;
+	background-color: #8bc33a;
+	font-size: 16px;
+	padding: 0.4em 1.2em;
+	letter-spacing: 0.05em;
+	transition: all 100ms;
+}
+
+.LoginForm__submit input:hover {
+	color: #8bc34a;
+	cursor: pointer;
+	background: none;
+	border: 6px solid #8bc34a;
+}
+
+p.hint {
+	color: white;
+	position: absolute;
+	bottom: 0px;
+	left: 10px;
+	font-size: 1vw;
+}
+span.ghost {
+	opacity: .4;
+}

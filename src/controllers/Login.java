@@ -33,8 +33,8 @@ public class Login extends HttpServlet {
 			throws ServletException, IOException {
 		Student student = new Student();
 		StudentDAO dao = new StudentDAO();
-		String studentID = request.getParameter("studentID").toUpperCase();
-		String password = request.getParameter("password").toUpperCase();
+		String studentID = request.getParameter("studentID").toLowerCase();
+		String password = request.getParameter("password").toLowerCase();
 		student.setStudentID(studentID);
 		student.setPassword(password);
 

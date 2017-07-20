@@ -3,9 +3,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 /**
- * studentsテーブルに15FI001～15FI150を自動で入力する
+ * studentsテーブルに15fi001～15fi150を自動で入力する
  *
- * パスワードは学籍番号の反転したもの (15FI103→301IF51)
+ * パスワードは学籍番号の反転したもの (15fi103→301if51)
  *
  * @author Jun
  *
@@ -14,7 +14,7 @@ public class AutoInserter {
 	public static void main(String[] args) {
 		for (int i = 1; i <= 150; i++) {
 			String iFilledWithZeros = String.format("%3s", i).replace(" ", "0");
-			StringBuffer sf = new StringBuffer("15FI" + iFilledWithZeros);
+			StringBuffer sf = new StringBuffer("15fi" + iFilledWithZeros);
 			String id = sf.toString();
 			sf.reverse();
 			String pass = sf.toString();

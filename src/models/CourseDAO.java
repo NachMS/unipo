@@ -8,15 +8,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+jdbc:postgresql://ec2-54-243-28-109.compute-1.amazonaws.com:5432/d4s46s6unm9mqe
+?user=ktcewfifsoxmjf
+&password=a86e684ae7f7d4c7f20aff89dea5d1d008c0a516e58b11c12bcfbc06b4d79a05
+&sslmode=require
+
 public class CourseDAO {
-	private String url = "jdbc:postgresql://localhost/unipodb";
-	private String user = "wspuser";
-	private String password = "hogehoge";
+	String dbUrl = System.getenv("JDBC_DATABASE_URL");
 
 	public Course selectCourseByID(int courseID) {
 		try {
 			Class.forName("org.postgresql.Driver");
-			Connection connection = DriverManager.getConnection(url, user, password);
+			Connection connection = DriverManager.getConnection(dbUrl);
 			PreparedStatement preparedStatement;
 			String sql = "SELECT * FROM courses WHERE course_id=?";
 			String sql2 = "SELECT course_id FROM textbok WHERE textbook_id=?";
@@ -51,7 +54,7 @@ public class CourseDAO {
 	public List<Course> selectCoursesByProperties(String department, int grade, int semester, int dayOfWeek, int hour) {
 		try {
 			Class.forName("org.postgresql.Driver");
-			Connection connection = DriverManager.getConnection(url, user, password);
+			Connection connection = DriverManager.getConnection(dbUrl);
 			PreparedStatement preparedStatement;
 			String sql = "SELECT * FROM courses WHERE department=? AND grade=? AND day_of_week=? AND hour=?";
 			preparedStatement = connection.prepareStatement(sql);
@@ -85,7 +88,7 @@ public class CourseDAO {
 
 		try {
 			Class.forName("org.postgresql.Driver");
-			Connection connection = DriverManager.getConnection(url, user, password);
+			Connection connection = DriverManager.getConnection(dbUrl);
 			PreparedStatement preparedStatement;
 			String sql = "SELECT * FROM courses WHERE department=? AND grade=? AND semester=?";
 			preparedStatement = connection.prepareStatement(sql);

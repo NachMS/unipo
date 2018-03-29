@@ -9,8 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDAO {
-
-	String dbUrl = System.getenv("JDBC_DATABASE_URL");
+	final private static String dbname = "unipodb"; // データベース名
+	final private static String user = "wspuser"; // tutorialにアクセスできるユーザ
+	final private static String password = "hogehoge"; // wspuserのパスワード
+	final private static String driverClassName = "org.postgresql.Driver";
+	final private static String url = "jdbc:postgresql://localhost/" + dbname;
 
 	/**
 	 * studentがDBにあるかどうかを調べる
@@ -21,10 +24,11 @@ public class StudentDAO {
 	 */
 	public boolean login(Student student) throws SQLException {
 		boolean result = false;
+		Connection connection;
 		String sql = "SELECT * FROM students WHERE student_id=? AND password=?";
 		try {
 			Class.forName(driverClassName);
-			Connection connection = DriverManager.getConnection(dbUrl);
+			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, student.getStudentID());
 			pstmt.setString(2, student.getPassword());
@@ -54,7 +58,7 @@ public class StudentDAO {
 		String sql = "UPDATE students SET faculty=?, department=?, grade=? WHERE student_id = ?";
 		try {
 			Class.forName(driverClassName);
-			connection = DriverManager.getConnection(dbUrl);
+			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, student.getFaculty());
 			pstmt.setString(2, student.getDepartment());
@@ -87,7 +91,7 @@ public class StudentDAO {
 		sql = "INSERT INTO student_courses (student_id, course_id) VALUES (?, ?)";
 		try {
 			Class.forName(driverClassName);
-			connection = DriverManager.getConnection(dbUrl);
+			connection = DriverManager.getConnection(url, user, password);
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, studentID);
 			for (Course course : courses) {
@@ -119,7 +123,7 @@ public class StudentDAO {
 		String sql = "DELETE FROM student_courses WHERE student_id = ?";
 		try {
 			Class.forName(driverClassName);
-			connection = DriverManager.getConnection(dbUrl);
+			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, studentID);
 			int count = pstmt.executeUpdate();
@@ -144,7 +148,7 @@ public class StudentDAO {
 		String sql = "SELECT * FROM students WHERE student_id = ?";
 		try {
 			Class.forName(driverClassName);
-			connection = DriverManager.getConnection(dbUrl);
+			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, studentID);
 			ResultSet resultSet = pstmt.executeQuery();

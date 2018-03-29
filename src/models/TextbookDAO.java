@@ -7,8 +7,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class TextbookDAO {
-
-	String dbUrl = System.getenv("JDBC_DATABASE_URL");
+	private String driverClassName = "org.postgresql.Driver";
+	private String url = "jdbc:postgresql://localhost/unipodb";
+	private String user = "wspuser";
+	private String password = "hogehoge";
 
 	/**
 	 *
@@ -19,9 +21,10 @@ public class TextbookDAO {
 	public void addEvaluation(int textbookID, int likeORDislike) {
 		String sql = "UPDATE textbooks SET likes=likes+1 WHERE textbook_id=?";
 		String sql2 = "UPDATE textbooks SET dislikes=dislikes+1 WHERE textbook_id=?";
+		Connection connection;
 		try {
 			Class.forName(driverClassName);
-			Connection connection = DriverManager.getConnection(dbUrl);
+			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			PreparedStatement pstmt2 = connection.prepareStatement(sql2);
 			if (likeORDislike == 0) {
@@ -43,7 +46,7 @@ public class TextbookDAO {
 	public Textbook selectTextbookByID(int textbookID) {
 		try {
 			Class.forName(driverClassName);
-			Connection connection = DriverManager.getConnection(dbUrl);
+			Connection connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement preparedStatement;
 			String sql = "SELECT * FROM textbooks WHERE textbook_id=?";
 			preparedStatement = connection.prepareStatement(sql);
@@ -80,7 +83,7 @@ public class TextbookDAO {
 		ArrayList<Textbook> list = new ArrayList<Textbook>();
 		try {
 			Class.forName(driverClassName);
-			connection = DriverManager.getConnection(dbUrl);
+			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, courseID);
 			resultSet = pstmt.executeQuery();

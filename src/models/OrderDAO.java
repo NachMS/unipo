@@ -12,13 +12,18 @@ import java.util.Date;
 import java.util.List;
 
 public class OrderDAO {
-	String dbUrl = System.getenv("JDBC_DATABASE_URL");
+	final private static String dbname = "unipodb"; // データベース名
+	final private static String user = "wspuser"; // tutorialにアクセスできるユーザ
+	final private static String password = "hogehoge"; // wspuserのパスワード
+	final private static String driverClassName = "org.postgresql.Driver";
+	final private static String url = "jdbc:postgresql://localhost/" + dbname;
 
 	public boolean insertOrder(Order order) throws SQLException {
 		try {
 			Class.forName(driverClassName);
+			Connection connection;
 			String sql = "INSERT INTO orders (student_id, order_timestamp, receipt_timestamp, total_price) VALUES (?, ?, ?, ?) RETURNING order_id";
-			Connection connection = DriverManager.getConnection(dbUrl);
+			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, order.getStudentID());
 			Timestamp orderTimestamp = new Timestamp(order.getOrderDate().getTime());
@@ -55,7 +60,7 @@ public class OrderDAO {
 		Order order = new Order();
 		try {
 			Class.forName(driverClassName);
-			connection = DriverManager.getConnection(dbUrl);
+			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, orderID);
 			resultSet = pstmt.executeQuery();
@@ -83,7 +88,7 @@ public class OrderDAO {
 		Connection connection;
 		try {
 			Class.forName(driverClassName);
-			connection = DriverManager.getConnection(dbUrl);
+			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			Timestamp receiveTimestamp = new Timestamp(receiveDate.getTime());
 			pstmt.setTimestamp(1, receiveTimestamp);
@@ -106,7 +111,7 @@ public class OrderDAO {
 		TextbookDAO tdao = new TextbookDAO();
 		try {
 			Class.forName(driverClassName);
-			connection = DriverManager.getConnection(dbUrl);
+			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			PreparedStatement pstmt2 = connection.prepareStatement(sql2);
 			pstmt.setInt(1, orderID);
@@ -152,7 +157,7 @@ public class OrderDAO {
 		ArrayList<Order> list = new ArrayList<Order>();
 		try {
 			Class.forName(driverClassName);
-			connection = DriverManager.getConnection(dbUrl);
+			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, studentID);
 			resultSet = pstmt.executeQuery();
@@ -177,7 +182,7 @@ public class OrderDAO {
 		ArrayList<Order> list = new ArrayList<Order>();
 		try {
 			Class.forName(driverClassName);
-			connection = DriverManager.getConnection(dbUrl);
+			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			resultSet = pstmt.executeQuery();
 			OrderDAO odao = new OrderDAO();
@@ -228,7 +233,7 @@ public class OrderDAO {
 		 */
 		try {
 			Class.forName(driverClassName);
-			connection = DriverManager.getConnection(dbUrl);
+			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			Timestamp todayTimestamp = new Timestamp(todayMidnight.getTime());
 			pstmt.setTimestamp(1, todayTimestamp);

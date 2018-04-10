@@ -5,12 +5,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 public class TextbookDAO {
-	private String driverClassName = "org.postgresql.Driver";
-	private String url = "jdbc:postgresql://localhost/unipodb";
-	private String user = "wspuser";
-	private String password = "hogehoge";
+	ResourceBundle rb = ResourceBundle.getBundle("db");
+	final private String url = rb.getString("url");
+	final private String user = rb.getString("user");
+	final private String password = rb.getString("password");
+	final private String driverClassName = rb.getString("driverClassName");
 
 	/**
 	 *

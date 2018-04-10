@@ -7,13 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class StudentDAO {
-	final private static String dbname = "unipodb"; // データベース名
-	final private static String user = "wspuser"; // tutorialにアクセスできるユーザ
-	final private static String password = "hogehoge"; // wspuserのパスワード
-	final private static String driverClassName = "org.postgresql.Driver";
-	final private static String url = "jdbc:postgresql://localhost/" + dbname;
+	ResourceBundle rb = ResourceBundle.getBundle("db");
+	final private String url = rb.getString("url");
+	final private String user = rb.getString("user");
+	final private String password = rb.getString("password");
+	final private String driverClassName = rb.getString("driverClassName");
 
 	/**
 	 * studentがDBにあるかどうかを調べる
